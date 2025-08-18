@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h1{
+    display: block;
+    font-size: 50px;
+    
+}
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    width: 70vw;
+    height: 80vh;
+    background-color: #3A86FF;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+input[type="submit"]{
+    font-size: 20px;
+    display: flex;
+    justify-self: center;
+    margin: 10px;
+    padding: 15px;
+    width: 150px;
+    background-color: #0051FF;
+    border: #000000 2px solid;
+    border-radius: 10px;
+    color: white;
+}
+.aria-label{
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    margin: 10px;
+}
+label{
+    font-size: 30px;
+}
+input[type="text"],input[type="email"]{
+    
+    width: 50vw;
+    height: 10vh;
+    border-radius: 10px;
+    border: #000000 2px solid;
+    font-size: 20px;
+}
