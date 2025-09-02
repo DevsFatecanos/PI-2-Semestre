@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/registrostyle.css">
+    <link rel="shortcut icon" href="logo.webp" type="image/x-icon">
+    <title>Registrar - SupersonicTransportes</title>
+   
+</head>
+<body>
+
+    <img src="logo.webp" alt="">
+    <div id="container">
+        <h1>Registrar</h1>
+        <form action="post">
+            <div class="aria-label">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome">
+            </div>
+            <div class="aria-label">
+                <label for="telefone">Telefone</label>
+                <input type="tel" name="telefone" id="telefone">
+            </div>
+            <div class="aria-label">
+                <label for="documento" id="documento-label">CPF</label>
+                <input type="text" name="documento" id="documento">
+                <button type="button" onclick="alternarDocumento()">Usar CNPJ</button>
+            </div>
+            <div class="aria-label">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email">
+            </div>
+            <div class="aria-label">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha">
+            </div>
+            <input type="submit" value="Registrar">
+        </form>
+    </div>
+
+    <script>
+        let usandoCPF = true;
+
+        function alternarDocumento() {
+            const label = document.getElementById('documento-label');
+            const input = document.getElementById('documento');
+            const botao = event.target;
+
+            if (usandoCPF) {
+                label.textContent = 'CNPJ';
+                input.placeholder = 'Digite seu CNPJ';
+                botao.textContent = 'Usar CPF';
+            } else {
+                label.textContent = 'CPF';
+                input.placeholder = 'Digite seu CPF';
+                botao.textContent = 'Usar CNPJ';
+            }
+
+            usandoCPF = !usandoCPF;
+        }
+    </script>
+</body>
+</html>

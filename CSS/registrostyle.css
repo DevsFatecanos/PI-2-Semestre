@@ -11,7 +11,7 @@ h1{
     display: block;
     font-size: 50px;
     color: #417dff;
-    margin-bottom: 40px;
+    
     font-weight: lighter;
     
 }
@@ -52,7 +52,7 @@ img{
   }
 }
 input[type="submit"]{
-    margin-top: 50px;
+    
     font-size: 20px;
     display: flex;
     justify-self: center;
@@ -63,7 +63,7 @@ input[type="submit"]{
     border: none; 
     border-radius: 10px;
     color: white;
-    margin-bottom: 30px;
+    
 }
 .aria-label{
     display: flex;
@@ -75,7 +75,7 @@ label{
     font-size: 20px;
     color: #417dff;
 }
-input[type="text"],input[type="email"]{
+input[type="text"],input[type="email"],input[type="tel"]{
     width: 50vw;
     height: 5vh;
     border-radius: 10px;
