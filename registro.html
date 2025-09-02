@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="logo.webp" type="image/x-icon">
     <title>Registrar - SupersonicTransportes</title>
    
+    
 </head>
 <body>
 
@@ -16,24 +17,25 @@
         <form action="post">
             <div class="aria-label">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome">
+                <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
             </div>
             <div class="aria-label">
                 <label for="telefone">Telefone</label>
-                <input type="tel" name="telefone" id="telefone">
+                <input type="tel" name="telefone" id="telefone" placeholder="(11) 95235-2134" pattern="^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$">
             </div>
             <div class="aria-label">
                 <label for="documento" id="documento-label">CPF</label>
-                <input type="text" name="documento" id="documento">
-                <button type="button" onclick="alternarDocumento()">Usar CNPJ</button>
+                <input type="text" name="documento" id="documento" placeholder="Digite seu CPF">
             </div>
+            
+            <button type="button" onclick="alternarDocumento()">Usar CNPJ</button>
             <div class="aria-label">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" placeholder="exemplo@email.com" required>
             </div>
             <div class="aria-label">
                 <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha">
+                <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
             </div>
             <input type="submit" value="Registrar">
         </form>

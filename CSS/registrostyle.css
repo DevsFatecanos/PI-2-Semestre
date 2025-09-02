@@ -34,21 +34,30 @@ body{
    align-items: center;
    border-radius: 25px;
    width: 70vw;
-   height: 80vh;
+   height: 90vh;
    background-color: rgba(255, 255, 255, 0.925); 
    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 img{
     width: 60px;
     height: 60px;
-    
+    margin: 10px;
+}
+form{
+    display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+button{
+  
 }
 
 /* para telas grandes (acima de 1280px) */
 @media (min-width: 1280px) {
   #container {
     width: 60vw;   /* menor largura */
-    height: 70vh;  /* opcional, altura menor */
+    height: 90vh;  /* opcional, altura menor */
   }
 }
 input[type="submit"]{
@@ -56,30 +65,68 @@ input[type="submit"]{
     font-size: 20px;
     display: flex;
     justify-self: center;
-    
     padding: 15px;
     width: 150px;
-    background-color: #417dff;
+    background-color: #0073e6;
     border: none; 
     border-radius: 10px;
     color: white;
-    
+    transition: all 0.3s ease;
+}
+input:hover[type="submit"]{
+    background-color: #005bb5; /* cor mais escura no hover */
+    transform: translateY(-2px); /* leve efeito de elevação */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 .aria-label{
     display: flex;
     flex-direction: column;
     height: 10vh;
-    margin: 10px;
+    margin: 8px;
 }
 label{
     font-size: 20px;
     color: #417dff;
 }
-input[type="text"],input[type="email"],input[type="tel"]{
+input[type="text"],input[type="email"],input[type="tel"],input[type="password"]{
     width: 50vw;
     height: 5vh;
     border-radius: 10px;
     border: #417dff 2px solid;
     font-size: 20px;
     text-indent: 10px;
+    color: #0073e6;
 }
+
+
+
+/*-----------------------------------------------------------------*/
+/* Estilo base de todos os botões Elementor */
+button {
+  display: inline-block;
+  background-color: #0073e6; /* cor do fundo */
+  color: #fff;              /* cor do texto */
+  padding: 14px 28px;       /* espaçamento interno */
+  border: none;
+  border-radius: 8px;       /* borda arredondada */
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover (quando o mouse passa em cima) */
+button:hover {
+  background-color: #005bb5; /* cor mais escura no hover */
+  transform: translateY(-2px); /* leve efeito de elevação */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Botão em estado ativo (clicando) */
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
