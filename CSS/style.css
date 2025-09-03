@@ -9,6 +9,12 @@ ul#menu-1-7947cdc3{
   width: 100vw;
 }
 
+.e-con-full:hover{ /*Hover nos cards*/
+
+ transform: translateY(-8px); 
+
+}
+
 
 .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
 				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
