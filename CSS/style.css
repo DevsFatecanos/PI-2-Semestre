@@ -14,7 +14,9 @@ ul#menu-1-7947cdc3{
  transform: translateY(-8px); 
 
 }
-
+.elementor-element-7cfa1eba{ /*diminui o footer*/
+  height: 400px;
+}
 
 .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
 				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
