@@ -1,29 +1,28 @@
 :root{
---carousel-width: max(100px, 30vw);
+--carousel-width: max(100px, 25vw);
 }
-.container-carrosel{
- margin:0; display:grid; place-items:center; min-height:100vh;
-
+.cont-sec{
+margin:0; display:grid; place-items:center; min-height:100vh;
+font-family:sans-serif;
 }
 .carousel {
   width: 100%;
   overflow: hidden;
-  padding: 10px 0;
-  margin:0; display:grid; place-items:center; min-height:100vh;
+  padding: 1px 0;
 
 }
 .track{
 display:flex;
 width: max-content;
 animation: scroll 25s linear infinite;
-gap: 0px;
+gap: 40px;
 }
 .slide{
 flex:0 0 auto;
 width: var(--carousel-width);
 }
 .slide img {
-  height: 30%;
+  height: auto;
   width: auto;
   object-fit: contain;
   display: block;
@@ -38,11 +37,13 @@ box-shadow: -1px 30px 17px -21px rgba(0,0,0,0.33);
 }
 
 .titulo{
+  margin-top: 20%;
+
     color: #3a86ff;
     
 }
 
 .Subtitulo{
     color: rgb(138, 137, 137);
-    font-size:2vh ;
+    font-size:2.5vh ;
 }
