@@ -49,9 +49,7 @@ form{
    align-items: center;
    justify-content: center;
 }
-button{
-  
-}
+
 
 /* para telas grandes (acima de 1280px) */
 @media (min-width: 1280px) {

@@ -43,6 +43,12 @@ img{
     height: 60px;
     
 }
+a{
+
+    margin-left: 18px;
+    color: #005bb5;
+    
+}
 
 /* para telas grandes (acima de 1280px) */
 @media (min-width: 1280px) {
