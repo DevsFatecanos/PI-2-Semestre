@@ -2,7 +2,7 @@
 $servidor = "localhost";       // Mude para o host do seu banco (ex: mysql.seusite.com)
 $usuario = "root";             // Mude para o usuário do banco fornecido pela hospedagem
 $senha = "";                   // Coloque a senha do banco
-$banco = "nome_do_banco";      // O nome do banco que você criou no cPanel ou painel da hospedagem
+$banco = "banco";      // O nome do banco que você criou no cPanel ou painel da hospedagem
 
 
 // Criar conexão
