@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Calcular Frete com Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 400px; width: 100%; margin-top: 10px; }
+    .form { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Calcular Frete</h2>
+
+  <div class="form">
+    Origem: <input id="origem" type="text" placeholder="Ex: FATEC Zona Leste"><br><br>
+    Destino: <input id="destino" type="text" placeholder="Ex: FATEC São Paulo"><br><br>
+    <button onclick="calcularRota()">Calcular</button>
+  </div>
+
+  <div id="map"></div>
+  <p id="info"></p>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Inicializa o mapa
+    const map = L.map('map').setView([-23.5505, -46.6333], 12); // São Paulo
+
+    // Camada de tiles (mapa base)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let rotaLayer;
+
+    // Função para buscar coordenadas pelo nome do lugar (Nominatim)
+    async function buscarCoordenadas(endereco) {
+      const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(endereco)}`;
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
+      if (dados.length > 0) {
+        return [parseFloat(dados[0].lat), parseFloat(dados[0].lon)];
+      } else {
+        alert("Endereço não encontrado: " + endereco);
+        return null;
+      }
+    }
+
+    // Função para calcular rota
+    async function calcularRota() {
+      const origem = document.getElementById("origem").value;
+      const destino = document.getElementById("destino").value;
+
+      const coordOrigem = await buscarCoordenadas(origem);
+      const coordDestino = await buscarCoordenadas(destino);
+
+      if (!coordOrigem || !coordDestino) return;
+
+      // Chamada para o servidor OSRM
+      const url = `https://router.project-osrm.org/route/v1/driving/${coordOrigem[1]},${coordOrigem[0]};${coordDestino[1]},${coordDestino[0]}?overview=full&geometries=geojson`;
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
+
+      if (dados.routes && dados.routes.length > 0) {
+        const rota = dados.routes[0];
+
+        // Remove rota anterior
+        if (rotaLayer) {
+          map.removeLayer(rotaLayer);
+        }
+
+        // Desenha nova rota no mapa
+        rotaLayer = L.geoJSON(rota.geometry).addTo(map);
+        map.fitBounds(rotaLayer.getBounds());
+
+        // Distância em km
+        const distanciaKm = (rota.distance / 1000).toFixed(2);
+        const precoPorKm = 2.5; // Exemplo
+        const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
+
+        document.getElementById("info").innerHTML =
+          `Distância: ${distanciaKm} km <br> Valor do frete: R$ ${valorFrete}`;
+      } else {
+        alert("Não foi possível calcular a rota");
+      }
+    }
+  </script>
+</body>
+</html>
