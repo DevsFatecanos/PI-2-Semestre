@@ -1,5 +1,5 @@
 <?php
-include("conexao.php");
+include "conexao.php";
 
 // Validações básicas
 if (empty($_POST['nome']) || empty($_POST['email']) || empty($_POST['senha'])) {
@@ -32,4 +32,3 @@ if ($stmt->execute()) {
 } else {
     die("Erro no cadastro: " . $conn->error);
 }
-?>

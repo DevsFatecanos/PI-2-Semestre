@@ -1,17 +1,18 @@
 <?php
-$servidor = "localhost";       // Mude para o host do seu banco (ex: mysql.seusite.com)
-$usuario = "root";             // Mude para o usuário do banco fornecido pela hospedagem
-$senha = "";                   // Coloque a senha do banco
-$banco = "banco";      // O nome do banco que você criou no cPanel ou painel da hospedagem
+$servidor = "localhost";   // Host do banco
+$usuario  = "root";        // Usuário do banco
+$senha    = "";            // Senha do banco
+$banco    = "banco";       // Nome do banco
 
+try {
+    // Criando a conexão
+    $pdo = new PDO("mysql:host=$servidor;dbname=$banco;charset=utf8", $usuario, $senha);
 
-// Criar conexão
-$conn = new mysqli($servidor, $usuario, $senha, $banco);
+    // Configura o modo de erro para lançar exceções
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Verificar conexão
-if ($conn->connect_error) {
-    die("Falha na conexão: " . $conn->connect_error);
-} else {
     // echo "Conexão bem-sucedida!";
+} catch (PDOException $e) {
+    die("Falha na conexão: " . $e->getMessage());
 }
 ?>
