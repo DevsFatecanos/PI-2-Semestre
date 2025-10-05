@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+body { font-family: "Inter"; }
+    .autocomplete-container {
+      margin-top: 10%;
+      position: relative;
+      width: 32%;
+      margin-bottom: 10px;
+ 
+    }
+
+    .autocomplete-container h2 {
+        color: #417dff;
+        text-align: center;
+    }
+
+    input {
+      width: 80%;
+      padding: 8px;
+      margin-top: 10%;
+      font-size: 14px;
+      margin-left: 2vh;
+    }
+
+
+  .Btn-rota{
+        padding: 1vh;
+        margin-top: 2vh;
+        width: 27%;
+        color: #417dff;
+        border: 1px solid #417dff;
+        border-radius: 1vh;
+        cursor: pointer;
+        margin-left: 2vh;
+        
+        
+    }
+
+    .Btn-rota:hover{
+        color: white;
+        background-color: #417dff;
+        transition: 1s;
+
+    }
+
+    .sugestoes {
+      position: absolute;
+      z-index: 100;
+      top: 38px;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .sugestoes div {
+      padding: 8px;
+      cursor: pointer;
+    }
+    .sugestoes div:hover {
+      background: #f0f0f0;
+    }
+    #map {
+      height: 50vw;
+      width: 65.5%;
+      margin-left: 35%;
+      margin-top: -23%;
+      z-index: 3;
+    }
+
+    header{
+        position:absolute;
+        height:11% ;
+        left: 0;
+        width: 100%;
+        top: 0;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        border-bottom: #417dff 5px solid;
+        z-index: 100;
+    }
+
+    header img{
+        height: 70%;
+        margin-top: 2vh; 
+    }
+
+    .icon{
+        background-color: #417dff;
+        padding: 8px;
+    }
+
+  

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Autocomplete com Nominatim + Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .autocomplete-container {
+      margin-top: 10%;
+      position: relative;
+      width: 300px;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 10%;
+      font-size: 14px;
+    }
+    .sugestoes {
+      position: absolute;
+      z-index: 100;
+      top: 38px;
+      left: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      background: #fff;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .sugestoes div {
+      padding: 8px;
+      cursor: pointer;
+    }
+    .sugestoes div:hover {
+      background: #f0f0f0;
+    }
+    #map {
+      height: 774px;
+      width: 50%;
+      margin-left: 50%;
+      margin-top: 0%;
+    }
+  </style>
+</head>
+<body>
+  <!--Busca Origem e Destino com Nominatim-->
+
+
+
+  <div class="autocomplete-container">
+    <h2>Fazer Pedido</h2>
+    <input type="text" id="origem" placeholder="Digite o endereço de origem...">
+    <div id="sugestoes-origem" class="sugestoes"></div>
+    <input type="text" id="destino" placeholder="Digite o endereço de destino...">
+    <div id="sugestoes-destino" class="sugestoes"></div>
+  </div>
+
+  <button onclick="tracarRota()">🚚 Calcular Rota</button>
+
+  <div id="map"></div>
+  <p id="info"></p>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([-23.5505, -46.6333], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marcadorOrigem, marcadorDestino, rotaLayer;
+    let coordenadas = { origem: null, destino: null };
+
+    // Função de autocomplete usando Nominatim
+    async function autocomplete(inputId, sugestoesId, tipo) {
+      const input = document.getElementById(inputId);
+      const sugestoesDiv = document.getElementById(sugestoesId);
+
+      input.addEventListener("input", async () => {
+        const query = input.value.trim();
+        sugestoesDiv.innerHTML = "";
+
+        if (query.length < 3) return;
+
+        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&addressdetails=1&q=${encodeURIComponent(query)}`;
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+
+        dados.forEach(lugar => {
+          const display = lugar.display_name;
+          const item = document.createElement("div");
+          item.textContent = display;
+          item.onclick = () => {
+            input.value = display;
+            sugestoesDiv.innerHTML = "";
+            const lat = parseFloat(lugar.lat);
+            const lon = parseFloat(lugar.lon);
+            coordenadas[tipo] = [lat, lon];
+
+            if (tipo === "origem") {
+              if (marcadorOrigem) map.removeLayer(marcadorOrigem);
+              marcadorOrigem = L.marker([lat, lon]).addTo(map).bindPopup("Origem").openPopup();
+            } else {
+              if (marcadorDestino) map.removeLayer(marcadorDestino);
+              marcadorDestino = L.marker([lat, lon]).addTo(map).bindPopup("Destino").openPopup();
+            }
+            map.setView([lat, lon], 14);
+          };
+          sugestoesDiv.appendChild(item);
+        });
+      });
+    }
+
+    autocomplete("origem", "sugestoes-origem", "origem");
+    autocomplete("destino", "sugestoes-destino", "destino");
+
+    async function tracarRota() {
+      if (!coordenadas.origem || !coordenadas.destino) {
+        alert("Selecione origem e destino!");
+        return;
+      }
+
+      const [latO, lonO] = coordenadas.origem;
+      const [latD, lonD] = coordenadas.destino;
+
+      const url = `https://router.project-osrm.org/route/v1/driving/${lonO},${latO};${lonD},${latD}?overview=full&geometries=geojson`;
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
+
+      if (dados.routes && dados.routes.length > 0) {
+        const rota = dados.routes[0];
+
+        if (rotaLayer) map.removeLayer(rotaLayer);
+
+        rotaLayer = L.geoJSON(rota.geometry, {
+          style: { color: "blue", weight: 4 }
+        }).addTo(map);
+
+        map.fitBounds(rotaLayer.getBounds());
+
+        const distanciaKm = (rota.distance / 1000).toFixed(2);
+        const precoPorKm = 2.5;
+        const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
+
+        document.getElementById("info").innerHTML =
+          `🚗 Distância: <b>${distanciaKm} km</b><br>💰 Valor do frete: <b>R$ ${valorFrete}</b>`;
+      } else {
+        alert("Não foi possível calcular a rota.");
+      }
+    }
+  </script>
+</body>
+</html>

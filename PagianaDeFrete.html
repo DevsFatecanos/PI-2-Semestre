@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Sonic - Gerar Rota</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="./CSS/TelaFrete.css">
+  <link rel="shortcut icon" href="./IMG/logo.webp" type="image/x-icon">
+
+</head>
+<body>
+
+  <header >
+    <a href="index.html"><img src="./IMG/LOGOSP.png" alt=""></a>
+  </header>
+  
+  <!--Busca Origem e Destino com Nominatim-->
+  <div class="autocomplete-container">
+    <h2 >Gerar Rota de Transporte</h2>
+    <div id="sugestoes-origem" class="sugestoes"></div>
+      <input type="text" id="origem" placeholder="  Digite o endereço de origem... ">
+      <i class="fa-solid fa-house icon" style="color: #ffffff;"></i>
+    <input type="text" id="destino" placeholder="Digite o endereço de destino...">
+    <div id="sugestoes-destino" class="sugestoes"></div>
+    <i class="fa-solid fa-location-dot icon" style="color: #ffffff;"></i>
+ 
+  </div>
+
+
+  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
+
+
+  <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+
+  <div id="map"></div>
+  <p id="info"></p>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="./JS/TelaDeFrete.js"></script>
+  <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+</body>
+</html>
