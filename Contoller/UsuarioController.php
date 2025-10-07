@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../models/Usuario.php';
-require_once __DIR__ . '/../conexao.php';
+require __DIR__ . '../models/Usuario.php';
+require __DIR__ . '../conexao.php';
 
 class UsuarioController {
     public function registrar() {
