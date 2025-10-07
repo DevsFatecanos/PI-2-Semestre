@@ -1,25 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/registrostyle.css">
-    <link rel="shortcut icon" href="logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="../Assets/CSS/registrostyle.css">
+    <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
     <title>Registrar - SupersonicTransportes</title> 
 </head>
 <body>
 
-    <img src="logo.webp" alt="">
+    <img src="../Assets/IMG/logo.webp" alt="">
     <div id="container">
         <h1>Registrar</h1>
-        <form action="cadastrar.php" method="post">
+
+        <!-- ⚠️ Corrigido o caminho e método de envio -->
+        <form action="../Controller/UsuarioController.php?action=registrar" method="POST">
             <div class="aria-label">
                 <label for="nome">Nome</label>
-                <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+                <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
             </div>
             <div class="aria-label">
                 <label for="telefone">Telefone</label>
-                <input type="tel" name="telefone" id="telefone" placeholder="(11) 95235-2134" pattern="^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$">
+                <input type="tel" name="telefone" id="telefone" placeholder="(11) 95235-2134" 
+                       pattern="^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$">
             </div>
             <div class="aria-label">
                 <label for="documento" id="documento-label">CPF</label>
@@ -27,13 +30,14 @@
             </div>
             
             <button type="button" onclick="alternarDocumento()">Usar CNPJ</button>
+
             <div class="aria-label">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" placeholder="exemplo@email.com" required>
             </div>
             <div class="aria-label">
                 <label for="senha">Senha</label>
-                <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+                <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
             </div>
             <input type="submit" value="Registrar">
         </form>
