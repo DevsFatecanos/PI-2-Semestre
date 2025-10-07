@@ -120,7 +120,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 					<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
 				<ul id="menu-2-7947cdc3" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-65 current_page_item menu-item-79"><a href="https://sonicsp.com.br/" aria-current="page" class="elementor-item elementor-item-active" tabindex="-1">Home</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="#sobre" class="elementor-item elementor-item-anchor" tabindex="-1">Sobre Nós</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor" tabindex="-1">Como posdemos te ajudar</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor" tabindex="-1">Como podemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item" tabindex="-1">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor" tabindex="-1">Tire suas Dúvidas</a></li>
 </ul>			</nav>
@@ -135,7 +135,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://app.sonicsp.com.br/register">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="registro.html">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">Faça uma Cotação </span>
 					</span>
