@@ -86,13 +86,13 @@ body { font-family: "Inter"; }
       height: 50vw;
       width: 65.5%;
       margin-left: 35%;
-      margin-top: -44%;
+      margin-top: -43%;
       z-index: 3;
     }
 
     header{
         position:absolute;
-        height:11% ;
+        height:8% ;
         left: 0;
         width: 100%;
         top: 0;
