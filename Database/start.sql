@@ -8,7 +8,16 @@ CREATE TABLE cliente (
     email VARCHAR(30),
     senha varchar(30)
 );
+CREATE TABLE admin (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(30),
+    senha varchar(30)
+);
 
+
+
+/*
 INSERT INTO cliente (nome, email, telefone, documento, senha) VALUES
 ("Ana Souza", "ana.souza@gmail.com", "11987654321", "12345678900", "senha123"),
 ("Carlos Silva", "carlos.silva@yahoo.com", "11912345678", "98765432100", "carl123"),
@@ -22,3 +31,4 @@ INSERT INTO cliente (nome, email, telefone, documento, senha) VALUES
 ("Lucas Pereira", "lucas.pereira@gmail.com", "91977778888", "45612378900", "lucas@777");
 
 
+*/

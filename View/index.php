@@ -1,5 +1,5 @@
 <?php
-include "conexao.php"; 
+include "../conexao.php"; 
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -8,9 +8,8 @@ include "conexao.php";
 		<title>sonic</title>
 <meta name='robots' content='max-image-preview:large' />
 	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-	<link rel="stylesheet" href="CSS/style.css">
-	<link rel="stylesheet" href="Carrosel/style.css">
-	<link rel="stylesheet" href="./CSS/carrosel.css">
+	<link rel="stylesheet" href="../Assets/CSS/style.css">
+	<link rel="stylesheet" href="../Assets/CSS/carrosel.css">
 	<link rel="alternate" type="application/rss+xml" title="Feed para sonic &raquo;" href="https://sonicsp.com.br/feed/" />
 	<link rel="alternate" type="application/rss+xml" title="Feed de comentários para sonic &raquo;" href="https://sonicsp.com.br/comments/feed/" />
 <!--ADD FAVICON-->
@@ -344,20 +343,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <div class="carousel">
 <div class="track">
 <!-- Duplicamos os slides para criar loop contínuo -->
-<div class="slide"><img src="./src/ar.jpg" alt="1"></div>
-<div class="slide"><img src="./src/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="./src/roco.jpg" alt="3"></div>
-<div class="slide"><img src="./src/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="./src/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="./src/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 
 <!-- repetição para looping -->
-<div class="slide"><img src="./src/ar.jpg" alt="1"></div>
-<div class="slide"><img src="./src/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="./src/roco.jpg" alt="3"></div>
-<div class="slide"><img src="./src/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="./src/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="./src/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 </div>
 </div>
 </div>
