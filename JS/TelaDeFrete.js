@@ -1,4 +1,4 @@
-const map = L.map('map').setView([-23.5505, -46.6333], 12);
+const map = L.map('map').setView([-23.55, -46.63], 11);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors'
     }).addTo(map);
@@ -17,7 +17,8 @@ const map = L.map('map').setView([-23.5505, -46.6333], 12);
 
         if (query.length < 3) return;
 
-        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&addressdetails=1&q=${encodeURIComponent(query)}`;
+        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&addressdetails=1&bounded=1&viewbox=-47.5,-23.2,-46.2,-24.1&q=${encodeURIComponent(query)}`;
+
         const resposta = await fetch(url);
         const dados = await resposta.json();
 

@@ -15,16 +15,25 @@
   </header>
   
   <!--Busca Origem e Destino com Nominatim-->
-  <div class="autocomplete-container">
+  <form class="autocomplete-container">
     <h2 >Gerar Rota de Transporte</h2>
-    <div id="sugestoes-origem" class="sugestoes"></div>
+    <div id="sugestoes-origem" class="sugestoes_origem"></div>
+    <div id="sugestoes-destino" class="sugestoes_destino"></div>
       <input type="text" id="origem" placeholder="  Digite o endereço de origem... ">
       <i class="fa-solid fa-house icon" style="color: #ffffff;"></i>
+      <!--COMPLEMENTOS DO ENDEREÇO-->
+      <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Origem..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
     <input type="text" id="destino" placeholder="Digite o endereço de destino...">
-    <div id="sugestoes-destino" class="sugestoes"></div>
     <i class="fa-solid fa-location-dot icon" style="color: #ffffff;"></i>
- 
-  </div>
+     <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6" required></textarea>
+  </form>
 
 
   <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->

@@ -42,30 +42,51 @@ body { font-family: "Inter"; }
 
     }
 
-    .sugestoes {
+    .sugestoes_origem {
       position: absolute;
       z-index: 100;
-      top: 38px;
+      top: 135px;
       left: 0;
       right: 0;
-      border: 1px solid #ccc;
       background: #fff;
       max-height: 150px;
       overflow-y: auto;
       z-index: 1000;
     }
-    .sugestoes div {
+    .sugestoes_origem div {
       padding: 8px;
       cursor: pointer;
     }
-    .sugestoes div:hover {
+    .sugestoes_origem div:hover {
       background: #f0f0f0;
     }
+
+
+    .sugestoes_destino {
+      position: absolute;
+      z-index: 100;
+      top: 135px;
+      left: 0;
+      right: 0;
+      background: #fff;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    .sugestoes_destino div {
+      padding: 8px;
+      cursor: pointer;
+    }
+    .sugestoes_destino div:hover {
+      background: #f0f0f0;
+    }
+
+
     #map {
       height: 50vw;
       width: 65.5%;
       margin-left: 35%;
-      margin-top: -23%;
+      margin-top: -34%;
       z-index: 3;
     }
 
@@ -92,4 +113,22 @@ body { font-family: "Inter"; }
         padding: 8px;
     }
 
+
+    .Div_end{
+      display: flex;
+    }
+
+    #input_numero{
+      width: 40%;
+    }
+
+    #input_complemento{
+      width: 41%;
+    }
+
+    .autocomplete-container textarea{
+      margin-top: 4vh;
+      margin-left: 2vh;
+      font-family: "Inter";
+    }
   
