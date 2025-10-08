@@ -2,155 +2,81 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Autocomplete com Nominatim + Leaflet</title>
+  <title>Super Sonic - Gerar Rota</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="style.css">
-  <style>
-    body { font-family: Arial, sans-serif; }
-    .autocomplete-container {
-      margin-top: 10%;
-      position: relative;
-      width: 300px;
-      margin-bottom: 10px;
-    }
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 10%;
-      font-size: 14px;
-    }
-    .sugestoes {
-      position: absolute;
-      z-index: 100;
-      top: 38px;
-      left: 0;
-      right: 0;
-      border: 1px solid #ccc;
-      background: #fff;
-      max-height: 150px;
-      overflow-y: auto;
-      z-index: 1000;
-    }
-    .sugestoes div {
-      padding: 8px;
-      cursor: pointer;
-    }
-    .sugestoes div:hover {
-      background: #f0f0f0;
-    }
-    #map {
-      height: 774px;
-      width: 50%;
-      margin-left: 50%;
-      margin-top: 0%;
-    }
-  </style>
+  <link rel="stylesheet" href="./TelaFrete.css">
+  <link rel="shortcut icon" href="./IMG/logo.webp" type="image/x-icon">
+
 </head>
 <body>
+
+  <header >
+    <a href="index.html"><img src="./IMG/LOGOSP.png" alt=""></a>
+  </header>
+  
   <!--Busca Origem e Destino com Nominatim-->
-
-
-
-  <div class="autocomplete-container">
-    <h2>Fazer Pedido</h2>
-    <input type="text" id="origem" placeholder="Digite o endereço de origem...">
-    <div id="sugestoes-origem" class="sugestoes"></div>
+  <form class="autocomplete-container">
+    <h2 >Gerar Rota de Transporte</h2>
+    <div id="sugestoes-origem" class="sugestoes_origem"></div>
+    <div id="sugestoes-destino" class="sugestoes_destino"></div>
+      <input type="text" id="origem" placeholder="  Digite o endereço de origem... ">
+      <i class="fa-solid fa-house icon" style="color: #ffffff;"></i>
+      <!--COMPLEMENTOS DO ENDEREÇO-->
+      <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Origem..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
     <input type="text" id="destino" placeholder="Digite o endereço de destino...">
-    <div id="sugestoes-destino" class="sugestoes"></div>
-  </div>
+    <i class="fa-solid fa-location-dot icon" style="color: #ffffff;"></i>
+     <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6" required></textarea>
+  </form>
 
-  <button onclick="tracarRota()">🚚 Calcular Rota</button>
+
+  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
+<div class="carrossel-container">
+  <h3>Tipo de Veículo</h3>
+  <div class="carrossel">
+    <button class="seta seta-esquerda" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
+
+    <div class="lista-veiculos" id="listaVeiculos">
+      <div class="veiculo" data-preco="1.5">
+        <img src="./IMG/moto.png" alt="Moto">
+        <p>Moto</p>
+      </div>
+      <div class="veiculo" data-preco="2.5">
+        <img src="./IMG/hatch.png" alt="Carro Hatch">
+        <p>Carro Hatch</p>
+      </div>
+      <div class="veiculo" data-preco="3.0">
+        <img src="./IMG/sedan.png" alt="Carro Sedan">
+        <p>Carro Sedan</p>
+      </div>
+      <div class="veiculo" data-preco="4.5">
+        <img src="./IMG/utilitario.png" alt="Utilitário">
+        <p>Utilitário</p>
+      </div>
+      <div class="veiculo" data-preco="6.0">
+        <img src="./IMG/caminhao.png" alt="Caminhão">
+        <p>Caminhão</p>
+      </div>
+    </div>
+
+    <button class="seta seta-direita" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+</div>
+
+
+  <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
 
   <div id="map"></div>
   <p id="info"></p>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    const map = L.map('map').setView([-23.5505, -46.6333], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    let marcadorOrigem, marcadorDestino, rotaLayer;
-    let coordenadas = { origem: null, destino: null };
-
-    // Função de autocomplete usando Nominatim
-    async function autocomplete(inputId, sugestoesId, tipo) {
-      const input = document.getElementById(inputId);
-      const sugestoesDiv = document.getElementById(sugestoesId);
-
-      input.addEventListener("input", async () => {
-        const query = input.value.trim();
-        sugestoesDiv.innerHTML = "";
-
-        if (query.length < 3) return;
-
-        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&addressdetails=1&q=${encodeURIComponent(query)}`;
-        const resposta = await fetch(url);
-        const dados = await resposta.json();
-
-        dados.forEach(lugar => {
-          const display = lugar.display_name;
-          const item = document.createElement("div");
-          item.textContent = display;
-          item.onclick = () => {
-            input.value = display;
-            sugestoesDiv.innerHTML = "";
-            const lat = parseFloat(lugar.lat);
-            const lon = parseFloat(lugar.lon);
-            coordenadas[tipo] = [lat, lon];
-
-            if (tipo === "origem") {
-              if (marcadorOrigem) map.removeLayer(marcadorOrigem);
-              marcadorOrigem = L.marker([lat, lon]).addTo(map).bindPopup("Origem").openPopup();
-            } else {
-              if (marcadorDestino) map.removeLayer(marcadorDestino);
-              marcadorDestino = L.marker([lat, lon]).addTo(map).bindPopup("Destino").openPopup();
-            }
-            map.setView([lat, lon], 14);
-          };
-          sugestoesDiv.appendChild(item);
-        });
-      });
-    }
-
-    autocomplete("origem", "sugestoes-origem", "origem");
-    autocomplete("destino", "sugestoes-destino", "destino");
-
-    async function tracarRota() {
-      if (!coordenadas.origem || !coordenadas.destino) {
-        alert("Selecione origem e destino!");
-        return;
-      }
-
-      const [latO, lonO] = coordenadas.origem;
-      const [latD, lonD] = coordenadas.destino;
-
-      const url = `https://router.project-osrm.org/route/v1/driving/${lonO},${latO};${lonD},${latD}?overview=full&geometries=geojson`;
-      const resposta = await fetch(url);
-      const dados = await resposta.json();
-
-      if (dados.routes && dados.routes.length > 0) {
-        const rota = dados.routes[0];
-
-        if (rotaLayer) map.removeLayer(rotaLayer);
-
-        rotaLayer = L.geoJSON(rota.geometry, {
-          style: { color: "blue", weight: 4 }
-        }).addTo(map);
-
-        map.fitBounds(rotaLayer.getBounds());
-
-        const distanciaKm = (rota.distance / 1000).toFixed(2);
-        const precoPorKm = 2.5;
-        const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
-
-        document.getElementById("info").innerHTML =
-          `🚗 Distância: <b>${distanciaKm} km</b><br>💰 Valor do frete: <b>R$ ${valorFrete}</b>`;
-      } else {
-        alert("Não foi possível calcular a rota.");
-      }
-    }
-  </script>
+  <script src="./TelaDeFrete.js"></script>
+  <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 </body>
 </html>
