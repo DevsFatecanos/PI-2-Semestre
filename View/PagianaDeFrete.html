@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Sonic - Gerar Rota</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="../Assets/CSS/TelaFrete.css">
+  <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+
+</head>
+<body>
+
+  <header >
+    <a href="index.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+  </header>
+  
+  <!--Busca Origem e Destino com Nominatim-->
+  <form class="autocomplete-container">
+    <h2 >Gerar Rota de Transporte</h2>
+    <div id="sugestoes-origem" class="sugestoes_origem"></div>
+    <div id="sugestoes-destino" class="sugestoes_destino"></div>
+      <input type="text" id="origem" placeholder="  Digite o endereço de origem... ">
+      <i class="fa-solid fa-house icon" style="color: #ffffff;"></i>
+      <!--COMPLEMENTOS DO ENDEREÇO-->
+      <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Origem..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+    <input type="text" id="destino" placeholder="Digite o endereço de destino...">
+    <i class="fa-solid fa-location-dot icon" style="color: #ffffff;"></i>
+     <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6" required></textarea>
+  </form>
+
+
+  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
+
+
+  <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+
+  <div id="map"></div>
+  <p id="info"></p>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../JS/TelaDeFrete.js"></script>
+  <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+</body>
+</html>

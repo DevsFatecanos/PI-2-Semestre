@@ -1,0 +1,86 @@
+const map = L.map('map').setView([-23.55, -46.63], 11);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marcadorOrigem, marcadorDestino, rotaLayer;
+    let coordenadas = { origem: null, destino: null };
+
+    // Função de autocomplete usando Nominatim
+    async function autocomplete(inputId, sugestoesId, tipo) {
+      const input = document.getElementById(inputId);
+      const sugestoesDiv = document.getElementById(sugestoesId);
+
+      input.addEventListener("input", async () => {
+        const query = input.value.trim();
+        sugestoesDiv.innerHTML = "";
+
+        if (query.length < 3) return;
+
+        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=5&addressdetails=1&bounded=1&viewbox=-47.5,-23.2,-46.2,-24.1&q=${encodeURIComponent(query)}`;
+
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+
+        dados.forEach(lugar => {
+          const display = lugar.display_name;
+          const item = document.createElement("div");
+          item.textContent = display;
+          item.onclick = () => {
+            input.value = display;
+            sugestoesDiv.innerHTML = "";
+            const lat = parseFloat(lugar.lat);
+            const lon = parseFloat(lugar.lon);
+            coordenadas[tipo] = [lat, lon];
+
+            if (tipo === "origem") {
+              if (marcadorOrigem) map.removeLayer(marcadorOrigem);
+              marcadorOrigem = L.marker([lat, lon]).addTo(map).bindPopup("Origem").openPopup();
+            } else {
+              if (marcadorDestino) map.removeLayer(marcadorDestino);
+              marcadorDestino = L.marker([lat, lon]).addTo(map).bindPopup("Destino").openPopup();
+            }
+            map.setView([lat, lon], 14);
+          };
+          sugestoesDiv.appendChild(item);
+        });
+      });
+    }
+
+    autocomplete("origem", "sugestoes-origem", "origem");
+    autocomplete("destino", "sugestoes-destino", "destino");
+
+    async function tracarRota() {
+      if (!coordenadas.origem || !coordenadas.destino) {
+        alert("Selecione origem e destino!");
+        return;
+      }
+
+      const [latO, lonO] = coordenadas.origem;
+      const [latD, lonD] = coordenadas.destino;
+
+      const url = `https://router.project-osrm.org/route/v1/driving/${lonO},${latO};${lonD},${latD}?overview=full&geometries=geojson`;
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
+
+      if (dados.routes && dados.routes.length > 0) {
+        const rota = dados.routes[0];
+
+        if (rotaLayer) map.removeLayer(rotaLayer);
+
+        rotaLayer = L.geoJSON(rota.geometry, {
+          style: { color: "blue", weight: 4 }
+        }).addTo(map);
+
+        map.fitBounds(rotaLayer.getBounds());
+
+        const distanciaKm = (rota.distance / 1000).toFixed(2);
+        const precoPorKm = 2.5;
+        const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
+
+        document.getElementById("info").innerHTML =
+          `🚗 Distância: <b>${distanciaKm} km</b><br>💰 Valor do frete: <b>R$ ${valorFrete}</b>`;
+      } else {
+        alert("Não foi possível calcular a rota.");
+      }
+    }
