@@ -14,18 +14,21 @@ class Usuario {
         $this->senha = trim($senha);
     }
 
-    public function salvar($pdo) {
-        $sql = "INSERT INTO cliente (nome, telefone, documento, email, senha)
-                VALUES (:nome, :telefone, :documento, :email, :senha)";
-        $stmt = $pdo->prepare($sql);
+  public function salvar($pdo) {
+    $sql = "INSERT INTO cliente (nome, telefone, documento, email, senha)
+            VALUES (:nome, :telefone, :documento, :email, :senha)";
+    $stmt = $pdo->prepare($sql);
 
-        return $stmt->execute([
-            ':nome'      => $this->nome,
-            ':telefone'  => $this->telefone,
-            ':documento' => $this->documento,
-            ':email'     => $this->email,
-            ':senha'     => $this->senha
-        ]);
-    }
+    // Cria o hash da senha
+    $senhaHash = password_hash($this->senha, PASSWORD_DEFAULT);
+
+    return $stmt->execute([
+        ':nome' => $this->nome,
+        ':telefone' => $this->telefone,
+        ':documento' => $this->documento,
+        ':email' => strtolower($this->email),
+        ':senha' => $senhaHash
+    ]);
 }
-?>
+}
+

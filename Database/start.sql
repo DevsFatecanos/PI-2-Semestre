@@ -6,13 +6,13 @@ CREATE TABLE cliente (
     telefone varchar (20),
     documento varchar(20),
     email VARCHAR(30),
-    senha varchar(30)
+    senha varchar(255)
 );
 CREATE TABLE admin (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL,
     email VARCHAR(30),
-    senha varchar(30)
+    senha varchar(255)
 );
 
 
