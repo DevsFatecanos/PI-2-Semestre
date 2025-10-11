@@ -16,7 +16,7 @@ class Usuario {
 
   public function salvar($pdo) {
     $sql = "INSERT INTO cliente (nome, telefone, documento, email, senha)
-            VALUES (:nome, :telefone, :documento, :email, :senha)";
+            VALUES (:nome, :telefone, :documento, :email, :senha)"; 
     $stmt = $pdo->prepare($sql);
 
     // Cria o hash da senha
