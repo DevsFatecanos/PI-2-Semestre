@@ -13,14 +13,14 @@
     <img src="../Assets/IMG/logo.webp" alt="">
     <div id="container">
         <h1>Login</h1>
-    <form action="cadastro.php" method="post">
+    <form action="../Controller/UsuarioController.php?action=login" method="post">
         <div class="aria-label">
         <label for="">Email</label>
-        <input type="email" placeholder="email@email.com" name="" id="">
+        <input type="email" placeholder="email@email.com" name="email" id="email">
         </div>
         <div class="aria-label">
         <label for="">Senha</label>
-        <input type="text" placeholder="Digite sua senha" name="" id="">
+        <input type="text" placeholder="Digite sua senha" name="senha" id="senha">
         
         </div>
         <a href="#">Esqueci minha senha</a>
