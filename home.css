@@ -1,0 +1,134 @@
+/* ===== BASE ===== */
+body { 
+    margin: 0; /* remove as margens padrão do navegador */
+    font-family: 'Poppins', sans-serif; /* define a fonte usada no site */
+    background-color: #1e1e1e; /* cor de fundo geral da página (preto acinzentado) */
+    color: #333; /* cor padrão do texto */
+}
+
+.container {
+    display: flex; /* usa o modelo flexbox para alinhar sidebar e conteúdo lado a lado */
+    height: 100vh; /* ocupa 100% da altura da tela (viewport height) */
+}
+
+/*  LATERAL ===== */
+.sidebar {
+    width: 150px; /* largura da barra lateral */
+    background-color: #4B56D2; /* cor azul da barra lateral */
+    color: white; /* texto branco */
+    display: flex; /* ativa o layout flexível */
+    flex-direction: column; /* organiza os elementos em coluna */
+    align-items: center; /* centraliza horizontalmente os itens */
+    padding: 30px 0; /* espaçamento interno (topo e base) */
+    border-top-right-radius: 10px; /* arredonda canto superior direito */
+    border-bottom-right-radius: 10px; /* arredonda canto inferior direito */
+}
+
+/* ===== TOPO (LOGO MENU SUPERIOR) ===== */
+.sidebar-top {
+    display: flex; /* ativa layout flexível */
+    flex-direction: column; /* organiza logo e menu em coluna */
+    align-items: center; /* centraliza o conteúdo */
+    gap: 25px; /* espaço entre logo e menu */
+    width: 100%; /* ocupa toda a largura da sidebar */
+}
+
+/* ===== MENU PRINCIPAL (HOME / SOLICITAÇÕES) ===== */
+.sidebar .menu {
+    display: flex; /* ativa o layout flexbox para os links */
+    flex-direction: column; /* coloca os links em coluna (vertical) */
+    align-items: center; /* centraliza ícones e texto */
+    gap: 23px; /* espaço entre cada item do menu */
+}
+
+/* ===== LINKS DO MENU ===== */
+.sidebar .menu a {
+    color: white; /* cor do texto dos links */
+    text-decoration: none; /* remove o sublinhado padrão dos links */
+    font-size: 12px; /* tamanho do texto dos nomes (Home, Solicitações, etc.) */
+    display: flex; /* ativa flexbox para alinhar ícone e texto */
+    flex-direction: column; /* coloca o ícone em cima e o texto embaixo */
+    align-items: center; /* centraliza ambos no meio */
+    gap: 5px; /* espaço entre ícone e texto */
+    opacity: 0.9; /* deixa o link levemente transparente */
+    transition: 0.3s; /* adiciona uma transição suave ao passar o mouse */
+}
+
+/* ===== TAMANHO DOS ÍCONES ===== */
+.sidebar .menu a .icon {
+    font-size: 20px; /* tamanho dos ícones */
+}
+
+/* ===== HOVER E ITEM ATIVO ===== */
+.sidebar .menu a.active,
+.sidebar .menu a:hover {
+    background-color: #7A84F2; /* muda o fundo pra um roxo claro */
+    padding: 10px; /* adiciona espaçamento interno */
+    border-radius: 10px; /* bordas arredondadas */
+    opacity: 1; /* torna o link totalmente visível */
+}
+
+/* ===== BLOCO INFERIOR (MINHA CONTA / SAIR) ===== */
+.sidebar-bottom {
+    display: flex; /* ativa layout flexível */
+    flex-direction: column; /* organiza os ícones verticalmente */
+    align-items: center; /* centraliza ícones e texto */
+    gap: 25px; /* espaço entre os itens */
+    margin-top: auto; /* empurra o bloco para o rodapé */
+    padding-bottom: 10px; /* espaço inferior */
+}
+
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.content {
+    flex-grow: 1; /* ocupa todo o espaço restante ao lado da sidebar */
+    background-color: #f9f9f9; /* cor de fundo do conteúdo principal */
+    padding: 40px; /* espaçamento interno */
+    border-radius: 8px 0 0 8px; /* arredonda apenas o lado esquerdo */
+}
+
+/*  TÍTULOS  */
+h1 {
+    font-size: 22px; /* tamanho do título principal */
+    margin-bottom: 10px; /* espaço abaixo do título */
+}
+
+/*  CARTÕES FRETES */
+.cards {
+    display: flex; /* organiza os cartões lado a lado */
+    gap: 20px; /* espaço entre cada cartão */
+    margin-top: 15px; /* espaço acima do grupo de cartões */
+}
+
+.card {
+    background: white; /* fundo branco do cartão */
+    border: 1px solid #ccc; /* borda cinza clara */
+    border-radius: 8px; /* cantos arredondados */
+    padding: 15px; /* espaçamento interno */
+    flex: 1; /* todos os cartões ocupam o mesmo espaço */
+    text-align: center; /* centraliza o texto */
+    position: relative; /* permite posicionar elementos dentro do cartão */
+}
+
+.card .icon {
+    position: absolute; /* posiciona o ícone dentro do cartão */
+    top: 10px; /* distância do topo */
+    right: 10px; /* distância da direita */
+}
+
+/* ===== SEÇÃO FRETES EM ANDAMENTO ===== */
+.fretes-andamento {
+    margin-top: 40px; /* adiciona espaço acima dessa seção */
+}
+
+.box-novo-frete {
+    border: 1.5px dashed #999; /* borda pontilhada */
+    border-radius: 8px; /* cantos arredondados */
+    padding: 30px; /* espaçamento interno */
+    text-align: center; /* centraliza o conteúdo */
+    background-color: #fff; /* fundo branco */
+    margin-left: 20px;
+    margin: 20px auto; /* centraliza horizontalmente e adiciona espaço vertical */
+    max-width: 420px; /* largura máxima da caixa (ajuste se quiser maior/menor) */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05); /* sombra */
+}
+
