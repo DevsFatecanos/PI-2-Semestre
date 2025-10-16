@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitações</title>
+    <link rel="stylesheet" href="css/solicitacao.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <div class="logo">LOGO </div>
+                <nav class="menu">
+                    <a href="home.html">
+                        <span class="icon"></span>
+                        <span>Home</span>
+                    </a>
+                    <a href="solicitacao.html" class="active">
+                        <span class="icon">↩️</span>
+                        <span>Solicitações</span>
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-bottom">
+                <a href="minhaconta.html">
+                    <span class="icon">👤</span>
+                    <span>Minha Conta</span>
+                </a>
+                <a href="#">
+                    <span class="icon"></span>
+                    <span>Sair</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- principal -->
+        <main class="content">
+            <section class="solicitacoes-header">
+                <div class="botoes-filtros">
+                    <button class="btn-filtro">Filtros</button>
+                    <button class="btn-limpar">Limpar filtros</button>
+                </div>
+
+                <button class="btn-nova">+ Nova Solicitação</button>
+            </section>
+
+            <section class="filtros-ativos">
+                <span class="tag-filtro">Em andamento ✕</span>
+            </section>
+
+            <section class="nenhum-resultado">
+                <p>Nenhuma solicitação encontrada</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
