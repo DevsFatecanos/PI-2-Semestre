@@ -50,13 +50,13 @@ async function autocomplete(inputId, sugestoesId, tipo) {
             if (marcadorOrigem) map.removeLayer(marcadorOrigem);
             marcadorOrigem = L.marker([lat, lon])
               .addTo(map)
-              .bindPopup("📍 Origem")
+              .bindPopup("Origem")
               .openPopup();
           } else {
             if (marcadorDestino) map.removeLayer(marcadorDestino);
             marcadorDestino = L.marker([lat, lon])
               .addTo(map)
-              .bindPopup("🎯 Destino")
+              .bindPopup("Destino")
               .openPopup();
           }
 

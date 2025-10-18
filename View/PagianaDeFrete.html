@@ -11,7 +11,8 @@
 <body>
 
   <header >
-    <a href="index.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+    <a class="btn-home" href=""> Home</a>
+    <a href="index.php"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
   
   <!--Busca Origem e Destino com Nominatim-->
@@ -36,37 +37,33 @@
       <div class="carrossel-container">
   <h3>Tipo de Veículo</h3>
   <div class="carrossel">
-    <button class="seta seta-esquerda" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
-
+    <button class="seta seta-esquerda" type="button" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
+ 
     <div class="lista-veiculos" id="listaVeiculos">
       <div class="veiculo" data-preco="1.5">
         <img src="./IMG/moto.png" alt="Moto">
-        <p>Moto</p>
+        <p>Moto <br> limite : 20kg</p>
       </div>
       <div class="veiculo" data-preco="2.5">
         <img src="./IMG/hatch.png" alt="Carro Hatch">
-        <p>Carro Hatch</p>
+        <p>Utilitario P <br> limite : 500kg </p>
       </div>
       <div class="veiculo" data-preco="3.0">
         <img src="./IMG/sedan.png" alt="Carro Sedan">
-        <p>Carro Sedan</p>
+        <p>Van <br>limite : 1000kg</p>
       </div>
       <div class="veiculo" data-preco="4.5">
         <img src="./IMG/utilitario.png" alt="Utilitário">
-        <p>Utilitário</p>
+        <p>Caminhão P <br>limite : 1500kg</p>
       </div>
       <div class="veiculo" data-preco="6.0">
         <img src="./IMG/caminhao.png" alt="Caminhão">
-        <p>Caminhão</p>
+        <p>Caminhão G <br>limite : 2500kg</p>
       </div>
     </div>
-  </form>
+    <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
+    </form>
 
-
-  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
-
-
-    <button class="seta seta-direita" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 </div>
 

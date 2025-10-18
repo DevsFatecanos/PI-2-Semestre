@@ -4,8 +4,7 @@ body { font-family: "Inter"; }
       margin-top: 10%;
       position: relative;
       width: 32%;
-      margin-bottom: 10px;
-      margin-top: 8%;
+      margin-top: 6%;
  
     }
 
@@ -17,7 +16,7 @@ body { font-family: "Inter"; }
     input {
       width: 80%;
       padding: 8px;
-      margin-top: 10%;
+      margin-top: 3%;
       font-size: 14px;
       margin-left: 2vh;
     }
@@ -84,10 +83,10 @@ body { font-family: "Inter"; }
 
 
     #map {
-      height: 50vw;
+      height: 55vw;
       width: 65.5%;
       margin-left: 35%;
-      margin-top: -56%;
+      margin-top: -47%;
       z-index: 3;
     }
 
@@ -107,6 +106,28 @@ body { font-family: "Inter"; }
     header img{
         height: 70%;
         margin-top: 2vh; 
+
+    }
+
+    .btn-home{
+      position: absolute;
+      margin-right: 68vw;
+      margin-top: 1.5vh;
+      font-size: 15px;
+      width: 110px;
+      text-align: center;
+      padding: 1vh;
+      border-radius: 12px;
+      color: #417dff;
+      border: 1px solid #417dff;
+      text-decoration: none;
+    }
+
+    .btn-home:hover{
+        color: white;
+        background-color: #417dff;
+        transition: 1s;
+
     }
 
     .icon{
