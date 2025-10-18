@@ -4,7 +4,7 @@ body { font-family: "Inter"; }
       margin-top: 10%;
       position: relative;
       width: 32%;
-      margin-bottom: 10px;
+      margin-top: 6%;
  
     }
 
@@ -16,7 +16,7 @@ body { font-family: "Inter"; }
     input {
       width: 80%;
       padding: 8px;
-      margin-top: 10%;
+      margin-top: 3%;
       font-size: 14px;
       margin-left: 2vh;
     }
@@ -83,10 +83,10 @@ body { font-family: "Inter"; }
 
 
     #map {
-      height: 50vw;
+      height: 55vw;
       width: 65.5%;
       margin-left: 35%;
-      margin-top: -43%;
+      margin-top: -47%;
       z-index: 3;
     }
 
@@ -106,6 +106,28 @@ body { font-family: "Inter"; }
     header img{
         height: 70%;
         margin-top: 2vh; 
+
+    }
+
+    .btn-home{
+      position: absolute;
+      margin-right: 68vw;
+      margin-top: 1.5vh;
+      font-size: 15px;
+      width: 110px;
+      text-align: center;
+      padding: 1vh;
+      border-radius: 12px;
+      color: #417dff;
+      border: 1px solid #417dff;
+      text-decoration: none;
+    }
+
+    .btn-home:hover{
+        color: white;
+        background-color: #417dff;
+        transition: 1s;
+
     }
 
     .icon{
@@ -131,4 +153,88 @@ body { font-family: "Inter"; }
       margin-left: 2vh;
       font-family: "Inter";
     }
+
+
+        .carrossel-container {
+  width: 90%;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.carrossel-container h3 {
+  color: #417dff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.carrossel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lista-veiculos {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 10px;
+  width: 80%;
+  scrollbar-width: none;
+}
+
+.lista-veiculos::-webkit-scrollbar {
+  display: none;
+}
+
+.veiculo {
+  flex: 0 0 auto;
+  width: 130px;
+  padding: 15px;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  cursor: pointer;
+  background: #fff;
+  transition: 0.3s;
+  scroll-snap-align: center;
+}
+
+.veiculo img {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 8px;
+}
+
+.veiculo:hover {
+  border-color: #417dff;
+  transform: scale(1.05);
+}
+
+.veiculo.selecionado {
+  border-color: #417dff;
+  background-color: #f0f6ff;
+}
+
+.seta {
+  background: none;
+  border: none;
+  color: #417dff;
+  font-size: 24px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.seta:hover {
+  transform: scale(1.2);
+}
+
+.seta-esquerda {
+  margin-right: 10px;
+}
+
+.seta-direita {
+  margin-left: 10px;
+}
   

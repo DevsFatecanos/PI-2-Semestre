@@ -11,7 +11,8 @@
 <body>
 
   <header >
-    <a href="index.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+    <a class="btn-home" href=""> Home</a>
+    <a href="index.php"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
   
   <!--Busca Origem e Destino com Nominatim-->
@@ -32,11 +33,39 @@
         <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
         <input id="input_complemento" placeholder="Complemento..." type="text">
       </div>
-      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6" required></textarea>
-  </form>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6"></textarea>
+      <div class="carrossel-container">
+  <h3>Tipo de Veículo</h3>
+  <div class="carrossel">
+    <button class="seta seta-esquerda" type="button" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
+ 
+    <div class="lista-veiculos" id="listaVeiculos">
+      <div class="veiculo" data-preco="1.5">
+        <img src="./IMG/moto.png" alt="Moto">
+        <p>Moto <br> limite : 20kg</p>
+      </div>
+      <div class="veiculo" data-preco="2.5">
+        <img src="./IMG/hatch.png" alt="Carro Hatch">
+        <p>Utilitario P <br> limite : 500kg </p>
+      </div>
+      <div class="veiculo" data-preco="3.0">
+        <img src="./IMG/sedan.png" alt="Carro Sedan">
+        <p>Van <br>limite : 1000kg</p>
+      </div>
+      <div class="veiculo" data-preco="4.5">
+        <img src="./IMG/utilitario.png" alt="Utilitário">
+        <p>Caminhão P <br>limite : 1500kg</p>
+      </div>
+      <div class="veiculo" data-preco="6.0">
+        <img src="./IMG/caminhao.png" alt="Caminhão">
+        <p>Caminhão G <br>limite : 2500kg</p>
+      </div>
+    </div>
+    <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
+    </form>
 
-
-  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
+  </div>
+</div>
 
 
   <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
