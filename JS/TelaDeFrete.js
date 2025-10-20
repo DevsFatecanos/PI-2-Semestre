@@ -1,7 +1,6 @@
 // Inicializa o mapa
 const map = L.map('map').setView([-23.55, -46.63], 11);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
 let marcadorOrigem, marcadorDestino, rotaLayer;
@@ -135,8 +134,10 @@ async function tracarRota() {
       const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
 
       document.getElementById("info").innerHTML = `
-        🚗 <b>Distância:</b> ${distanciaKm} km<br>
-        💰 <b>Valor estimado do frete:</b> R$ ${valorFrete}
+         
+        <b>Distância:</b> ${distanciaKm} km<br>
+        <b>Valor estimado do frete: R$ ${valorFrete} </b> 
+        <button>Confirmar</button>
       `;
     } else {
       alert("Não foi possível calcular a rota.");

@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 body { font-family: "Inter"; }
-    .autocomplete-container {
+    
+
+
+.autocomplete-container {
       margin-top: 10%;
       position: relative;
-      width: 32%;
+      width: 36%;
       margin-top: 6%;
- 
+      max-height: 600px;
+      overflow-y: scroll;
+
     }
 
     .autocomplete-container h2 {
@@ -25,13 +30,13 @@ body { font-family: "Inter"; }
   .Btn-rota{
         padding: 1vh;
         margin-top: 2vh;
-        width: 27%;
+        width: 30%;
         color: #417dff;
         border: 1px solid #417dff;
         border-radius: 1vh;
         cursor: pointer;
         margin-left: 2vh;
-        
+
         
     }
 
@@ -83,11 +88,12 @@ body { font-family: "Inter"; }
 
 
     #map {
-      height: 55vw;
-      width: 65.5%;
-      margin-left: 35%;
-      margin-top: -47%;
+      height: 51vw;
+      width: 64.25%;
+      margin-left: 36%;
+      margin-top: -43.5%;
       z-index: 3;
+      border-left: #417dff 2px solid;
     }
 
     header{
@@ -135,6 +141,10 @@ body { font-family: "Inter"; }
         padding: 8px;
     }
 
+    .icon-carrosel{
+      color: #417dff;
+      font-size: 20px;
+    }
 
     .Div_end{
       display: flex;
@@ -236,5 +246,20 @@ body { font-family: "Inter"; }
 
 .seta-direita {
   margin-left: 10px;
+}
+
+
+.preco-frete{
+  
+  width: 36%;
+  padding: 20px;
+  position: fixed;
+  display:list-item;
+  top: 83.50%;
+  left: 0;
+}
+
+.preco-frete button{
+  padding: 10px;
 }
   
