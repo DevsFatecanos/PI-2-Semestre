@@ -1,18 +1,19 @@
 <?php
-$servidor = "localhost";   // Host do banco
-$usuario  = "root";        // Usuário do banco
-$senha    = "";            // Senha do banco
-$banco    = "banco";       // Nome do banco
+$host = "aws-1-sa-east-1.pooler.supabase.com";
+$port = "5432";
+$dbname = "postgres";
+$user = "postgres.oudhyeawauuzvkrhsgsk";
+$password = "Medicina12@mendes"; // sua senha do Supabase
 
 try {
-    // Criando a conexão
-    $pdo = new PDO("mysql:host=$servidor;dbname=$banco;charset=utf8", $usuario, $senha);
+    // Conexão com o PostgreSQL do Supabase (via pooler)
+    $pdo = new PDO("pgsql:host=$host;port=$port;dbname=$dbname", $user, $password);
 
-    // Configura o modo de erro para lançar exceções
+    // Modo de erro: exceção
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // echo "Conexão bem-sucedida!";
 } catch (PDOException $e) {
-    die("Falha na conexão: " . $e->getMessage());
+    echo "<div style='color:red; font-family:sans-serif;'>
+            ❌ Erro ao conectar ao Supabase:<br>" . $e->getMessage() . "
+          </div>";
 }
 ?>

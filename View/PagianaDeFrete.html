@@ -6,16 +6,17 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="../Assets/CSS/TelaFrete.css">
   <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=airport_shuttle" />
 </head>
 <body>
 
   <header >
-    <a href="index.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+    <a class="btn-home" href=""> Home</a>
+    <a href="../View/home.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
   
   <!--Busca Origem e Destino com Nominatim-->
-  <form class="autocomplete-container">
+  <div class="autocomplete-container">
     <h2 >Gerar Rota de Transporte</h2>
     <div id="sugestoes-origem" class="sugestoes_origem"></div>
     <div id="sugestoes-destino" class="sugestoes_destino"></div>
@@ -32,17 +33,45 @@
         <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
         <input id="input_complemento" placeholder="Complemento..." type="text">
       </div>
-      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="6" required></textarea>
-  </form>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="4"></textarea>
+<div class="carrossel-container">
+  <h3>Tipo de Veículo</h3>
+  <div class="carrossel">
+    <button class="seta seta-esquerda" type="button" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
+   <div class="lista-veiculos" id="listaVeiculos">
+      <div class="veiculo" data-preco="1.5">
+        <i class="fa-solid fa-motorcycle icon-carrosel"></i>
+        <p>Moto <br> limite : 20kg</p>
+      </div>
+      <div class="veiculo" data-preco="2.5">
+        <i class="fa-solid fa-truck-pickup icon-carrosel"></i>
+        <p>Utilitario P <br> limite : 500kg </p>
+      </div>
+      <div class="veiculo" data-preco="3.0">
+        <i class="fa-solid fa-van-shuttle icon-carrosel"></i>
+        <p>Van <br>limite : 1000kg</p>
+      </div>
+      <div class="veiculo" data-preco="4.5">
+        <i class="fa-solid fa-truck icon-carrosel" ></i>
+        <p>Caminhão P <br>limite : 1500kg</p>
+      </div>
+      <div class="veiculo" data-preco="6.0">
+        <i class="fa-solid fa-truck-moving icon-carrosel" ></i>
+        <p>Caminhão G <br>limite : 2500kg</p>
+      </div>
+    </div>
+    <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+      <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+  </div>
+</div>
+  <div class="preco-frete" id="info">
+  </div>
 
-
-  <!--LOCAL PARA ESCOLHA DO VEICO PARA TRANSPORTE-->
-
-
-  <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+  
 
   <div id="map"></div>
-  <p id="info"></p>
+
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="../JS/TelaDeFrete.js"></script>
