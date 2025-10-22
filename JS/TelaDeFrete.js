@@ -133,12 +133,21 @@ async function tracarRota() {
       const precoPorKm = 2.5; // 💰 valor por km
       const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
 
-      document.getElementById("info").innerHTML = `
-         
-        <b>Distância:</b> ${distanciaKm} km<br>
-        <b>Valor estimado do frete: R$ ${valorFrete} </b> 
-        <button>Confirmar</button>
-      `;
+// Atualiza a área de informações de frete
+document.getElementById('distanciaSpan').textContent = `${distanciaKm} km`;
+document.getElementById('valorSpan').textContent = `R$ ${valorFrete.replace('.', ',')}`;
+
+// Mostra a div de frete
+document.getElementById('precoFrete').style.display = 'flex';
+
+// Guarda dados da rota para confirmar
+window.ultimoCalculo = {
+  origemText: document.getElementById('origem').value,
+  destinoText: document.getElementById('destino').value,
+  distanciaKm,
+  valorFrete
+};
+
     } else {
       alert("Não foi possível calcular a rota.");
     }
@@ -147,3 +156,13 @@ async function tracarRota() {
     alert("Erro ao calcular rota.");
   }
 }
+
+document.getElementById('btnConfirmar').onclick = () => {
+  const dados = window.ultimoCalculo;
+  if (!dados) {
+    alert('Nenhum cálculo disponível!');
+    return;
+  }
+
+  alert(`Pedido confirmado!\n\nOrigem: ${dados.origemText}\nDestino: ${dados.destinoText}\nDistância: ${dados.distanciaKm} km\nValor: R$ ${dados.valorFrete}`);
+};

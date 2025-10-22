@@ -8,8 +8,9 @@ body { font-family: "Inter"; }
       position: relative;
       width: 36%;
       margin-top: 6%;
-      max-height: 600px;
+      max-height: 650px;
       overflow-y: scroll;
+      z-index: 100;
 
     }
 
@@ -88,10 +89,10 @@ body { font-family: "Inter"; }
 
 
     #map {
-      height: 51vw;
+      height: 46vw;
       width: 64.25%;
       margin-left: 36%;
-      margin-top: -43.5%;
+      margin-top: -43%;
       z-index: 3;
       border-left: #417dff 2px solid;
     }
@@ -169,6 +170,7 @@ body { font-family: "Inter"; }
   width: 90%;
   margin: 40px auto;
   text-align: center;
+ 
 }
 
 .carrossel-container h3 {
@@ -183,6 +185,7 @@ body { font-family: "Inter"; }
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 .lista-veiculos {
@@ -209,12 +212,15 @@ body { font-family: "Inter"; }
   background: #fff;
   transition: 0.3s;
   scroll-snap-align: center;
+  
+  
 }
 
 .veiculo img {
   width: 70px;
   height: 70px;
   margin-bottom: 8px;
+  
 }
 
 .veiculo:hover {
@@ -249,17 +255,44 @@ body { font-family: "Inter"; }
 }
 
 
-.preco-frete{
-  
-  width: 36%;
+.preco-frete {
+  margin-top: 20px;
+  background-color: #417dff;
+  color: white;
+  border-radius: 10px;
   padding: 20px;
-  position: fixed;
-  top: 83.50%;
-  left: 0;
+  font-family: "Inter", sans-serif;
+  display: none; /* inicialmente oculta */
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.preco-frete button{
-  padding: 10px;
-
+.frete-detalhes {
+  width: 100%;
+  margin-bottom: 10px;
 }
+
+.frete-detalhes p {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.btn-confirmar {
+  background-color: white;
+  color: #417dff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-confirmar:hover {
+  background-color: #2f63d1;
+  color: white;
+}
+
   

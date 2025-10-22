@@ -11,8 +11,8 @@
 <body>
 
   <header >
-    <a class="btn-home" href=""> Home</a>
-    <a href="../View/home.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+    <a class="btn-home" href="./home.html"> Home</a>
+    <a href="./home.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
   
   <!--Busca Origem e Destino com Nominatim-->
@@ -63,14 +63,20 @@
     <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
       <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+      <div class="preco-frete" id="precoFrete" style="display:none;">
+  <div class="frete-detalhes">
+    <p><strong>Distância:</strong> <span id="distanciaSpan">0 km</span></p>
+    <p><strong>Valor estimado do frete:</strong> <span id="valorSpan">R$ 0,00</span></p>
+  <button id="btnConfirmar" class="btn-confirmar" type="button">Confirmar Pedido</button>
+  </div>
   </div>
 </div>
-  <div class="preco-frete" id="info">
   </div>
+<div id="map"></div>
+        
+</div>
 
   
-
-  <div id="map"></div>
 
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
