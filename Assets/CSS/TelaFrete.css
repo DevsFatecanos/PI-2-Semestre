@@ -70,7 +70,7 @@ body { font-family: "Inter"; }
     .sugestoes_destino {
       position: absolute;
       z-index: 100;
-      top: 135px;
+      top: 220px;
       left: 0;
       right: 0;
       background: #fff;
@@ -254,12 +254,12 @@ body { font-family: "Inter"; }
   width: 36%;
   padding: 20px;
   position: fixed;
-  display:list-item;
   top: 83.50%;
   left: 0;
 }
 
 .preco-frete button{
   padding: 10px;
+
 }
   
