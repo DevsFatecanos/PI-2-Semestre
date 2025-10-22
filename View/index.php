@@ -13,7 +13,7 @@ include "../conexao.php";
 	<link rel="alternate" type="application/rss+xml" title="Feed para sonic &raquo;" href="https://sonicsp.com.br/feed/" />
 	<link rel="alternate" type="application/rss+xml" title="Feed de comentários para sonic &raquo;" href="https://sonicsp.com.br/comments/feed/" />
 <!--ADD FAVICON-->
-<link rel="shortcut icon" href="./logo.webp" type="image/x-icon">
+<link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/sonicsp.com.br\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.7.3"}};
 /*! This file is auto-generated */
