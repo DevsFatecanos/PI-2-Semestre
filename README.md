@@ -4,4 +4,6 @@
 3 - abra o xampp control panel       	   
 4 - ligue o apache e o mysql	  
 5 - importe o arquivo start.sql 'C:\xampp\htdocs\PI-2-Semestre\Database\' no link 'http://localhost/phpmyadmin/' ou clicando no botão admin no xampp control panel	    
-6 - agora o banco e o site estão hospedados na sua maquina link do site 'http://localhost/PI-2-Semestre/View/'	    
+6 - agora o banco e o site estão hospedados na sua maquina link do site 'http://localhost/PI-2-Semestre/View/'.	    
+
+
