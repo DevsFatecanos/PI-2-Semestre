@@ -14,7 +14,7 @@ body {
 /*  LATERAL ===== */
 .sidebar {
     width: 150px; /* largura da barra lateral */
-    background-color: #4B56D2; /* cor azul da barra lateral */
+    background-color: #51bbf8; /* cor azul da barra lateral */
     color: white; /* texto branco */
     display: flex; /* ativa o layout flexível */
     flex-direction: column; /* organiza os elementos em coluna */
@@ -62,7 +62,7 @@ body {
 /* ===== HOVER E ITEM ATIVO ===== */
 .sidebar .menu a.active,
 .sidebar .menu a:hover {
-    background-color: #7A84F2; /* muda o fundo pra um roxo claro */
+    background-color: #7ad6f2; /* muda o fundo pra um roxo claro */
     padding: 10px; /* adiciona espaçamento interno */
     border-radius: 10px; /* bordas arredondadas */
     opacity: 1; /* torna o link totalmente visível */
