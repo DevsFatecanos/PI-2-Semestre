@@ -76,14 +76,14 @@ autocomplete("destino", "sugestoes-destino", "destino");
 
 
 // ===== CARROSSEL DE VEÍCULOS =====
-let precoPorKm = 2.5; // valor padrão
-
+let precoPorKm = null;
+let veiculoSelecionado = null; // 🔹 Armazena o veículo escolhido
 const listaVeiculos = document.getElementById('listaVeiculos');
 const btnVoltar = document.getElementById('voltar');
 const btnAvancar = document.getElementById('avancar');
 const veiculos = document.querySelectorAll('.veiculo');
 
-// Rolagem do carrossel
+// 🔹 Rolagem do carrossel
 btnAvancar.addEventListener('click', () => {
   listaVeiculos.scrollBy({ left: 200, behavior: 'smooth' });
 });
@@ -92,21 +92,25 @@ btnVoltar.addEventListener('click', () => {
   listaVeiculos.scrollBy({ left: -200, behavior: 'smooth' });
 });
 
-// Selecionar veículo
+// 🔹 Selecionar veículo
 veiculos.forEach(v => {
   v.addEventListener('click', () => {
     veiculos.forEach(outro => outro.classList.remove('selecionado'));
     v.classList.add('selecionado');
     precoPorKm = parseFloat(v.dataset.preco);
+    veiculoSelecionado = v; // guarda o veículo escolhido
   });
 });
 
-
-
-// --- FUNÇÃO PARA CALCULAR ROTA E VALOR DO FRETE ---
+// 🔹 Função de cálculo da rota (ajustada)
 async function tracarRota() {
   if (!coordenadas.origem || !coordenadas.destino) {
     alert("Selecione origem e destino!");
+    return;
+  }
+
+  if (precoPorKm === null) {
+    alert("Selecione um tipo de veículo antes de calcular o frete!");
     return;
   }
 
@@ -130,24 +134,19 @@ async function tracarRota() {
       map.fitBounds(rotaLayer.getBounds());
 
       const distanciaKm = (rota.distance / 1000).toFixed(2);
-      const precoPorKm = 2.5; // 💰 valor por km
       const valorFrete = (distanciaKm * precoPorKm).toFixed(2);
 
-// Atualiza a área de informações de frete
-document.getElementById('distanciaSpan').textContent = `${distanciaKm} km`;
-document.getElementById('valorSpan').textContent = `R$ ${valorFrete.replace('.', ',')}`;
+      // Exibir resultado
+      const divFrete = document.getElementById("precoFrete");
+      document.getElementById("distanciaSpan").textContent = `${distanciaKm} km`;
+      document.getElementById("valorSpan").textContent = `R$ ${valorFrete}`;
+      divFrete.style.display = "flex";
 
-// Mostra a div de frete
-document.getElementById('precoFrete').style.display = 'flex';
-
-// Guarda dados da rota para confirmar
-window.ultimoCalculo = {
-  origemText: document.getElementById('origem').value,
-  destinoText: document.getElementById('destino').value,
-  distanciaKm,
-  valorFrete
-};
-
+      // 🔹 Mantém o veículo visualmente selecionado
+      if (veiculoSelecionado) {
+        veiculos.forEach(v => v.classList.remove('selecionado'));
+        veiculoSelecionado.classList.add('selecionado');
+      }
     } else {
       alert("Não foi possível calcular a rota.");
     }
@@ -156,13 +155,3 @@ window.ultimoCalculo = {
     alert("Erro ao calcular rota.");
   }
 }
-
-document.getElementById('btnConfirmar').onclick = () => {
-  const dados = window.ultimoCalculo;
-  if (!dados) {
-    alert('Nenhum cálculo disponível!');
-    return;
-  }
-
-  alert(`Pedido confirmado!\n\nOrigem: ${dados.origemText}\nDestino: ${dados.destinoText}\nDistância: ${dados.distanciaKm} km\nValor: R$ ${dados.valorFrete}`);
-};
