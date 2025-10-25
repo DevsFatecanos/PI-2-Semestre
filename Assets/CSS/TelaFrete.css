@@ -1,7 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 body { font-family: "Inter"; }
     
+.lodding {
+  background-color: rgba(255, 255, 255, 0.548);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; /* 🔹 Coloca o texto em cima do spinner */
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
 
+.lodding-sprin {
+  width: 60px;
+  height: 60px;
+  border: #417dff 5px solid;
+  border-top: solid 5px transparent;
+  background-color: transparent;
+  display: block;
+  border-radius: 50%;
+  animation: carregando 1s linear infinite;
+  color: #417dff;
+  margin-top: 20px; /* Espaço entre texto e círculo */
+}
+
+.text h1 {
+  color: #417dff;
+  font-family: "Inter";
+  margin: 0;
+}
+
+@keyframes carregando {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .autocomplete-container {
       margin-top: 10%;

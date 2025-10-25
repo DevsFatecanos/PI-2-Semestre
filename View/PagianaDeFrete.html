@@ -9,13 +9,20 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=airport_shuttle" />
 </head>
 <body>
-
   <header >
     <a class="btn-home" href="./home.html"> Home</a>
     <a href="./home.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
-  
-  <!--Busca Origem e Destino com Nominatim-->
+
+  <!--LODDING DIV-->
+  <div class="lodding" id="lodding">
+    <div class="text">
+      <h1>Gerando Rota</h1>
+    </div>
+    <span class="lodding-sprin"></span>
+  </div>
+
+  <!--Busca Origem e Destino-->
   <div class="autocomplete-container">
     <h2 >Gerar Rota de Transporte</h2>
     <div id="sugestoes-origem" class="sugestoes_origem"></div>
@@ -33,37 +40,37 @@
         <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
         <input id="input_complemento" placeholder="Complemento..." type="text">
       </div>
-      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="55" rows="4"></textarea>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="65" rows="4"></textarea>
       <!--CARROSEL DE VEICULOS-->
       <div class="carrossel-container">
   <h3>Tipo de Veículo</h3>
   <div class="carrossel">
     <button class="seta seta-esquerda" type="button" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
    <div class="lista-veiculos" id="listaVeiculos">
-      <div class="veiculo" data-preco="1.5">
+      <div class="veiculo" data-preco="2">
         <i class="fa-solid fa-motorcycle icon-carrosel"></i>
         <p>Moto <br> limite : 20kg</p>
       </div>
-      <div class="veiculo" data-preco="2.5">
+      <div class="veiculo" data-preco="5">
         <i class="fa-solid fa-truck-pickup icon-carrosel"></i>
         <p>Utilitario P <br> limite : 500kg </p>
       </div>
-      <div class="veiculo" data-preco="3.0">
+      <div class="veiculo" data-preco="6.5">
         <i class="fa-solid fa-van-shuttle icon-carrosel"></i>
         <p>Van <br>limite : 1000kg</p>
       </div>
-      <div class="veiculo" data-preco="4.5">
+      <div class="veiculo" data-preco="9">
         <i class="fa-solid fa-truck icon-carrosel" ></i>
         <p>Caminhão P <br>limite : 1500kg</p>
       </div>
-      <div class="veiculo" data-preco="6.0">
+      <div class="veiculo" data-preco="12">
         <i class="fa-solid fa-truck-moving icon-carrosel" ></i>
         <p>Caminhão G <br>limite : 2500kg</p>
       </div>
     </div>
     <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
-      <button class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+      <button id="botao-Rota" class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
       <div class="preco-frete" id="precoFrete" style="display:none;">
   <div class="frete-detalhes">
     <p><strong>Distância:</strong> <span id="distanciaSpan">0 km</span></p>
@@ -76,10 +83,18 @@
 <div id="map"></div>
         
 </div>
-
-  
-
-
+    <script>
+    //Lodding
+    const botao = document.getElementById('botao-Rota');
+    const lodding = document.getElementById('lodding');
+    lodding.style.display = 'none';
+    botao.addEventListener('click', () => {
+      lodding.style.display = 'flex';
+      setTimeout(() => {
+        lodding.style.display = 'none';
+      }, 3000);
+    });
+  </script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="../JS/TelaDeFrete.js"></script>
   <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
