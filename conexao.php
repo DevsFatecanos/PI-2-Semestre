@@ -1,9 +1,15 @@
 <?php
-$host = "aws-1-sa-east-1.pooler.supabase.com";
-$port = "5432";
-$dbname = "postgres";
-$user = "postgres.oudhyeawauuzvkrhsgsk";
-$password = "Medicina12@mendes"; // sua senha do Supabase
+require_once __DIR__ . '/vendor/autoload.php';
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+$host = $_ENV['DB_HOST'];
+$port = $_ENV['DB_PORT'];
+$dbname = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USER'];
+$password = $_ENV['DB_PASS'];
 
 try {
     // Conexão com o PostgreSQL do Supabase (via pooler)
