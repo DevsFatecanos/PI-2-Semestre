@@ -14,7 +14,7 @@ body {
 /*  LATERAL ===== */
 .sidebar {
     width: 150px; /* largura da barra lateral */
-    background-color: #51bbf8; /* cor azul da barra lateral */
+    background-color: #2268ff; /* cor azul da barra lateral */
     color: white; /* texto branco */
     display: flex; /* ativa o layout flexível */
     flex-direction: column; /* organiza os elementos em coluna */
