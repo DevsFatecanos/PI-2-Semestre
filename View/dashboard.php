@@ -1,3 +1,15 @@
+<?php
+session_start();
+//bloqueia o acesso direto
+
+if (!isset($_SESSION['usuario_email'])) {
+    header("Location: login.html");
+    exit;
+}
+$email = $_SESSION['usuario_email'];
+?>
+
+
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -25,7 +37,7 @@
       <a href="#" data-view="usuarios">Usuários</a>
       <a href="#" data-view="config">Configurações</a>
     </nav>
-    <div style="position:absolute;bottom:24px;left:24px;right:24px;font-size:13px;color:var(--muted)">Conectado como:<br><strong>admin@fretes.local</strong></div>
+    <div style="position:absolute;bottom:24px;left:24px;right:24px;font-size:13px;color:var(--muted)">Conectado como:<br><strong><?php echo $email?></strong></div>
   </aside>
 
   <main class="main">

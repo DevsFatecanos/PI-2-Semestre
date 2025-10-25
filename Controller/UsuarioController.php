@@ -77,10 +77,11 @@ class UsuarioController {
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_role'] = $usuario['role'];
+                $_SESSION['usuario_email'] = $usuario['email'];
 
                 // Redirecionamento
                 if ($usuario['role'] === 'admin') {
-                    header("Location: ../View/dashboard.html");
+                    header("Location: ../View/dashboard.php");
                 } else {
                     header("Location: ../View/index.php");
                 }
