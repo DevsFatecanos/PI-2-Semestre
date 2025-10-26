@@ -79,7 +79,7 @@ $email = $_SESSION['usuario_email'];
           <table>
             <thead><tr><th>#</th><th>Cliente</th><th>Origem → Destino</th><th>Placa</th><th>Status</th></tr></thead>
             <tbody>
-              <tr><td>00123</td><td>Distribuidora A</td><td>SP → RJ</td><td>ABC-1D23</td><td>Em rota</td></tr>
+              <tr><td>00123</td><td>Distribuidora A</td><td>08060-160 → 08430-000</td><td>ABC-1D23</td><td>Em rota</td></tr>
               <tr><td>00124</td><td>Loja B</td><td>BH → SP</td><td>XYZ-9F88</td><td>Aguardando</td></tr>
               <tr><td>00125</td><td>Cliente C</td><td>POA → CWB</td><td>LMN-4E56</td><td>Entregue</td></tr>
             </tbody>
@@ -166,6 +166,12 @@ $email = $_SESSION['usuario_email'];
             <tr><td>V002</td><td>Volvo FH</td><td>XYZ-9F88</td><td>Em rota</td><td><button class="btn ghost">Editar</button></td></tr>
           </tbody>
         </table>
+        <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
+        <button class="btn ghost">Remover veículo</button>  
+        <button class="btn">Adicionar veículo</button>
+          
+        </div>
+        
       </div>
     </section>
 
