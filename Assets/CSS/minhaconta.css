@@ -1,3 +1,21 @@
+header{
+        position:absolute;
+        height:8% ;
+        left: 0;
+        width: 100%;
+        top: 0;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        border-bottom: #417dff 5px solid;
+        z-index: 100;
+    }
+
+    header img{
+        height: 70%;
+        margin-top: 2vh; 
+
+    }
 /* ===== BASE ===== */
 body {
     margin: 0;
@@ -14,7 +32,7 @@ body {
 /* ===== BARRA LATERAL ===== */
 .sidebar {
     width: 150px;
-    background-color: #4B56D2;
+    background-color: #2268ff;
     color: white;
     display: flex;
     flex-direction: column;
