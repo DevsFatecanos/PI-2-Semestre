@@ -95,6 +95,23 @@
       }, 3000);
     });
   </script>
+  <!-- Modal de confirmação -->
+<div id="modalConfirmacao" class="modal-overlay">
+  <div class="modal-conteudo">
+    <h2>Confirmação de Pedido</h2>
+    <p><strong>Origem:</strong> <span id="modalOrigem"></span></p>
+    <p><strong>Destino:</strong> <span id="modalDestino"></span></p>
+    <p><strong>Distância:</strong> <span id="modalDistancia"></span></p>
+    <p><strong>Valor do Frete:</strong> <span id="modalValor"></span></p>
+    <p><strong>Veículo Selecionado:</strong> <span id="modalVeiculo"></span></p>
+
+    <div class="modal-botoes">
+      <button id="confirmarPedidoBtn">Confirmar Pedido</button>
+      <button id="cancelarModalBtn">Cancelar</button>
+    </div>
+  </div>
+</div>
+
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="../JS/TelaDeFrete.js"></script>
   <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
