@@ -30,7 +30,7 @@ $email = $_SESSION['usuario_email'];
     <nav class="nav" id="menu">
       <a href="#" data-view="dashboard" class="active">Dashboard</a>
       <a href="#" data-view="envios">Envios</a>
-      <a href="#" data-view="criar-envio">Criar Envio</a>
+      <a href="#" data-view="criar-envio">Aprovar Envio</a>
       <a href="#" data-view="veiculos">Veículos</a>
       <a href="#" data-view="motoristas">Motoristas</a>
       <a href="#" data-view="relatorios">Relatórios</a>
@@ -115,7 +115,7 @@ $email = $_SESSION['usuario_email'];
 
     <section id="criar-envio" class="view" style="display:none">
       <div class="card">
-        <h3>Criar / Editar Envio</h3>
+        <h3>Aprovar Envio</h3>
         <form id="form-envio" style="margin-top:12px" onsubmit="saveEnvio(event)">
           <div class="row">
             <div style="flex:1">
@@ -184,6 +184,11 @@ $email = $_SESSION['usuario_email'];
             <tr><td>João Silva</td><td>(11) 99999-9999</td><td>AB123456</td><td>Ativo</td><td><button class="btn ghost">Perfil</button></td></tr>
           </tbody>
         </table>
+        <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
+        <button class="btn ghost">Remover motorista</button>  
+        <button class="btn">Adicionar motorista</button>
+          
+        </div>
       </div>
     </section>
 

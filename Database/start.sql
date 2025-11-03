@@ -53,10 +53,47 @@ CREATE TABLE endereco (
     FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE
 );
 
+CREATE TABLE pagamento (
+    id SERIAL PRIMARY KEY,
+    pedido_id INT REFERENCES pedido(id) ON DELETE CASCADE,
+    valor NUMERIC(10,2) NOT NULL,
+    metodo VARCHAR(30) CHECK (metodo IN ('pix', 'boleto', 'cartao', 'transferencia')),
+    status VARCHAR(20) DEFAULT 'pendente',
+    data_pagamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE avaliacao (
+    id SERIAL PRIMARY KEY,
+    pedido_id INT REFERENCES pedido(id) ON DELETE CASCADE,
+    cliente_id INT REFERENCES cliente(id) ON DELETE CASCADE,
+    nota INT CHECK (nota BETWEEN 1 AND 5),
+    comentario TEXT,
+    data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
+CREATE TABLE usuario_log (
+    id SERIAL PRIMARY KEY,
+    usuario_id INT REFERENCES cliente(id) ON DELETE CASCADE,
+    acao VARCHAR(255),
+    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ip VARCHAR(45)
+);
 
-/*insert into TABLE admin (nome, email, senha)
-values
-(teste, g321mendes@gmail.com, $2y$10$v9mAca1CELYzURTaKY9.SOEkyGEKQu9SiBpmcj3pYOZaMt07pqJ.m);
-*/
+CREATE TABLE motorista (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20),
+    cnh VARCHAR(20) UNIQUE,
+    status VARCHAR(20) DEFAULT 'ativo',
+    veiculo_id INT REFERENCES veiculo(id) ON DELETE SET NULL
+);
+
+CREATE TABLE pagamento (
+    id SERIAL PRIMARY KEY,
+    pedido_id INT REFERENCES pedido(id) ON DELETE CASCADE,
+    valor NUMERIC(10,2) NOT NULL,
+    metodo VARCHAR(30) CHECK (metodo IN ('pix', 'boleto', 'cartao', 'transferencia')),
+    status VARCHAR(20) DEFAULT 'pendente',
+    data_pagamento TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
