@@ -33,9 +33,25 @@ async function autocomplete(inputId, sugestoesId, tipo) {
       }
 
       dados.forEach(lugar => {
-        const display = lugar.display_name;
-        const item = document.createElement("div");
-        item.textContent = display;
+let display = lugar.display_name;
+
+// Remove pedaços longos e genéricos
+display = display
+  .replace(/Região Imediata de [^,]+,?/g, "")
+  .replace(/Região Metropolitana de [^,]+,?/g, "")
+  .replace(/Região Geográfica Intermediária de [^,]+,?/g, "")
+  .replace(/Região Sudeste,?/g, "")
+  .replace(/São Paulo,?/g, "")
+  .replace(/Brasil,?/g, "")
+  .replace(/,+/g, ",") // remove vírgulas duplicadas
+  .trim();
+
+// Se sobrar uma vírgula no fim, tira
+if (display.endsWith(",")) display = display.slice(0, -1);
+
+// Cria o item da sugestão
+const item = document.createElement("div");
+item.textContent = display;
 
         item.onclick = () => {
           input.value = display;
@@ -156,7 +172,8 @@ async function tracarRota() {
   }
 }
 
-// Referências ao modal
+// ======== Modal de Confirmação ========
+
 const modal = document.getElementById("modalConfirmacao");
 const btnConfirmar = document.getElementById("btnConfirmar");
 const btnCancelarModal = document.getElementById("cancelarModalBtn");
@@ -175,6 +192,7 @@ btnConfirmar.addEventListener("click", () => {
     ? veiculoSelecionado.querySelector("p").innerText.split("\n")[0]
     : "Não selecionado";
 
+  // Exibe o modal
   modal.style.display = "flex";
 });
 
@@ -183,8 +201,35 @@ btnCancelarModal.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
-// Simula confirmação final do pedido
+// Ao confirmar o pedido
 btnFinalizarPedido.addEventListener("click", () => {
+  // Fecha o modal
   modal.style.display = "none";
+
+// Coleta os dados do pedido
+const pedido = {
+  origem: document.getElementById("origem").value,
+  numeroOrigem: document.querySelectorAll("#input_numero")[0]?.value || "",
+  complementoOrigem: document.querySelectorAll("#input_complemento")[0]?.value || "",
+  destino: document.getElementById("destino").value,
+  numeroDestino: document.querySelectorAll("#input_numero")[1]?.value || "",
+  complementoDestino: document.querySelectorAll("#input_complemento")[1]?.value || "",
+  descricaoCarga: document.querySelector("textarea[name='descrição_Carga']")?.value || "",
+  distancia: document.getElementById("distanciaSpan").textContent,
+  valor: document.getElementById("valorSpan").textContent,
+  veiculo: document.querySelector(".veiculo.selecionado")?.querySelector("p").innerText.split("\n")[0] || "Não selecionado",
+  status: "Aguardando Aprovação",
+  dataHora: new Date().toLocaleString("pt-BR")
+};
+
+  // Salva no localStorage
+  localStorage.setItem("ultimoPedido", JSON.stringify(pedido));
+
+  // Mensagem de sucesso
   alert("✅ Pedido confirmado com sucesso!");
+
+  // Redireciona após 1 segundo
+  setTimeout(() => {
+    window.location.href = "home.html";
+  }, 1000);
 });

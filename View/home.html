@@ -93,11 +93,65 @@
         </a>
       </div>
     </main>
-  <script>
-    document.querySelector('.toggle-sidebar')?.addEventListener('click',()=>{
-      document.getElementById('sidebar')?.classList.toggle('hide');
-    });
-  </script>
+<section class="ResumoPedido" id="resumo-pedido">
+  <h3 style="color:#417dff;">Último Pedido Confirmado</h3>
+  <p><b>Status:</b> <span id="resumoStatus"></span></p>
+  <p><b>Origem:</b> <span id="resumoOrigem"></span> <b>Nº:</b> <span id="resumoNumOrigem"></span> <b>Compl.:</b> <span id="resumoComplOrigem"></span></p>
+  <p><b>Destino:</b> <span id="resumoDestino"></span> <b>Nº:</b> <span id="resumoNumDestino"></span> <b>Compl.:</b> <span id="resumoComplDestino"></span></p>
+  <p><b>Descrição da carga:</b> <span id="resumoDescricao"></span></p>
+  <p><b>Veículo:</b> <span id="resumoVeiculo"></span></p>
+  <p><b>Distância:</b> <span id="resumoDistancia"></span></p>
+  <p><b>Valor:</b> <span id="resumoValor"></span></p>
+  <p><b>Data:</b> <span id="resumoData"></span></p>
+</section>
+
+<script>
+  const ultimoPedido = localStorage.getItem("ultimoPedido");
+
+  if (ultimoPedido) {
+    const dados = JSON.parse(ultimoPedido);
+    document.getElementById("resumo-pedido").style.display = "block";
+
+    // Escolhe o ícone com base no status
+    let iconeStatus = "";
+    switch (dados.status) {
+      case "Aguardando Aprovação":
+        iconeStatus = '<i class="fa-solid fa-hourglass-half" style="color:#f1c40f;"></i>';
+        break;
+      case "Aprovado":
+        iconeStatus = '<i class="fa-solid fa-circle-check" style="color:#27ae60;"></i>';
+        break;
+      case "Em Transporte":
+        iconeStatus = '<i class="fa-solid fa-truck-fast" style="color:#3498db;"></i>';
+        break;
+      case "Entregue":
+        iconeStatus = '<i class="fa-solid fa-box-open" style="color:#2ecc71;"></i>';
+        break;
+      case "Cancelado":
+        iconeStatus = '<i class="fa-solid fa-circle-xmark" style="color:#e74c3c;"></i>';
+        break;
+      default:
+        iconeStatus = '<i class="fa-solid fa-circle-info" style="color:#95a5a6;"></i>';
+    }
+
+    // Mostra o status com ícone
+    document.getElementById("resumoStatus").innerHTML = ` ${dados.status} ${iconeStatus}`;
+
+    // Preenche o restante dos dados
+    document.getElementById("resumoOrigem").textContent = dados.origem;
+    document.getElementById("resumoNumOrigem").textContent = dados.numeroOrigem;
+    document.getElementById("resumoComplOrigem").textContent = dados.complementoOrigem;
+    document.getElementById("resumoDestino").textContent = dados.destino;
+    document.getElementById("resumoNumDestino").textContent = dados.numeroDestino;
+    document.getElementById("resumoComplDestino").textContent = dados.complementoDestino;
+    document.getElementById("resumoDescricao").textContent = dados.descricaoCarga;
+    document.getElementById("resumoVeiculo").textContent = dados.veiculo;
+    document.getElementById("resumoDistancia").textContent = dados.distancia;
+    document.getElementById("resumoValor").textContent = dados.valor;
+    document.getElementById("resumoData").textContent = dados.dataHora;
+  }
+</script>
+<script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
