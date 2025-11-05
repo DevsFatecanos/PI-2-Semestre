@@ -390,22 +390,11 @@ main .card .head p { font-size: 13px; color: var(--dark-grey); }
   color: #111827;
 }
 
-.field input,
-.field select {
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
-  padding: 10px 12px;
-  font-size: 14px;
-  outline: none;
-  background: #f9fafb;
-  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
-}
-
-.field input:focus,
-.field select:focus {
-  border-color: var(--blue);
-  background: #ffffff;
-  box-shadow: 0 0 0 1px var(--blue), 0 0 0 4px var(--light-blue);
+input {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 13px;
 }
 
 /* Botões */

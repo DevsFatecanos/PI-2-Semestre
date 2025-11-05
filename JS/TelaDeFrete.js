@@ -155,3 +155,36 @@ async function tracarRota() {
     alert("Erro ao calcular rota.");
   }
 }
+
+// Referências ao modal
+const modal = document.getElementById("modalConfirmacao");
+const btnConfirmar = document.getElementById("btnConfirmar");
+const btnCancelarModal = document.getElementById("cancelarModalBtn");
+const btnFinalizarPedido = document.getElementById("confirmarPedidoBtn");
+
+btnConfirmar.addEventListener("click", () => {
+  // Preenche os dados do modal com as informações atuais
+  document.getElementById("modalOrigem").textContent = document.getElementById("origem").value;
+  document.getElementById("modalDestino").textContent = document.getElementById("destino").value;
+  document.getElementById("modalDistancia").textContent = document.getElementById("distanciaSpan").textContent;
+  document.getElementById("modalValor").textContent = document.getElementById("valorSpan").textContent;
+
+  // Mostra o veículo selecionado
+  const veiculoSelecionado = document.querySelector(".veiculo.selecionado");
+  document.getElementById("modalVeiculo").textContent = veiculoSelecionado 
+    ? veiculoSelecionado.querySelector("p").innerText.split("\n")[0]
+    : "Não selecionado";
+
+  modal.style.display = "flex";
+});
+
+// Fecha o modal ao clicar em cancelar
+btnCancelarModal.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+
+// Simula confirmação final do pedido
+btnFinalizarPedido.addEventListener("click", () => {
+  modal.style.display = "none";
+  alert("✅ Pedido confirmado com sucesso!");
+});
