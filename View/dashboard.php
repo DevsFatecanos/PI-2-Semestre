@@ -7,6 +7,15 @@ if (!isset($_SESSION['usuario_email'])) {
     exit;
 }
 $email = $_SESSION['usuario_email'];
+
+
+
+require_once __DIR__ . '/../Controller/VeiculoController.php';
+require_once __DIR__ . '/../conexao.php';
+
+$controller = new VeiculoController($pdo);
+$veiculos = $controller->listar();
+
 ?>
 
 
@@ -156,24 +165,35 @@ $email = $_SESSION['usuario_email'];
       </div>
     </section>
 
-    <section id="veiculos" class="view" style="display:none">
-      <div class="card">
-        <h3>Veículos</h3>
-        <table style="margin-top:12px">
-          <thead><tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ações</th></tr></thead>
-          <tbody>
-            <tr><td>V001</td><td>Scania R440</td><td>ABC-1D23</td><td>Disponível</td><td><button class="btn ghost">Editar</button></td></tr>
-            <tr><td>V002</td><td>Volvo FH</td><td>XYZ-9F88</td><td>Em rota</td><td><button class="btn ghost">Editar</button></td></tr>
-          </tbody>
-        </table>
-        <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
-        <button class="btn ghost">Remover veículo</button>  
-        <button class="btn">Adicionar veículo</button>
-          
-        </div>
-        
-      </div>
-    </section>
+    
+
+<section id="veiculos" class="view" style="display:none" >
+  <div class="card">
+    <h3>Veículos</h3>
+    <table style="margin-top:12px">
+      <thead>
+        <tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ações</th></tr>
+      </thead>
+      <tbody>
+        <?php foreach ($veiculos as $v): ?>
+          <tr>
+            <td><?= htmlspecialchars($v->id) ?></td>
+            <td><?= htmlspecialchars($v->modelo) ?></td>
+            <td><?= htmlspecialchars($v->placa) ?></td>
+            <td><?= htmlspecialchars($v->status) ?></td>
+            <td><button class="btn ghost">Editar</button></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
+      <button class="btn ghost">Remover veículo</button>
+      <button class="btn">Adicionar veículo</button>
+    </div>
+  </div>
+</section>
+
 
     <section id="motoristas" class="view" style="display:none">
       <div class="card">
