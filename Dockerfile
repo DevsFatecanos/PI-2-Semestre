@@ -5,25 +5,28 @@ FROM php:8.2-apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/View
 
 # 3. INSTALAÇÃO DE DEPENDÊNCIAS DO SISTEMA
+# Instala bibliotecas necessárias para as extensões PHP (libpq-dev para pgsql, etc.)
 RUN apt-get update && apt-get install -y \
-    libpq-dev libzip-dev git unzip \
+    libpq-dev \
+    libzip-dev \
+    libpng-dev \
+    libjpeg-dev \
+    git \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
-# 4. HABILITA EXTENSÕES PHP (Ajuste conforme suas necessidades)
+# 4. HABILITA EXTENSÕES PHP
+# Compila e instala as extensões usando as libs do sistema
 RUN docker-php-ext-install pdo_mysql pdo_pgsql zip gd
 
 # 5. INSTALAÇÃO DO COMPOSER
-# Copia o binário do Composer de uma imagem base oficial (prática recomendada)
+# Copia o binário do Composer de uma imagem base oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 6. COPIA O CÓDIGO E INSTALA DEPENDÊNCIAS
-# Define o diretório de trabalho
 WORKDIR /var/www/html
-
-# Copia TODO o código da raiz do seu projeto (incluindo composer.json e a pasta View)
 COPY . /var/www/html
-
-# Roda o Composer para criar a pasta 'vendor' e o 'autoload.php'
+# Roda o Composer para criar a pasta 'vendor'
 RUN composer install --no-dev --optimize-autoloader
 
 # 7. CONFIGURAÇÃO DO APACHE (Corrige o erro 403)
