@@ -445,11 +445,3 @@ main .card .head p { font-size: 13px; color: var(--dark-grey); }
   border-radius: 10px; 
   border: 1px solid #417dff;
 }
-
-#resumoStatus{
-  color: #000000;
-  background-color: yellow;
-  margin: 5px;
-  padding: 3px;
-  border-radius: 10px;
-}
