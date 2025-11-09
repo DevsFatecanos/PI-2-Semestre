@@ -218,18 +218,25 @@ const pedido = {
   distancia: document.getElementById("distanciaSpan").textContent,
   valor: document.getElementById("valorSpan").textContent,
   veiculo: document.querySelector(".veiculo.selecionado")?.querySelector("p").innerText.split("\n")[0] || "Não selecionado",
-  status: "Aguardando Aprovação",
+  status: "Aprovado",
   dataHora: new Date().toLocaleString("pt-BR")
 };
 
-  // Salva no localStorage
-  localStorage.setItem("ultimoPedido", JSON.stringify(pedido));
+// Recupera os pedidos existentes (ou cria um array vazio)
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 
-  // Mensagem de sucesso
-  alert("✅ Pedido confirmado com sucesso!");
+// Adiciona o novo pedido ao array
+pedidos.push(pedido);
 
-  // Redireciona após 1 segundo
-  setTimeout(() => {
-    window.location.href = "home.html";
-  }, 1000);
+// Salva de volta no localStorage
+localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+// Mensagem de sucesso
+alert("✅ Pedido confirmado com sucesso!");
+
+// Redireciona após 1 segundo
+setTimeout(() => {
+  window.location.href = "home.html";
+}, 1000);
+
 });

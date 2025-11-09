@@ -438,21 +438,11 @@ main .card .head p { font-size: 13px; color: var(--dark-grey); }
 }
 
 .ResumoPedido{
-  display: none; 
-  margin-top: 20px; 
-  background: #f0f6ff; 
-  padding: 15px; 
-  border-radius: 10px; 
-  border: 1px solid #417dff;
+width: 90%;
+margin-left: 4vh;
 }
 
-#resumoStatus{
-  color: #000000;
-  background-color: yellow;
-  margin: 5px;
-  padding: 3px;
-  border-radius: 10px;
-}
+
 
 #Btn-Cancelar{
   padding: 10px;
