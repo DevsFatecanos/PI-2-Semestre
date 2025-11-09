@@ -90,6 +90,7 @@ div.innerHTML += `
   <p><b>Distância:</b> ${pedido.distancia}</p>
   <p><b>Valor:</b> ${pedido.valor}</p>
   <p><b>Data:</b> ${pedido.dataHora}</p>
+  <button id="Btn-Cancelar">Cancelar Pedido</button>
 `;
 
 lista.appendChild(div);
