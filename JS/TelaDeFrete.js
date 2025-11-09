@@ -218,7 +218,7 @@ const pedido = {
   distancia: document.getElementById("distanciaSpan").textContent,
   valor: document.getElementById("valorSpan").textContent,
   veiculo: document.querySelector(".veiculo.selecionado")?.querySelector("p").innerText.split("\n")[0] || "Não selecionado",
-  status: "Aprovado",
+  status: "Aguardando Aprovação",
   dataHora: new Date().toLocaleString("pt-BR")
 };
 
