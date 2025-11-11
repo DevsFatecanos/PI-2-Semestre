@@ -33,8 +33,8 @@ RUN echo "<VirtualHost *:80>\n" \
     "        AllowOverride All\n" \
     "        Require all granted\n" \
     "    </Directory>\n" \
-    "    Alias /assets /var/www/html/assets\n" \
-    "    <Directory /var/www/html/assets>\n" \
+    "    Alias /assets /var/www/html/Assets\n" \
+    "    <Directory /var/www/html/Assets>\n" \
     "        Options Indexes FollowSymLinks\n" \
     "        AllowOverride None\n" \
     "        Require all granted\n" \
