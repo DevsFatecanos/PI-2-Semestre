@@ -7,85 +7,67 @@ let marcadorOrigem, marcadorDestino, rotaLayer;
 let coordenadas = { origem: null, destino: null };
 
 // --- AUTOCOMPLETE COM FILTRO PARA REGIÃO METROPOLITANA DE SÃO PAULO ---
+
+const GEOAPIFY_KEY = "f68c5677fcb64b719fe631b6288e2a1d"; // 🔹 coloque sua chave aqui
+let timer;
+
 async function autocomplete(inputId, sugestoesId, tipo) {
   const input = document.getElementById(inputId);
   const sugestoesDiv = document.getElementById(sugestoesId);
 
-  input.addEventListener("input", async () => {
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
     const query = input.value.trim();
     sugestoesDiv.innerHTML = "";
 
     if (query.length < 3) return;
 
-    // 🔹 Busca limitada à Região Metropolitana de SP
-    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
-  `https://nominatim.openstreetmap.org/search?format=json&limit=15&addressdetails=1&bounded=1&viewbox=-47.5,-23.2,-46.2,-24.1&q=${query}`
-  )}`;
+    timer = setTimeout(async () => {
+      try {
+        const url = `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(query)}&lang=pt&filter=countrycode:br&limit=10&apiKey=${GEOAPIFY_KEY}`;
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
 
+        sugestoesDiv.innerHTML = "";
 
-    try {
-      const resposta = await fetch(url, {
-        headers: { 'Accept-Language': 'pt-BR' }
-      });
-      const dados = await resposta.json();
+        if (!dados.features || dados.features.length === 0) {
+          const item = document.createElement("div");
+          item.textContent = "Nenhum endereço encontrado";
+          item.style.color = "#777";
+          sugestoesDiv.appendChild(item);
+          return;
+        }
 
-      if (dados.length === 0) {
-        const item = document.createElement("div");
-        sugestoesDiv.appendChild(item);
-        return;
+        dados.features.forEach(lugar => {
+          const display = lugar.properties.formatted;
+          const lat = lugar.geometry.coordinates[1];
+          const lon = lugar.geometry.coordinates[0];
+
+          const item = document.createElement("div");
+          item.textContent = display;
+
+          item.onclick = () => {
+            input.value = display;
+            sugestoesDiv.innerHTML = "";
+            coordenadas[tipo] = [lat, lon];
+
+            if (tipo === "origem") {
+              if (marcadorOrigem) map.removeLayer(marcadorOrigem);
+              marcadorOrigem = L.marker([lat, lon]).addTo(map).bindPopup("Origem").openPopup();
+            } else {
+              if (marcadorDestino) map.removeLayer(marcadorDestino);
+              marcadorDestino = L.marker([lat, lon]).addTo(map).bindPopup("Destino").openPopup();
+            }
+
+            map.setView([lat, lon], 13);
+          };
+
+          sugestoesDiv.appendChild(item);
+        });
+      } catch (erro) {
+        console.error("Erro no autocomplete:", erro);
       }
-
-      dados.forEach(lugar => {
-let display = lugar.display_name;
-
-// Remove pedaços longos e genéricos
-display = display
-  .replace(/Região Imediata de [^,]+,?/g, "")
-  .replace(/Região Metropolitana de [^,]+,?/g, "")
-  .replace(/Região Geográfica Intermediária de [^,]+,?/g, "")
-  .replace(/Região Sudeste,?/g, "")
-  .replace(/São Paulo,?/g, "")
-  .replace(/Brasil,?/g, "")
-  .replace(/,+/g, ",") // remove vírgulas duplicadas
-  .trim();
-
-// Se sobrar uma vírgula no fim, tira
-if (display.endsWith(",")) display = display.slice(0, -1);
-
-// Cria o item da sugestão
-const item = document.createElement("div");
-item.textContent = display;
-
-        item.onclick = () => {
-          input.value = display;
-          sugestoesDiv.innerHTML = "";
-
-          const lat = parseFloat(lugar.lat);
-          const lon = parseFloat(lugar.lon);
-          coordenadas[tipo] = [lat, lon];
-
-          if (tipo === "origem") {
-            if (marcadorOrigem) map.removeLayer(marcadorOrigem);
-            marcadorOrigem = L.marker([lat, lon])
-              .addTo(map)
-              .bindPopup("Origem")
-              .openPopup();
-          } else {
-            if (marcadorDestino) map.removeLayer(marcadorDestino);
-            marcadorDestino = L.marker([lat, lon])
-              .addTo(map)
-              .bindPopup("Destino")
-              .openPopup();
-          }
-
-          map.setView([lat, lon], 14);
-        };
-
-        sugestoesDiv.appendChild(item);
-      });
-    } catch (erro) {
-      console.error("Erro ao buscar endereços:", erro);
-    }
+    }, 400);
   });
 }
 
@@ -212,18 +194,20 @@ btnFinalizarPedido.addEventListener("click", () => {
 // Coleta os dados do pedido
 const pedido = {
   origem: document.getElementById("origem").value,
-  numeroOrigem: document.querySelectorAll("#input_numero")[0]?.value || "",
-  complementoOrigem: document.querySelectorAll("#input_complemento")[0]?.value || "",
+  numero_origem: document.querySelectorAll("#input_numero")[0]?.value || "",
+  complemento_origem: document.querySelectorAll("#input_complemento")[0]?.value || "",
   destino: document.getElementById("destino").value,
-  numeroDestino: document.querySelectorAll("#input_numero")[1]?.value || "",
-  complementoDestino: document.querySelectorAll("#input_complemento")[1]?.value || "",
-  descricaoCarga: document.querySelector("textarea[name='descrição_Carga']")?.value || "",
+  numero_destino: document.querySelectorAll("#input_numero")[1]?.value || "",
+  complemento_destino: document.querySelectorAll("#input_complemento")[1]?.value || "",
+  descricao_carga: document.querySelector("textarea[name='descrição_Carga']")?.value || "",
   distancia: document.getElementById("distanciaSpan").textContent,
   valor: document.getElementById("valorSpan").textContent,
   veiculo: document.querySelector(".veiculo.selecionado")?.querySelector("p").innerText.split("\n")[0] || "Não selecionado",
   status: "Aguardando Aprovação",
-  dataHora: new Date().toLocaleString("pt-BR")
+  data_hora: new Date().toLocaleString("pt-BR")
 };
+
+
 
 // Recupera os pedidos existentes (ou cria um array vazio)
 let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
@@ -233,6 +217,7 @@ pedidos.push(pedido);
 
 // Salva de volta no localStorage
 localStorage.setItem("pedidos", JSON.stringify(pedidos));
+salvarPedidoNoSupabase(pedido);
 
 // Mensagem de sucesso
 alert("✅ Pedido confirmado com sucesso!");
@@ -243,3 +228,38 @@ setTimeout(() => {
 }, 1000);
 
 });
+
+async function salvarPedidoNoSupabase(pedido) {
+  const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
+
+  try {
+    const resposta = await fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Prefer": "return=representation" // Retorna o registro criado
+      },
+      body: JSON.stringify(pedido)
+    });
+
+    if (!resposta.ok) {
+      const erro = await resposta.text();
+      console.error("⚠️ Erro ao salvar no Supabase:", erro);
+      alert("Erro ao salvar o pedido no servidor!");
+      return;
+    }
+
+    const resultado = await resposta.json();
+    console.log("✅ Pedido salvo com sucesso no Supabase:", resultado);
+  } catch (erro) {
+    console.error("❌ Erro de conexão com o Supabase:", erro);
+    alert("Falha ao conectar ao banco de dados!");
+  }
+}
+
+
+
+
