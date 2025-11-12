@@ -18,7 +18,10 @@ async function autocomplete(inputId, sugestoesId, tipo) {
     if (query.length < 3) return;
 
     // 🔹 Busca limitada à Região Metropolitana de SP
-    const url = `https://nominatim.openstreetmap.org/search?format=json&limit=15&addressdetails=1&bounded=1&viewbox=-47.5,-23.2,-46.2,-24.1&q=${encodeURIComponent(query)}`;
+    const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(
+  `https://nominatim.openstreetmap.org/search?format=json&limit=15&addressdetails=1&bounded=1&viewbox=-47.5,-23.2,-46.2,-24.1&q=${query}`
+  )}`;
+
 
     try {
       const resposta = await fetch(url, {
