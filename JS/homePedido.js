@@ -75,6 +75,21 @@ switch (pedido.status) {
     statusSpan.style.color = "#555";
 }
 
+
+function formatarData(isoString) {
+  if (!isoString) return "Não informado";
+
+  const data = new Date(isoString);
+  return data.toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+
 // Monta o conteúdo do pedido
 div.innerHTML = `
   <p><b>Pedido #${i + 1}</b></p>
@@ -85,12 +100,12 @@ div.querySelector("p:last-child").appendChild(statusSpan);
 div.innerHTML += `
   <p><b>Origem:</b> ${pedido.origem}, Nº ${pedido.numeroOrigem} ${pedido.complementoOrigem}</p>
   <p><b>Destino:</b> ${pedido.destino}, Nº ${pedido.numeroDestino} ${pedido.complementoDestino}</p>
-  <p><b>Descrição:</b> ${pedido.descricaoCarga}</p>
-  <p><b>Veículo:</b> ${pedido.veiculo}</p>
+  <p><b>Descrição:</b> ${pedido.descricao_carga}</p>
+  <p><b>Veículo:</b> ${pedido.veiculo_nome}</p>
   <p><b>Distância:</b> ${pedido.distancia}</p>
   <p><b>Valor:</b> ${pedido.valor}</p>
-  <p><b>Data:</b> ${pedido.dataHora}</p>
-  <button id="Btn-Cancelar">Cancelar Pedido</button>
+  <p><strong>Data:</strong> ${formatarData(pedido.data_hora)}</p>
+  <button class="Btn-Cancelar" data-index="${i}" >Cancelar Pedido</button>
 `;
 
 lista.appendChild(div);
@@ -103,26 +118,40 @@ lista.appendChild(div);
 
 
   // MODAL PARA CANCELAR PEDIDOS
-  const modalH = document.getElementById("modalCancelarHome");
-  const BtnCancerPedido = document.getElementById("Btn-Cancelar");
-  const BtnFecharModal = document.getElementById("cancelarModalBtn");
-  const BtnConfirmarCancelar = document.getElementById("confirmarCancelarBtn");
-  
-  BtnCancerPedido.addEventListener("click", () => {
-    // Exibe o modal
+ // --- MODAL DE CANCELAMENTO ---
+const modalH = document.getElementById("modalCancelarHome");
+const BtnFecharModal = document.getElementById("cancelarModalBtn");
+const BtnConfirmarCancelar = document.getElementById("confirmarCancelarBtn");
+
+let pedidoParaCancelar = null;
+
+// Eventos para abrir o modal em cada botão
+document.querySelectorAll(".Btn-Cancelar").forEach(btn => {
+  btn.addEventListener("click", (e) => {
+    pedidoParaCancelar = parseInt(e.target.dataset.index);
     modalH.style.display = "flex";
   });
+});
 
-  BtnFecharModal.addEventListener("click",() =>{
-    // Fecha o modal
-    modalH.style.display = "none";
-  });
+// Fechar modal sem cancelar
+BtnFecharModal.addEventListener("click", () => {
+  modalH.style.display = "none";
+  pedidoParaCancelar = null;
+});
 
-  BtnConfirmarCancelar.addEventListener("click", () => {
-      // Fecha o modal
-     modalH.style.display = "none";
-     localStorage.clear()
-     alert("✅ Pedido Cancelado com sucesso!");
-     location.reload();
-    
-  });
+// Confirmar cancelamento
+BtnConfirmarCancelar.addEventListener("click", () => {
+  if (pedidoParaCancelar === null) return;
+
+  let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+  
+  // Remove apenas o pedido selecionado
+  pedidos.splice(pedidoParaCancelar, 1);
+
+  // Salva de volta no localStorage
+  localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+  alert("✅ Pedido cancelado com sucesso!");
+  modalH.style.display = "none";
+  location.reload();
+});
