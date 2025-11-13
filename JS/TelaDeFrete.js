@@ -79,6 +79,7 @@ autocomplete("destino", "sugestoes-destino", "destino");
 // ===== CARROSSEL DE VEÍCULOS =====
 let precoPorKm = null;
 let veiculoSelecionado = null; // 🔹 Armazena o veículo escolhido
+let veiculoId = null;
 const listaVeiculos = document.getElementById('listaVeiculos');
 const btnVoltar = document.getElementById('voltar');
 const btnAvancar = document.getElementById('avancar');
@@ -99,6 +100,7 @@ veiculos.forEach(v => {
     veiculos.forEach(outro => outro.classList.remove('selecionado'));
     v.classList.add('selecionado');
     precoPorKm = parseFloat(v.dataset.preco);
+    veiculoId = parseInt(v.dataset.id);
     veiculoSelecionado = v; // guarda o veículo escolhido
   });
 });
@@ -191,6 +193,11 @@ btnFinalizarPedido.addEventListener("click", () => {
   // Fecha o modal
   modal.style.display = "none";
 
+const veiculoElemento = document.querySelector(".veiculo.selecionado");
+  const veiculoNome = veiculoElemento?.querySelector("p").innerText.split("\n")[0] || "Não selecionado";
+  const veiculoId = parseInt(veiculoElemento?.dataset.id || 0); // ✅ ID do veículo (vindo do data-id)
+
+
 // Coleta os dados do pedido
 const pedido = {
   origem: document.getElementById("origem").value,
@@ -202,13 +209,12 @@ const pedido = {
   descricao_carga: document.querySelector("textarea[name='descrição_Carga']")?.value || "",
   distancia: document.getElementById("distanciaSpan").textContent,
   valor: document.getElementById("valorSpan").textContent,
-  veiculo: document.querySelector(".veiculo.selecionado")?.querySelector("p").innerText.split("\n")[0] || "Não selecionado",
+  veiculo_id: veiculoId, 
   status: "Aguardando Aprovação",
-  data_hora: new Date().toLocaleString("pt-BR")
+  data_hora: new Date().toISOString()
 };
 
-
-
+  pedido.veiculo_nome = veiculoNome;
 // Recupera os pedidos existentes (ou cria um array vazio)
 let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 
@@ -229,9 +235,29 @@ setTimeout(() => {
 
 });
 
+
+
 async function salvarPedidoNoSupabase(pedido) {
   const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
+  
+  // 🔹 envia apenas os campos válidos para o banco
+  const pedidoSupabase = {
+    id_cliente: pedido.id_cliente,
+    origem: pedido.origem,
+    numero_origem: pedido.numero_origem,
+    complemento_origem: pedido.complemento_origem,
+    destino: pedido.destino,
+    numero_destino: pedido.numero_destino,
+    complemento_destino: pedido.complemento_destino,
+    descricao_carga: pedido.descricao_carga,
+    distancia: pedido.distancia,
+    valor: pedido.valor,
+    veiculo_id: pedido.veiculo_id,
+    status: pedido.status,
+    data_hora: pedido.data_hora
+  };
+
 
   try {
     const resposta = await fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados`, {
@@ -242,7 +268,7 @@ async function salvarPedidoNoSupabase(pedido) {
         "Authorization": `Bearer ${SUPABASE_KEY}`,
         "Prefer": "return=representation" // Retorna o registro criado
       },
-      body: JSON.stringify(pedido)
+      body: JSON.stringify(pedidoSupabase)
     });
 
     if (!resposta.ok) {

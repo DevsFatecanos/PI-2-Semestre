@@ -168,14 +168,14 @@ body { font-family: "Inter"; }
       padding: 1vh;
       border-radius: 12px;
       color: #417dff;
-      border: 1px solid #417dff;
+      border: #2e5edc 1px solid;
       text-decoration: none;
     }
 
     .btn-home:hover{
-        color: white;
-        background-color: #417dff;
-        transition: 1s;
+      color: #417dff;
+      background-color: #f3f3f3;
+        transition: 0.5s;
 
     }
 
