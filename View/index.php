@@ -54,7 +54,11 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://sonicsp.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsonicsp.com.br%2F&#038;format=xml" />
 <meta name="generator" content="Elementor 3.30.4; features: e_font_icon_svg, additional_custom_breakpoints, e_element_cache; settings: css_print_method-external, google_font-enabled, font_display-swap">
 			
-				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /></head>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+				<style>
+					body { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; background-color: aqua}
+				</style>
+			</head>
 <body class="home page-template page-template-elementor_canvas page page-id-65 wp-embed-responsive elementor-default elementor-template-canvas elementor-kit-9 elementor-page elementor-page-65">
 			<div data-elementor-type="wp-page" data-elementor-id="65" class="elementor elementor-65" data-elementor-post-type="page">
 						<section class="elementor-section elementor-top-section elementor-element elementor-element-14455218 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14455218" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
