@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../Assets/CSS/minhaconta.css">
+</head>
+  <title> SuperSonic• Minha Conta</title>
+</head>
+<body>
+ <section id="sidebar">
+  <a href="./home.html" class="brand"><i class='bx bxs-smile icon'></i>SuperSonic</a>
+  <ul class="side-menu">
+    <li><a href="./home.html"><i class='bx bxs-dashboard icon'></i> Home</a></li>
+    <li class="divider" data-text="navegação">Navegação</li>
+    <li><a href="./solicitacoes.html"><i class='bx bxs-inbox icon'></i> Solicitações</a></li>
+    <li><a href="minhaconta.html" class="active"><i class='bx bxs-user icon'></i> Minha Conta</a></li>
+  </ul>
+  <div class="ads">
+    <div class="wrapper">
+    </div>
+  </div>
+</section>
+
+<section id="content">
+  <nav>
+    <i class='bx bx-menu toggle-sidebar'></i>
+    <span class="divider"></span>
+    <div class="profile">
+      <div class="avatar-wrapper" id="avatarWrapper">
+        <img class="avatar" id="avatarPreview" src="" alt="Avatar">
+        <div class="avatar-overlay">Alterar foto</div>
+        <input type="file" id="avatarInput" accept="image/*" hidden>
+      </div>
+
+      <ul class="profile-link">
+        <li><a href="./minhaconta.html"><i class='bx bxs-user-circle icon'></i> Perfil</a></li>
+        <li><a href="#"><i class='bx bxs-cog'></i> Configurações</a></li>
+        <li><a href="#"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="title">Minha Conta</h1>
+    <ul class="breadcrumbs">
+      <li><a href="./home.html">Home</a></li>
+      <li class="divider">/</li>
+      <li><a href="#" class="active">Minha Conta</a></li>
+    </ul>
+
+    <div class="content-data">
+      <div class="head"><h3>Dados do Usuário</h3></div>
+      <div class="form-grid">
+        <label>Nome</label>
+        <input type="text" placeholder="Seu nome completo" />
+        <label>E-mail</label>
+        <input type="email" placeholder="seuemail@exemplo.com" />
+        <label>Senha</label>
+        <input type="password" placeholder="••••••••" />
+        <button class="btn-primary" style="margin-top:12px;">Salvar alterações</button>
+      </div>
+    </div>
+  </main>
+</section>
+
+<script src="adim.js"></script>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem Vindo - Home</title>
+    <link rel="stylesheet" href="../Assets/CSS/home.css">
+    <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <section id="sidebar">
+  <a href="./home.html" class="brand"><img width="100%" src="../Assets/IMG/LOGOSP.png" alt=""></a>
+  <ul class="side-menu">
+    <li><a href="./home.html">Home</a></li>
+    <li class="divider" data-text="navegação">Navegação</li>
+
+    <li><a href="./solicitacoes.html">Solicitações</a></li>
+    <li><a href="minhaconta.html">Minha Conta</a></li>
+    <li><a href="meusdados.html">Cadastro</a></li>
+  </ul>
+
+  <div class="ads">
+    <div class="wrapper">
+      <p style="opacity:.6">Módulos extras desativados</p>
+    </div>
+  </div>
+</section>
+  <!-- CONTEÚDO -->
+  <section id="content">
+    <!-- NAVBAR -->
+    <nav>
+      <i class='bx bx-menu toggle-sidebar'></i>
+      <form action="#" aria-label="Busca rápida">
+        <div class="form-group">
+          
+          <i class='bx bx-search icon'></i>
+        </div>
+      </form>
+      <span class="divider"></span>
+      <div class="profile">
+        
+        <ul class="profile-link">
+          <li><a href="minhaconta.html"><i class='bx bxs-user-circle icon'></i> Perfil</a></li>
+          <li><a href="#"><i class='bx bxs-cog'></i> Configurações</a></li>
+          <li><a href="#"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- /NAVBAR -->
+
+    <!-- MAIN -->
+    <main>
+      <h1 class="title">Home</h1>
+      <ul class="breadcrumbs">
+        <li><a href="./home.html">Home</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Início</a></li>
+      </ul>
+
+      <!-- Apenas os 3 botões principais -->
+      <div class="info-data" style="grid-template-columns: repeat(3, minmax(180px,1fr));">
+        <a class="card" href="./home.html" style="text-decoration:none;">
+          <div class="head">
+            <div>
+              <h2>Home</h2>
+              <p>Voltar ao início</p>
+            </div>
+            <i class='bx bxs-home icon'></i>
+          </div>
+          <span class="label">Página inicial</span>
+        </a>
+
+        <a class="card" href="./PaginaDeFrete.html" style="text-decoration:none;">
+          <div class="head">
+            <div>
+              <h2>Solicitações</h2>
+              <p>Soliciatar Novos Fretes</p>
+            </div>
+            <i class='bx bxs-inbox icon'></i>
+          </div>
+          <span class="label">Abrir solicitações</span>
+        </a>
+
+        <a class="card" href="minhaconta.html" style="text-decoration:none;">
+          <div class="head">
+            <div>
+              <h2>Minha Conta</h2>
+              <p>Dados e ajustes</p>
+            </div>
+            <i class='bx bxs-user icon'></i>
+          </div>
+          <span class="label">Ver perfil</span>
+        </a>
+      </div>
+      
+    </main>
+
+
+<section class="ResumoPedido" id="resumo-pedidos" style="margin-top: 20px;">
+  <h3 style="color:#417dff;">Pedidos Solicitados</h3>
+  <div id="listaPedidos"></div>
+</section>
+
+  <!-- Modal de Cancelar -->
+<div id="modalCancelarHome" class="modal-overlay">
+  <div class="modal-conteudo">
+    <h2>Deseja Cancelar O Pedido?</h2>
+  
+    <div class="modal-botoes">
+      <button id="confirmarCancelarBtn">Confirmar</button>
+      <button id="cancelarModalBtn">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+<script src="../JS/TelaDeFrete.js"></script>
+<script src="../JS/homePedido.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+    "name": "g7000/pi-2-semestre",
+    "autoload": {
+        "psr-4": {
+            "G7000\\Pi2Semestre\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GMMendes01",
+            "email": "g7000mendes@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
