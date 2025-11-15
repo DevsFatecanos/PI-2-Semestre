@@ -136,7 +136,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="registro.html">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="View/registro.html">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">Faça uma Cotação </span>
 					</span>
@@ -151,7 +151,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="login.html">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="View/login.html">
 						<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-text">Entrar</span>
 					</span>
