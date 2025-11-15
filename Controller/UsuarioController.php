@@ -27,7 +27,7 @@ class UsuarioController {
                 return false;
             }
 
-            $check = $pdo->prepare("SELECT id FROM cliente WHERE email = :email");
+            $check = $pdo->prepare("SELECT id_usuario FROM usuario WHERE email = :email");
             $check->execute([':email' => $email]);
 
             if ($check->rowCount() > 0) {
@@ -63,7 +63,7 @@ class UsuarioController {
                 return false;
             }
 
-            $stmt = $pdo->prepare("SELECT id, nome, email, senha, role FROM cliente WHERE email = :email");
+            $stmt = $pdo->prepare("SELECT id_usuario, nome, email, senha, role FROM usuario WHERE email = :email");
             $stmt->execute([':email' => $email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -74,7 +74,7 @@ class UsuarioController {
 
             if (password_verify($senha, $usuario['senha'])) {
                 session_start();
-                $_SESSION['usuario_id'] = $usuario['id'];
+                $_SESSION['usuario_id'] = $usuario['id_usuario'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_role'] = $usuario['role'];
                 $_SESSION['usuario_email'] = $usuario['email'];
