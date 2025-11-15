@@ -33,7 +33,7 @@ RUN echo "<VirtualHost *:80>\n" \
     "        AllowOverride All\n" \
     "        Require all granted\n" \
     "    </Directory>\n" \
-    "    Alias /assets /var/www/html/Assets\n" \
+    "    Alias /Assets /var/www/html/Assets\n" \
     "    <Directory /var/www/html/Assets>\n" \
     "        Options Indexes FollowSymLinks\n" \
     "        AllowOverride None\n" \
@@ -49,3 +49,4 @@ RUN chown -R www-data:www-data /var/www/html
 
 # 9. EXPOSIÇÃO DE PORTA
 EXPOSE 80
+EXPOSE 443
