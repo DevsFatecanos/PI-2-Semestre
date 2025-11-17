@@ -10,7 +10,7 @@ class VeiculoController {
     }
 
     public function listar() {
-        $stmt = $this->pdo->query("SELECT * FROM veiculo ORDER BY id ASC");
+        $stmt = $this->pdo->query("SELECT * FROM veiculo ORDER BY id_veiculo ASC");
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $veiculos = [];
 
