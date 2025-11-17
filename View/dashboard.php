@@ -140,10 +140,8 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 async function carregarPedidosAguardando() {
 
-    const statusEncoded = encodeURIComponent("Aguardando Aprovação");
-
     const resposta = await fetch(
-        `${SUPABASE_URL}/rest/v1/fretes_solicitados?status=eq.${statusEncoded}&select=*,usuario(*)`,
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario(*)`,
         {
             headers: {
                 "apikey": SUPABASE_KEY,
@@ -153,7 +151,7 @@ async function carregarPedidosAguardando() {
     );
 
     const pedidos = await resposta.json();
-    console.log("PEDIDOS:", pedidos); // <-- TESTE
+    console.log("TODOS OS PEDIDOS:", pedidos); // Debug
     mostrarPedidosAprovar(pedidos);
 }
 
