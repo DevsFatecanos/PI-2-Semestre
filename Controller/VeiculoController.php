@@ -32,20 +32,20 @@ class VeiculoController {
     }
 
     public function atualizar(Veiculo $v) {
-        $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, status=:status WHERE id=:id";
+        $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, status=:status WHERE id_veiculo=:id_veiculo";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
-            ':id' => $v->id,
+            ':id_veiculo' => $v->id_veiculo,
             ':modelo' => $v->modelo,
             ':placa' => $v->placa,
             ':status' => $v->status
         ]);
     }
 
-    public function remover($id) {
-        $sql = "DELETE FROM veiculo WHERE id=:id";
+    public function remover($id_veiculo) {
+        $sql = "DELETE FROM veiculo WHERE id_veiculo=:id_veiculo";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
+        $stmt->execute([':id_veiculo' => $id_veiculo]);
     }
 }
 ?>
