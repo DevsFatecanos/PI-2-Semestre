@@ -34,7 +34,7 @@ $veiculos = $controller->listar();
 </head>
 <script>
 const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
 </script>
 <body>
 <div class="app">
@@ -137,9 +137,6 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
 <!--SCRIPT PARA CARREGAR PEDIDOS -->
 
 <script>
-const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
-
 async function carregarPedidosAguardando() {
 
     const resposta = await fetch(
@@ -243,9 +240,22 @@ async function recusarPedido(id) {
     carregarPedidosAguardando();
 }
 
-document
-  .querySelector('[data-view="criar-envio"]')
-  .addEventListener("click", carregarPedidosAguardando);
+function openView(id){
+    document.querySelectorAll('.view').forEach(v=>v.style.display='none');
+    const el = document.getElementById(id);
+    if(el) el.style.display='block';
+
+    document.querySelectorAll('#menu a').forEach(a=>a.classList.remove('active'));
+    const menuItem = document.querySelector('#menu a[data-view="'+id+'"]');
+    if(menuItem) menuItem.classList.add('active');
+
+    document.getElementById('page-title').innerText =
+        menuItem ? menuItem.innerText : id;
+
+    if(id === "criar-envio"){
+        carregarPedidosAguardando();
+    }
+}
 </script>
 
 
@@ -366,6 +376,6 @@ document
 
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
-<script src="../JS/Fretesadm.js"></script>
+
 </body>
 </html>
