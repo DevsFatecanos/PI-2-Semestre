@@ -5,7 +5,7 @@ include "conexao.php";
 <html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
-		<title>sonic</title>
+		<title>Super Sonic - Transportes</title>
 <meta name='robots' content='max-image-preview:large' />
 	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
 	<link rel="stylesheet" href="Assets/CSS/style.css">
@@ -344,20 +344,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <div class="carousel">
 <div class="track">
 <!-- Duplicamos os slides para criar loop contínuo -->
-<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
-<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
-<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="Assets/IMG/eleko.jpg" alt="6"></div>
 
 <!-- repetição para looping -->
-<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
-<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
-<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="Assets/IMG/eleko.jpg" alt="6"></div>
 </div>
 </div>
 </div>
