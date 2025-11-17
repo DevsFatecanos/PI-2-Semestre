@@ -177,7 +177,7 @@ $veiculos = $controller->listar();
       <tbody>
         <?php foreach ($veiculos as $v): ?>
           <tr>
-            <td><?= htmlspecialchars($v->id) ?></td>
+            <td><?= htmlspecialchars($v->id_veiculo) ?></td>
             <td><?= htmlspecialchars($v->modelo) ?></td>
             <td><?= htmlspecialchars($v->placa) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
