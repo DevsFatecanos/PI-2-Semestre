@@ -126,17 +126,13 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
       </div>
     </section>
 
-    <section id="criar-envio" class="view" style="display:none">
-      <div class="card">
-        <section id="criar-envio" class="view" style="display:none">
+<section id="criar-envio" class="view" style="display:none">
     <div class="card">
         <h3>Pedidos Aguardando Aprovação</h3>
 
         <div id="listaAprovar" style="margin-top:20px;"></div>
     </div>
 </section>
-      </div>
-    </section>
 
 <!--SCRIPT PARA CARREGAR PEDIDOS -->
 
