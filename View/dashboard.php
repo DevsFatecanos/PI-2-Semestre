@@ -32,10 +32,7 @@ $veiculos = $controller->listar();
 
   </style>
 </head>
-<script>
-const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
-</script>
+
 <body>
 <div class="app">
   <aside class="sidebar card">
@@ -137,6 +134,10 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 <!--SCRIPT PARA CARREGAR PEDIDOS -->
 
 <script>
+
+const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
+
 async function carregarPedidosAguardando() {
 
     const resposta = await fetch(
