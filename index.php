@@ -8,12 +8,12 @@ include "conexao.php";
 		<title>Super Sonic - Transportes</title>
 <meta name='robots' content='max-image-preview:large' />
 	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-	<link rel="stylesheet" href="Assets/CSS/style.css">
-	<link rel="stylesheet" href="Assets/CSS/carrosel.css">
+	<link rel="stylesheet" href="../Assets/CSS/style.css">
+	<link rel="stylesheet" href="../Assets/CSS/carrosel.css">
 	<link rel="alternate" type="application/rss+xml" title="Feed para sonic &raquo;" href="https://sonicsp.com.br/feed/" />
 	<link rel="alternate" type="application/rss+xml" title="Feed de comentários para sonic &raquo;" href="https://sonicsp.com.br/comments/feed/" />
 <!--ADD FAVICON-->
-<link rel="shortcut icon" href="Assets/IMG/logo.webp" type="image/x-icon">
+<link rel="shortcut icon" href="/Assets/IMG/logo.webp" type="image/x-icon">
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/sonicsp.com.br\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.7.3"}};
 /*! This file is auto-generated */
@@ -344,20 +344,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <div class="carousel">
 <div class="track">
 <!-- Duplicamos os slides para criar loop contínuo -->
-<div class="slide"><img src="Assets/IMG/ar.jpg" alt="1"></div>
-<div class="slide"><img src="Assets/IMG/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="Assets/IMG/roco.jpg" alt="3"></div>
-<div class="slide"><img src="Assets/IMG/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="Assets/IMG/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="Assets/IMG/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 
 <!-- repetição para looping -->
-<div class="slide"><img src="Assets/IMG/ar.jpg" alt="1"></div>
-<div class="slide"><img src="Assets/IMG/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="Assets/IMG/roco.jpg" alt="3"></div>
-<div class="slide"><img src="Assets/IMG/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="Assets/IMG/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="Assets/IMG/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 </div>
 </div>
 </div>
