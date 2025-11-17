@@ -136,11 +136,14 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
 
 <!--SCRIPT PARA CARREGAR PEDIDOS -->
 
-    <script>
+<script>
+const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
+
 async function carregarPedidosAguardando() {
 
     const resposta = await fetch(
-        `${SUPABASE_URL}/rest/v1/fretes_solicitados?status=eq.Aguardando%20Aprovação&select=*,clientes(*)`,
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?status=eq.Aguardando%20Aprovação&select=*,usuario(*)`,
         {
             headers: {
                 "apikey": SUPABASE_KEY,
@@ -150,14 +153,9 @@ async function carregarPedidosAguardando() {
     );
 
     const pedidos = await resposta.json();
-    console.log("PEDIDOS:", pedidos);
-
     mostrarPedidosAprovar(pedidos);
 }
-</script>
 
-
-<script>
 function mostrarPedidosAprovar(pedidos) {
     const div = document.getElementById("listaAprovar");
     div.innerHTML = "";
@@ -169,7 +167,7 @@ function mostrarPedidosAprovar(pedidos) {
 
     pedidos.forEach((p) => {
 
-        const cliente = p.clientes || {}; // evita erros
+        const user = p.usuario || {};
 
         const card = document.createElement("div");
         card.classList.add("pedido-card");
@@ -184,27 +182,25 @@ function mostrarPedidosAprovar(pedidos) {
 
         card.innerHTML = `
             <p><strong>ID do Pedido:</strong> ${p.id}</p>
-            <p><strong>Status:</strong> <span style="background:#ffe9a3;padding:3px 8px;border-radius:6px;">
-                ${p.status} <i class="fa-solid fa-hourglass-half"></i>
-            </span></p>
+            <p><strong>Status:</strong> ${p.status}</p>
 
-            <p><strong>Cliente:</strong> ${cliente.nome || "Não informado"}</p>
-            <p><strong>Email:</strong> ${cliente.email || "Não informado"}</p>
-            <p><strong>Telefone:</strong> ${cliente.telefone || "Não informado"}</p>
+            <p><strong>Cliente:</strong> ${user.nome || ""}</p>
+            <p><strong>Email:</strong> ${user.email || ""}</p>
+            <p><strong>Telefone:</strong> ${user.telefone || ""}</p>
 
             <p><strong>Origem:</strong> ${p.origem} Nº ${p.numero_origem} ${p.complemento_origem || ""}</p>
             <p><strong>Destino:</strong> ${p.destino} Nº ${p.numero_destino} ${p.complemento_destino || ""}</p>
 
-            <p><strong>Veículo:</strong> ${p.veiculo_id}</p>
+            <p><strong>Veículo ID:</strong> ${p.veiculo_id}</p>
             <p><strong>Descrição:</strong> ${p.descricao_carga}</p>
             <p><strong>Distância:</strong> ${p.distancia}</p>
             <p><strong>Valor:</strong> ${p.valor}</p>
             <p><strong>Data:</strong> ${new Date(p.data_hora).toLocaleString("pt-BR")}</p>
 
-            <br>
             <button class="btn" onclick="aprovarPedido(${p.id})">Aprovar</button>
-            <button class="btn ghost" onclick="recusarPedido(${p.id})" 
-                    style="background:#ffb0b0;color:#690000;border:none">
+            <button class="btn ghost" 
+                    onclick="recusarPedido(${p.id})"
+                    style="background:#ffcccc;color:#700">
                 Recusar
             </button>
         `;
@@ -212,10 +208,7 @@ function mostrarPedidosAprovar(pedidos) {
         div.appendChild(card);
     });
 }
-</script>
 
-
-<script>
 async function aprovarPedido(id) {
     if (!confirm("Confirmar aprovação deste pedido?")) return;
 
@@ -249,12 +242,10 @@ async function recusarPedido(id) {
     alert("Pedido recusado!");
     carregarPedidosAguardando();
 }
-</script>
 
-<script>
-document.querySelector('[data-view="criar-envio"]').addEventListener("click", () => {
-    carregarPedidosAguardando();
-});
+document
+  .querySelector('[data-view="criar-envio"]')
+  .addEventListener("click", carregarPedidosAguardando);
 </script>
 
 
