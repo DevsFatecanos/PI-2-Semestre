@@ -1,15 +1,19 @@
-<?php
 class Veiculo {
     public $id;
-    public $modelo;
+    public $nome;
+    public $marca;
     public $placa;
+    public $capacidade;
+    public $ano;
     public $status;
 
-    public function __construct($id, $modelo, $placa, $status) {
+    public function __construct($id, $nome, $marca, $placa, $status, $capacidade = null, $ano = null) {
         $this->id = $id;
-        $this->modelo = $modelo;
+        $this->nome = $nome;
+        $this->marca = $marca;
         $this->placa = $placa;
         $this->status = $status;
+        $this->capacidade = $capacidade;
+        $this->ano = $ano;
     }
 }
-?>

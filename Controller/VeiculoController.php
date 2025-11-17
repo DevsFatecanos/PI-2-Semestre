@@ -9,41 +9,66 @@ class VeiculoController {
         $this->pdo = $pdo;
     }
 
+    // ================= LISTAR ====================
     public function listar() {
-        $stmt = $this->pdo->query("SELECT * FROM veiculo ORDER BY id ASC");
+        // coluna correta no PostgreSQL
+        $stmt = $this->pdo->query("SELECT * FROM veiculo ORDER BY id_veiculo ASC");
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         $veiculos = [];
 
         foreach ($dados as $v) {
-            $veiculos[] = new Veiculo($v['id'], $v['modelo'], $v['placa'], $v['status']);
+            $veiculos[] = new Veiculo(
+                $v['id_veiculo'],
+                $v['nome'],
+                $v['marca'],
+                $v['placa'],
+                $v['status']
+            );
         }
 
         return $veiculos;
     }
 
+    // ================ ADICIONAR ====================
     public function adicionar(Veiculo $v) {
-        $sql = "INSERT INTO veiculo (modelo, placa, status) VALUES (:modelo, :placa, :status)";
+        $sql = "INSERT INTO veiculo (nome, marca, placa, capacidade, ano, status)
+                VALUES (:nome, :marca, :placa, :capacidade, :ano, :status)";
+        
         $stmt = $this->pdo->prepare($sql);
+
         $stmt->execute([
-            ':modelo' => $v->modelo,
+            ':nome' => $v->nome,
+            ':marca' => $v->marca,
             ':placa' => $v->placa,
+            ':capacidade' => $v->capacidade,
+            ':ano' => $v->ano,
             ':status' => $v->status
         ]);
     }
 
+    // ================ ATUALIZAR ====================
     public function atualizar(Veiculo $v) {
-        $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, status=:status WHERE id=:id";
+        $sql = "UPDATE veiculo 
+                SET nome=:nome, marca=:marca, placa=:placa, capacidade=:capacidade, ano=:ano, status=:status
+                WHERE id_veiculo=:id";
+        
         $stmt = $this->pdo->prepare($sql);
+
         $stmt->execute([
             ':id' => $v->id,
-            ':modelo' => $v->modelo,
+            ':nome' => $v->nome,
+            ':marca' => $v->marca,
             ':placa' => $v->placa,
+            ':capacidade' => $v->capacidade,
+            ':ano' => $v->ano,
             ':status' => $v->status
         ]);
     }
 
+    // ================ REMOVER ====================
     public function remover($id) {
-        $sql = "DELETE FROM veiculo WHERE id=:id";
+        $sql = "DELETE FROM veiculo WHERE id_veiculo=:id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([':id' => $id]);
     }
