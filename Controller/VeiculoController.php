@@ -15,7 +15,7 @@ class VeiculoController {
         $veiculos = [];
 
         foreach ($dados as $v) {
-            $veiculos[] = new Veiculo($v['id'], $v['modelo'], $v['placa'], $v['status']);
+            $veiculos[] = new Veiculo($v['id_veiculo'], $v['modelo'], $v['placa'], $v['status']);
         }
 
         return $veiculos;
