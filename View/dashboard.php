@@ -32,6 +32,10 @@ $veiculos = $controller->listar();
 
   </style>
 </head>
+<script>
+const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIs...";
+</script>
 <body>
 <div class="app">
   <aside class="sidebar card">
@@ -124,48 +128,23 @@ $veiculos = $controller->listar();
 
     <section id="criar-envio" class="view" style="display:none">
       <div class="card">
-        <h3>Aprovar Envio</h3>
-        <form id="form-envio" style="margin-top:12px" onsubmit="saveEnvio(event)">
-          <div class="row">
-            <div style="flex:1">
-              <label>Cliente</label>
-              <input required placeholder="Nome do cliente" id="envio-cliente" />
-            </div>
-            <div style="width:160px">
-              <label>Placa</label>
-              <input required placeholder="ABC-1D23" id="envio-placa" />
-            </div>
-          </div>
+        <section id="criar-envio" class="view" style="display:none">
+    <div class="card">
+        <h3>Pedidos Aguardando Aprovação</h3>
 
-          <div class="row" style="margin-top:12px">
-            <div style="flex:1">
-              <label>Origem</label>
-              <input required id="envio-origem" />
-            </div>
-            <div style="flex:1">
-              <label>Destino</label>
-              <input required id="envio-destino" />
-            </div>
-          </div>
-
-          <div style="margin-top:12px">
-            <label>Tipo de carga</label>
-            <select id="envio-tipo">
-              <option>Geral</option>
-              <option>Refrigerado</option>
-              <option>Perigosa</option>
-            </select>
-          </div>
-
-          <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
-            <button type="button" class="btn ghost" onclick="openView('envios')">Cancelar</button>
-            <button type="submit" class="btn">Salvar</button>
-          </div>
-        </form>
+        <div id="listaAprovar" style="margin-top:20px;"></div>
+    </div>
+</section>
       </div>
     </section>
 
-    
+<!--SCRIPT PARA CARREGAR PEDIDOS -->
+
+
+
+
+<!--FIM DO SCRIPT-->
+
 
 <section id="veiculos" class="view" style="display:none" >
   <div class="card">
@@ -281,6 +260,6 @@ $veiculos = $controller->listar();
 
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
-
+<script src="../JS/Fretesadm.js"></script>
 </body>
 </html>
