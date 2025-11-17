@@ -1,3 +1,4 @@
+<?php
 class Veiculo {
     public $id;
     public $nome;
@@ -17,3 +18,5 @@ class Veiculo {
         $this->ano = $ano;
     }
 }
+
+?>
