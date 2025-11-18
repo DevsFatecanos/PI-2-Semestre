@@ -27,7 +27,6 @@
       <a href="#" data-view="usuarios">Usuários</a>
       <a href="#" data-view="config">Configurações</a>
     </nav>
-    <div style="position:absolute;bottom:24px;left:24px;right:24px;font-size:13px;color:var(--muted)">Conectado como:<br><strong><?php echo $email?></strong></div>
   </aside>
 
   <main class="main">
@@ -107,7 +106,9 @@
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
     <h3>Pedidos Aguardando Aprovação</h3>
-<div id="listaFretes" style="margin-top:20px;"></div>
+       <div id="listaAprovarContainer" class="scrollArea">
+        <div id="listaFretes" style="margin-top:20px;"></div>
+      </div>
 </section>
 
 
@@ -148,46 +149,114 @@ function mostrarFretes(lista) {
         const user = frete.usuario || {};
         const veic = frete.veiculo || {};
 
+        // ============================
+        // 1. DEFINIR COR DO STATUS
+        // ============================
+        let bg = "";
+        let color = "";
+        let icone = "";
+
+        switch (frete.status) {
+            case "Aguardando Aprovação":
+                bg = "#fff6d4";
+                color = "#a67c00";
+                icone = '<i class="fa-solid fa-hourglass-half" style="color:#f1c40f;"></i>';
+                break;
+
+            case "Aprovado":
+                bg = "#d6f5d6";
+                color = "#1b7e1b";
+                icone = '<i class="fa-solid fa-circle-check" style="color:#27ae60;"></i>';
+                break;
+
+            case "Em Transporte":
+                bg = "#d4e8ff";
+                color = "#1e6bb8";
+                icone = '<i class="fa-solid fa-truck-fast" style="color:#3498db;"></i>';
+                break;
+
+            case "Entregue":
+                bg = "#e8f9f0";
+                color = "#16803a";
+                icone = '<i class="fa-solid fa-box-open" style="color:#2ecc71;"></i>';
+                break;
+
+            case "Cancelado":
+                bg = "#ffe0e0";
+                color = "#b33939";
+                icone = '<i class="fa-solid fa-circle-xmark" style="color:#e74c3c;"></i>';
+                break;
+
+            default:
+                bg = "#e0e0e0";
+                color = "#555";
+                icone = '<i class="fa-solid fa-circle-info" style="color:#95a5a6;"></i>';
+        }
+
+        // ============================
+        // 2. CARD ESTILO TELA ADM
+        // ============================
+
         const card = document.createElement("div");
         card.style.cssText = `
-            border:1px solid #d5d9ff;
-            background-color:#;
-            padding:18px;
-            border-radius:12px;
-            margin-bottom:18px;
-            font-size:15px;
-            box-shadow:0 2px 4px rgba(0,0,0,0.08);
+            background: var(--card);
+            border-left: 4px solid ${color};
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            box-shadow: 0px 8px 24px rgba(2, 6, 23, 0.6);
+        `;
+
+        const statusTag = `
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                gap:6px;
+                background:${bg};
+                color:${color};
+                padding:6px 10px;
+                border-radius:6px;
+                font-weight:600;
+                font-size:13px;
+            ">
+                ${icone} ${frete.status}
+            </span>
         `;
 
         card.innerHTML = `
-            <h3 style="margin:0 0 10px 0;">Frete #${frete.id}</h3>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <h2 style="margin:0;font-size:20px;color:#fff">Frete #${frete.id}</h2>
+                ${statusTag}
+            </div>
 
-            <p><strong>Status:</strong> ${frete.status}</p>
+            <div style="margin-top:15px">
+                <p><strong>Cliente:</strong> ${user.nome || "—"} — ${user.telefone || ""}</p>
+                <p><strong>Email:</strong> ${user.email || ""}</p>
 
-            <p><strong>Cliente:</strong> ${user.nome || "—"} (${user.email || ""})</p>
-            <p><strong>Telefone:</strong> ${user.telefone || ""}</p>
+                <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
+                <p><strong>Destino:</strong> ${frete.destino}, Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
 
-            <p><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
-            <p><strong>Destino:</strong> ${frete.destino}, Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
+                <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo || "—"} (${veic.placa || ""})</p>
+                <p><strong>Carga:</strong> ${frete.descricao_carga}</p>
+                <p><strong>Distância:</strong> ${frete.distancia}</p>
+                <p><strong>Valor:</strong> ${frete.valor}</p>
 
-            <p><strong>Descrição da carga:</strong> ${frete.descricao_carga}</p>
-            <p><strong>Distância:</strong> ${frete.distancia}</p>
-            <p><strong>Valor:</strong> ${frete.valor}</p>
+                <p style="margin-top:10px"><strong>Data/Hora:</strong> ${new Date(frete.data_hora).toLocaleString("pt-BR")}</p>
+            </div>
 
-            <p><strong>Veículo:</strong> ${veic.modelo || "—"} - ${veic.placa || ""}</p>
-
-            <p><strong>Data/Hora:</strong> ${new Date(frete.data_hora).toLocaleString("pt-BR")}</p>
-
-            <button onclick="aprovar(${frete.id})" class="btn">Aprovar</button>
-            <button onclick="recusar(${frete.id})" class="btn ghost" 
-                style="background:#ffdddd;color:#700;">
-                Recusar
-            </button>
+            <div style="margin-top:18px; display:flex; gap:10px;">
+                <button onclick="aprovar(${frete.id})" class="btn">Aprovar</button>
+                <button onclick="recusar(${frete.id})" class="btn ghost" 
+                    style="border:1px solid #ff4d4d;color:#ff6b6b;">
+                    Recusar
+                </button>
+            </div>
         `;
 
         div.appendChild(card);
     });
 }
+
 
 
 function aprovar(id) {
@@ -341,6 +410,6 @@ document.querySelector('[data-view="criar-envio"]')
 
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
-
+<script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 </body>
 </html>
