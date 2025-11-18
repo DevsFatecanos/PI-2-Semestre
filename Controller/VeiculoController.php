@@ -66,4 +66,27 @@ public function contarEmUso() {
         $stmt->execute([':id_veiculo' => $id_veiculo]);
     }
 }
+ if (isset($_GET['action'])) {
+    $controller = new VeiculoController($pdo);
+
+    if ($_GET['action'] === 'adicionar') {
+        $v = new Veiculo(
+            null,
+            $_POST['modelo'],
+            $_POST['placa'],
+            $_POST['status']
+        );
+        $controller->adicionar($v);
+        header("Location: ../View/dashboard.php");
+        exit;
+    }
+
+    if ($_GET['action'] === 'remover') {
+        $controller->remover($_POST['id']);
+        header("Location: ../View/dashboard.php");
+        exit;
+    }
+}
+   
+
 ?>
