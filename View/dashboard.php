@@ -25,7 +25,6 @@ $veiculos = $controller->listar();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
-  <link rel="stylesheet" href="../Assets/CSS/dashboard.css">
   <title>Admin - SuperSonic Transportes</title>
   <!-- Estilos simples embutidos para facilitar uso sem dependências -->
   <style>
@@ -321,7 +320,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 async function carregarFretes() {
     const resposta = await fetch(
-        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(*)`,
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:id(*),veiculo:veiculo_id(*)`,
         {
             headers: {
                 "apikey": SUPABASE_KEY,
