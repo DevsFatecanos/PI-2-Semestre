@@ -12,7 +12,7 @@
     }
     body{
         margin:0;
-        background:linear-gradient(180deg,#060f24 0%, #216ac4 100%);
+        background:linear-gradient(180deg,#06240f 0%, #216ac4 100%);
         color:#e6eef6
     }
     a{
@@ -104,7 +104,7 @@
         padding:8px 12px;
         border-radius:8px;
         background:var(--accent);
-        color:#2787e8;
+        color:#74e827;
         font-weight:600;
         cursor:pointer
     }

@@ -126,23 +126,7 @@ $veiculos = $controller->listar();
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
     <h3>Pedidos Aguardando Aprovação</h3>
-
-    <table style="margin-top:12px; width:100%">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Cliente</th>
-          <th>Origem</th>
-          <th>Destino</th>
-          <th>Veículo</th>
-          <th>Valor</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tabelaFretes"></tbody>
-    </table>
-  </div>
+<div id="listaFretes" style="margin-top:20px;"></div>
 </section>
 
 
@@ -152,92 +136,114 @@ $veiculos = $controller->listar();
 const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
 
-const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-// =============================
-// LISTAR FRETES PARA APROVAÇÃO
-// =============================
 async function carregarFretes() {
-    const tabela = document.getElementById("tabelaFretes");
-    tabela.innerHTML = "<tr><td colspan='8'>Carregando...</td></tr>";
+    const resposta = await fetch(
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(*)`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
+        }
+    );
 
-    const { data, error } = await supabase
-        .from("fretes_solicitados")
-        .select(`
-            *,
-            cliente: usuario(id_usuario, nome)
-        `)
-        .eq("status", "Aguardando Aprovação")
-        .order("id", { ascending: false });
+    const dados = await resposta.json();
+    console.log("FRETES CARREGADOS:", dados);
+    mostrarFretes(dados);
+}
 
-    if (error) {
-        tabela.innerHTML = "<tr><td colspan='8'>Erro ao carregar dados</td></tr>";
-        console.error(error);
+
+function mostrarFretes(lista) {
+    const div = document.getElementById("listaFretes");
+    div.innerHTML = "";
+
+    if (lista.length === 0) {
+        div.innerHTML = "<p>Nenhum frete encontrado.</p>";
         return;
     }
 
-    if (!data || data.length === 0) {
-        tabela.innerHTML = "<tr><td colspan='8'>Nenhum pedido aguardando aprovação.</td></tr>";
-        return;
-    }
+    lista.forEach(frete => {
 
-    tabela.innerHTML = "";
+        const user = frete.usuario || {};
+        const veic = frete.veiculo || {};
 
-    data.forEach(frete => {
-        const row = `
-            <tr>
-                <td>${frete.id}</td>
-                <td>${frete.cliente?.nome ?? "Desconhecido"}</td>
-                <td>${frete.origem}</td>
-                <td>${frete.destino}</td>
-                <td>${frete.veiculo_id}</td>
-                <td>${frete.valor}</td>
-                <td><strong>${frete.status}</strong></td>
-                <td>
-                    <button class="btn" onclick="aprovarFrete(${frete.id})">Aprovar</button>
-                    <button class="btn ghost" onclick="recusarFrete(${frete.id})">Recusar</button>
-                </td>
-            </tr>
+        const card = document.createElement("div");
+        card.style.cssText = `
+            border:1px solid #d5d9ff;
+            background-color:#;
+            padding:18px;
+            border-radius:12px;
+            margin-bottom:18px;
+            font-size:15px;
+            box-shadow:0 2px 4px rgba(0,0,0,0.08);
         `;
-        tabela.innerHTML += row;
+
+        card.innerHTML = `
+            <h3 style="margin:0 0 10px 0;">Frete #${frete.id}</h3>
+
+            <p><strong>Status:</strong> ${frete.status}</p>
+
+            <p><strong>Cliente:</strong> ${user.nome || "—"} (${user.email || ""})</p>
+            <p><strong>Telefone:</strong> ${user.telefone || ""}</p>
+
+            <p><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
+            <p><strong>Destino:</strong> ${frete.destino}, Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
+
+            <p><strong>Descrição da carga:</strong> ${frete.descricao_carga}</p>
+            <p><strong>Distância:</strong> ${frete.distancia}</p>
+            <p><strong>Valor:</strong> ${frete.valor}</p>
+
+            <p><strong>Veículo:</strong> ${veic.modelo || "—"} - ${veic.placa || ""}</p>
+
+            <p><strong>Data/Hora:</strong> ${new Date(frete.data_hora).toLocaleString("pt-BR")}</p>
+
+            <button onclick="aprovar(${frete.id})" class="btn">Aprovar</button>
+            <button onclick="recusar(${frete.id})" class="btn ghost" 
+                style="background:#ffdddd;color:#700;">
+                Recusar
+            </button>
+        `;
+
+        div.appendChild(card);
     });
 }
 
-// =============================
-// APROVAR FRETE
-// =============================
-async function aprovarFrete(id) {
-    if (!confirm("Deseja aprovar este frete?")) return;
 
-    await supabase
-        .from("fretes_solicitados")
-        .update({ status: "Aprovado" })
-        .eq("id", id);
-
-    carregarFretes();
+function aprovar(id) {
+    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: "Aprovado" })
+    }).then(() => {
+        alert("Frete aprovado!");
+        carregarFretes();
+    });
 }
 
-// =============================
-// RECUSAR FRETE
-// =============================
-async function recusarFrete(id) {
-    if (!confirm("Deseja recusar este frete?")) return;
-
-    await supabase
-        .from("fretes_solicitados")
-        .update({ status: "Recusado" })
-        .eq("id", id);
-
-    carregarFretes();
+function recusar(id) {
+    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: "Recusado" })
+    }).then(() => {
+        alert("Frete recusado!");
+        carregarFretes();
+    });
 }
 
-// Carregar automaticamente quando abrir a view
-document.querySelector('a[data-view="criar-envio"]').addEventListener("click", carregarFretes);
+document.querySelector('[data-view="criar-envio"]')
+    .addEventListener("click", carregarFretes);
+
 
 </script>
-
-
-
 
 <section id="veiculos" class="view" style="display:none" >
   <div class="card">
