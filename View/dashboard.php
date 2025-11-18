@@ -465,8 +465,8 @@ document.querySelector('[data-view="criar-envio"]')
 </div>
 
 <!-- Modal Remover -->
-<div id="modalRemover" class="modal" style="display:none">
-    <div class="modal-content">
+<div id="modalRemover" class="modal-overlay hidden">
+    <div class="modal">
         <h2>Remover Veículo</h2>
 
         <form action="../Controller/VeiculoController.php?action=remover" method="POST">
@@ -480,6 +480,14 @@ document.querySelector('[data-view="criar-envio"]')
 </div>
 
 <script>
+
+function abrirRemover() {
+    document.getElementById("modalRemover").classList.remove("hidden");
+}
+
+function fecharRemover() {
+    document.getElementById("modalRemover").classList.add("hidden");
+}
 
 const modal = document.getElementById("modalAdicionar");
 document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
