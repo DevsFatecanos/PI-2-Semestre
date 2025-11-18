@@ -111,6 +111,28 @@
       </div>
 </section>
 
+<style>
+  .scrollArea {
+    max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
+    overflow-y: auto;
+    margin-top: 14px;
+    padding-right: 6px;
+    scrollbar-width: thin; 
+    scrollbar-color: #4b5563 #1f2937;
+}
+
+.scrollArea::-webkit-scrollbar {
+    width: 8px;
+}
+.scrollArea::-webkit-scrollbar-thumb {
+    background-color: #4b5563;
+    border-radius: 6px;
+}
+.scrollArea::-webkit-scrollbar-track {
+    background: #1f2937;
+}
+</style>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
