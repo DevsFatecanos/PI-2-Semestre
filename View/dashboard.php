@@ -16,6 +16,16 @@ require_once __DIR__ . '/../conexao.php';
 $controller = new VeiculoController($pdo);
 $veiculos = $controller->listar();
 
+
+
+$veiculoController = new VeiculoController($pdo);
+
+// Dados
+$enviosAtivos = $pedidoController->ativos();
+$veiculosDisponiveis = $veiculoController->contarDisponiveis();
+$veiculosManutencao = $veiculoController->contarManutencao();
+$receitaMensal = $pagamentoController->receitaMensal();
+$mediaDiaria = $pagamentoController->mediaDiaria();
 ?>
 
 
@@ -70,10 +80,10 @@ $veiculos = $controller->listar();
           <h3 style="margin:8px 0">124</h3>
           <div class="small">Última atualização: 22/10/2025</div>
         </div>
-        <div class="card">
+         <div class="card">
           <div class="small">Veículos disponíveis</div>
-          <h3 style="margin:8px 0">18</h3>
-          <div class="small">Em manutenção: 2</div>
+          <h3 style="margin:8px 0"><?= $veiculosDisponiveis ?></h3>
+          <div class="small">Em manutenção: <?= $veiculosManutencao ?></div>
         </div>
         <div class="card">
           <div class="small">Receita mensal</div>

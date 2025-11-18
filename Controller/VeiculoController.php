@@ -9,6 +9,24 @@ class VeiculoController {
         $this->pdo = $pdo;
     }
 
+
+    // =============== ESTATÍSTICAS SOBRE VEICULOS =================
+
+public function contarDisponiveis() {
+    $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM veiculo WHERE status = 'disponivel'");
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+public function contarManutencao() {
+    $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM veiculo WHERE status = 'manutencao'");
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
+public function contarEmUso() {
+    $stmt = $this->pdo->query("SELECT COUNT(*) AS total FROM veiculo WHERE status = 'em uso'");
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
+}
+
     public function listar() {
         $stmt = $this->pdo->query("SELECT * FROM veiculo ORDER BY id_veiculo ASC");
         $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
