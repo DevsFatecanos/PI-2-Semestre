@@ -25,6 +25,7 @@ $veiculos = $controller->listar();
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+  <link rel="stylesheet" href="../Assets/CSS/dashboard.css">
   <title>Admin - SuperSonic Transportes</title>
   <!-- Estilos simples embutidos para facilitar uso sem dependências -->
   <style>
@@ -46,7 +47,6 @@ $veiculos = $controller->listar();
       <a href="#" data-view="usuarios">Usuários</a>
       <a href="#" data-view="config">Configurações</a>
     </nav>
-    <div style="position:absolute;bottom:24px;left:24px;right:24px;font-size:13px;color:var(--muted)">Conectado como:<br><strong><?php echo $email?></strong></div>
   </aside>
 
   <main class="main">
@@ -122,174 +122,16 @@ $veiculos = $controller->listar();
       </div>
     </section>
 
+
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
     <h3>Pedidos Aguardando Aprovação</h3>
-<div id="listaFretes" style="margin-top:20px;"></div>
+       <div id="listaAprovarContainer" class="scrollArea">
+        <div id="listaFretes" style="margin-top:20px;"></div>
+      </div>
 </section>
 
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-:root{
-        --bg:#07090c;
-        --card:#0b111a;
-        --accent:#f5f5f5;
-        --muted:#94a3b8;
-        --surface:#0b1220
-    }
-    *{
-        box-sizing:border-box;
-        font-family:Inter, system-ui, Arial, sans-serif
-    }
-    body{
-        margin:0;
-        background:linear-gradient(180deg,#06240f 0%, #216ac4 100%);
-        color:#e6eef6
-    }
-    a{
-        color:inherit;
-        text-decoration:none
-    }
-    .app{
-        display:flex;
-        min-height:100vh
-    }
-    /* Sidebar */
-    .sidebar{
-        width:260px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
-        padding:24px
-    }
-    .brand{
-        font-weight:700;
-        font-size:18px;
-        margin-bottom:18px;
-        display:flex;
-        gap:10px;
-        align-items:center
-    }
-    .brand .logo{
-        width:36px;
-        height:36px;
-        border-radius:8px;
-        background:var(--accent);
-        padding: 10px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        color:rgb(78, 104, 129);
-         font-weight:700
-        }
-    .nav{
-        margin-top:12px
-    }
-    .nav a{
-        display:flex;
-        gap:12px;
-        padding:10px 12px;
-        border-radius:8px;
-        color:var(--muted);margin-bottom:6px
-    }
-    .nav a.active{
-        background:rgba(255,255,255,0.03);
-        color:#fff
-    }
-    /* Main */
-    .main{
-        flex:1;padding:24px
-    }
-    .topbar{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:18px
-    }
-    .card{
-        background:var(--card);
-        padding:18px;
-        border-radius:12px;
-        box-shadow:0 6px 18px rgba(2,6,23,0.6)
-    }
-    .grid{
-        display:grid;
-        gap:16px
-    }
-    .grid.cols-3{
-        grid-template-columns:repeat(3,1fr)
-    }
-    .small{
-        font-size:13px;
-        color:var(--muted)
-    }
-    table{
-        width:100%;
-        border-collapse:collapse
-    }
-    th,td{
-        padding:10px;
-        text-align:left;
-        border-bottom:1px solid rgba(255,255,255,0.03)
-    }
-    .btn{
-        display:inline-block;
-        padding:8px 12px;
-        border-radius:8px;
-        background:var(--accent);
-        color:#216ac4;
-        font-weight:600;
-        cursor:pointer
-    }
-    .btn.ghost{
-        background:transparent;
-        border:1px solid rgba(255,255,255,0.04);
-        color:var(--muted)
-    }
-    form .row{
-        display:flex;
-        gap:12px
-    }
-    form label{
-        display:block;
-        font-size:13px;
-        margin-bottom:6px;
-        color:var(--muted)
-    }
-    input,select,textarea{width:100%;
-        padding:10px;
-        border-radius:8px;
-        border:1px solid rgba(255,255,255,0.04);
-        background:transparent;
-        color:inherit
-    }
-    /* responsive */
-    @media(max-width:900px){
-        .sidebar{display:none}
-        .main{padding:12px}
-    }
-
-
-.scrollArea {
-    max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
-    overflow-y: auto;
-    margin-top: 14px;
-    padding-right: 6px;
-    scrollbar-width: thin; 
-    scrollbar-color: #4b5563 #1f2937;
-}
-
-.scrollArea::-webkit-scrollbar {
-    width: 8px;
-}
-.scrollArea::-webkit-scrollbar-thumb {
-    background-color: #4b5563;
-    border-radius: 6px;
-}
-.scrollArea::-webkit-scrollbar-track {
-    background: #1f2937;
-}
-
-
   .scrollArea {
     max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
     overflow-y: auto;
@@ -320,7 +162,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 async function carregarFretes() {
     const resposta = await fetch(
-        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:id(*),veiculo:veiculo_id(*)`,
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(*)`,
         {
             headers: {
                 "apikey": SUPABASE_KEY,
@@ -458,6 +300,7 @@ function mostrarFretes(lista) {
 }
 
 
+
 function aprovar(id) {
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
@@ -493,6 +336,7 @@ document.querySelector('[data-view="criar-envio"]')
 
 
 </script>
+
 
 <section id="veiculos" class="view" style="display:none" >
   <div class="card">
@@ -608,6 +452,6 @@ document.querySelector('[data-view="criar-envio"]')
 
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
-
+<script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 </body>
 </html>
