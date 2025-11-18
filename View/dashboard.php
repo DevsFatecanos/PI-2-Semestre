@@ -21,11 +21,8 @@ $veiculos = $controller->listar();
 $veiculoController = new VeiculoController($pdo);
 
 // Dados
-$enviosAtivos = $pedidoController->ativos();
 $veiculosDisponiveis = $veiculoController->contarDisponiveis();
 $veiculosManutencao = $veiculoController->contarManutencao();
-$receitaMensal = $pagamentoController->receitaMensal();
-$mediaDiaria = $pagamentoController->mediaDiaria();
 ?>
 
 
