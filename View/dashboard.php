@@ -367,7 +367,8 @@ document.querySelector('[data-view="criar-envio"]')
 
     <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
     <button class="btn ghost" onclick="abrirRemover()">Remover veículo</button>
-    <button class="btn" onclick="abrirAdicionar()">Adicionar veículo</button>
+    <button class="btn" id="btnAbrirModal">Adicionar veículo</button>
+
 </div>
 
   </div>
@@ -437,11 +438,11 @@ document.querySelector('[data-view="criar-envio"]')
   </main>
 </div>
 <!-- Modal Adicionar -->
-<div id="modalAdicionar" class="modal" style="display:none">
-    <div class="modal-content">
-        <h2>Adicionar Veículo</h2>
+<div id="modalAdicionar" class="modal-overlay hidden">
+    <div class="modal">
+        <h2>Adicionar veículo</h2>
 
-        <form action="../Controller/VeiculoController.php?action=adicionar" method="POST">
+        <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
             <label>Modelo</label>
             <input type="text" name="modelo" required>
 
@@ -455,11 +456,14 @@ document.querySelector('[data-view="criar-envio"]')
                 <option value="manutencao">Manutenção</option>
             </select>
 
-            <button type="submit" class="btn">Salvar</button>
-            <button type="button" class="btn ghost" onclick="fecharAdicionar()">Cancelar</button>
+            <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
+                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
+                <button type="submit" class="btn">Adicionar</button>
+            </div>
         </form>
     </div>
 </div>
+
 <!-- Modal Remover -->
 <div id="modalRemover" class="modal" style="display:none">
     <div class="modal-content">
@@ -476,19 +480,24 @@ document.querySelector('[data-view="criar-envio"]')
 </div>
 
 <script>
-function abrirAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "flex";
-}
-function fecharAdicionar() {
-    document.getElementById("modalAdicionar").style.display = "none";
-}
 
-function abrirRemover() {
-    document.getElementById("modalRemover").style.display = "flex";
-}
-function fecharRemover() {
-    document.getElementById("modalRemover").style.display = "none";
-}
+const modal = document.getElementById("modalAdicionar");
+document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+});
+
+document.getElementById("fecharModal")?.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+// Fechar ao clicar FORA do modal
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+</script>
+
 
 
   // Navegação simples entre views
