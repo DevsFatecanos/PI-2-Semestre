@@ -367,7 +367,7 @@ async function atualizarStatus(id, status, email, nome) {
     });
 
     // chamar função de notificação
-await fetch("/PI-2-SEMESTRE/notificacao.php", {
+await fetch("/notificacao.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
