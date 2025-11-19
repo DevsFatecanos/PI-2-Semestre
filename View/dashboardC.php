@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -106,6 +105,14 @@
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
     <h3>Pedidos Aguardando Aprovação</h3>
+        <div style="display:flex; gap:10px; margin-bottom:15px;">
+          <button class="btn ghost" onclick="filtrarStatus('Todos')">Todos</button>
+          <button class="btn ghost" onclick="filtrarStatus('Aguardando Aprovação')">Aguardando</button>
+          <button class="btn ghost" onclick="filtrarStatus('Aprovado')">Aprovado</button>
+          <button class="btn ghost" onclick="filtrarStatus('Em Transporte')">Em Transporte</button>
+          <button class="btn ghost" onclick="filtrarStatus('Entregue')">Entregue</button>
+          <button class="btn ghost" onclick="filtrarStatus('Recusado')">Recusado</button>
+       </div>
        <div id="listaAprovarContainer" class="scrollArea">
         <div id="listaFretes" style="margin-top:20px;"></div>
       </div>
@@ -140,20 +147,29 @@
 const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
 
-async function carregarFretes() {
-    const resposta = await fetch(
-        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(*)`,
-        {
-            headers: {
-                "apikey": SUPABASE_KEY,
-                "Authorization": `Bearer ${SUPABASE_KEY}`
-            }
-        }
-    );
+let fretesCarregados = [];
 
-    const dados = await resposta.json();
-    console.log("FRETES CARREGADOS:", dados);
-    mostrarFretes(dados);
+function carregarFretes() {
+    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(modelo)`, {
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+    })
+    .then(r => r.json())
+    .then(dados => {
+        fretesCarregados = dados;
+        mostrarFretes(dados);
+    });
+}
+
+function filtrarStatus(status) {
+    if (status === "Todos") {
+        mostrarFretes(fretesCarregados);
+    } else {
+        const filtrado = fretesCarregados.filter(f => f.status === status);
+        mostrarFretes(filtrado);
+    }
 }
 
 
@@ -215,9 +231,27 @@ function mostrarFretes(lista) {
                 icone = '<i class="fa-solid fa-circle-info" style="color:#95a5a6;"></i>';
         }
 
-        // ============================
-        // 2. CARD ESTILO TELA ADM
-        // ============================
+      // Formatação da Numero de Telefone
+
+      function formatarTelefone(numero) {
+    if (!numero) return "—";
+
+    // Remove qualquer coisa que não seja número
+    numero = numero.toString().replace(/\D/g, "");
+
+    if (numero.length === 11) {
+        return `(${numero.slice(0, 2)}) ${numero.slice(2, 7)}-${numero.slice(7)}`;
+    }
+    if (numero.length === 10) {
+        return `(${numero.slice(0, 2)}) ${numero.slice(2, 6)}-${numero.slice(6)}`;
+    }
+
+    return numero; // fallback
+}
+
+
+        // 2. Criação dos CARDs
+
 
         const card = document.createElement("div");
         card.style.cssText = `
@@ -252,7 +286,7 @@ function mostrarFretes(lista) {
             </div>
 
             <div style="margin-top:15px">
-                <p><strong>Cliente:</strong> ${user.nome || "—"} — ${user.telefone || ""}</p>
+                <p><strong>Cliente:</strong> ${user.nome || "—"} — ${formatarTelefone(user.telefone) || ""}</p>
                 <p><strong>Email:</strong> ${user.email || ""}</p>
 
                 <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
@@ -272,14 +306,42 @@ function mostrarFretes(lista) {
                     style="border:1px solid #ff4d4d;color:#ff6b6b;">
                     Recusar
                 </button>
+                <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" 
+                  style="border:1px solid #25D366;color:#25D366;">
+                  WhatsApp
+                </button>
             </div>
         `;
 
         div.appendChild(card);
     });
+
 }
 
+  // Abrir conversa via whatzapp
 
+  function abrirWhats(telefone) {
+    if (!telefone) return alert("Número indisponível");
+    const link = `https://wa.me/55${numero}`;
+    window.open(link, "_blank");
+}
+
+function notificarClienteEmail(nome, email, idFrete, status) {
+    const templateParams = {
+        nome: nome,
+        email: email,
+        status: status
+    };
+
+    emailjs.send('service_j1jum5v', 'template_zpkbtqu', templateParams)
+        .then(function(response) {
+           console.log('Email enviado com sucesso!', response.status, response.text);
+           alert(`Email enviado para ${email} sobre o status: ${status}`);
+        }, function(error) {
+           console.error('Falha ao enviar email...', error);
+           alert('Erro ao enviar email');
+        });
+}
 
 function aprovar(id) {
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
@@ -293,6 +355,7 @@ function aprovar(id) {
     }).then(() => {
         alert("Frete aprovado!");
         carregarFretes();
+        notificarClienteEmail(nome, email, "Aprovado");
     });
 }
 
@@ -308,12 +371,12 @@ function recusar(id) {
     }).then(() => {
         alert("Frete recusado!");
         carregarFretes();
+        notificarClienteEmail(nome, email, "Recusado");
     });
 }
 
 document.querySelector('[data-view="criar-envio"]')
     .addEventListener("click", carregarFretes);
-
 
 </script>
 
@@ -433,5 +496,9 @@ document.querySelector('[data-view="criar-envio"]')
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+   emailjs.init("3k6YEfywXgIwxrWqy"); // substitua pelo seu user_id
+</script>
 </body>
 </html>
