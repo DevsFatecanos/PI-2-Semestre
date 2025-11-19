@@ -534,3 +534,7 @@ margin-left: 4vh;
 #cancelarModalBtn:hover {
   background-color: #aaa;
 }
+
+#sidebar {
+    border-right: 4px solid #007bff; /* Linha azul na lateral */
+}
