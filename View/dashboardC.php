@@ -301,11 +301,11 @@ function mostrarFretes(lista) {
             </div>
 
             <div style="margin-top:18px; display:flex; gap:10px;">
-                <button onclick="aprovar(${frete.id})" class="btn">Aprovar</button>
-                <button onclick="recusar(${frete.id})" class="btn ghost" 
-                    style="border:1px solid #ff4d4d;color:#ff6b6b;">
-                    Recusar
-                </button>
+<button onclick="atualizarStatus(${frete.id}, 'Aprovado', '${user.email}', '${user.nome}')">Aprovar</button>
+<button onclick="atualizarStatus(${frete.id}, 'Recusado', '${user.email}', '${user.nome}')"
+class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">
+    Recusar
+</button>
                 <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" 
                   style="border:1px solid #25D366;color:#25D366;">
                   WhatsApp
@@ -326,24 +326,37 @@ function mostrarFretes(lista) {
     window.open(link, "_blank");
 }
 
-function notificarClienteEmail(nome, email, idFrete, status) {
-    const templateParams = {
-        nome: nome,
-        email: email,
-        status: status
-    };
+async function atualizarStatus(id, status, email, nome) {
 
-    emailjs.send('service_j1jum5v', 'template_zpkbtqu', templateParams)
-        .then(function(response) {
-           console.log('Email enviado com sucesso!', response.status, response.text);
-           alert(`Email enviado para ${email} sobre o status: ${status}`);
-        }, function(error) {
-           console.error('Falha ao enviar email...', error);
-           alert('Erro ao enviar email');
-        });
+    await fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status })
+    });
+
+    // chamar função de notificação
+await fetch("/PI-2-SEMESTRE/notificacao.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+        email,
+        nome,
+        pedido: id,
+        status,
+        dataHora: new Date().toLocaleString("pt-BR")
+    })
+});
+
+
+    carregarFretes();
 }
 
-function aprovar(id) {
+function aprovar(id, nomeCliente, emailCliente) {
+    // atualizar status via fetch ou supabase
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
         headers: {
@@ -355,11 +368,11 @@ function aprovar(id) {
     }).then(() => {
         alert("Frete aprovado!");
         carregarFretes();
-        notificarClienteEmail(nome, email, "Aprovado");
+        notificarClienteEmail(id,nomeCliente, emailCliente, "Aprovado");
     });
 }
 
-function recusar(id) {
+function recusar(id, nomeCliente, emailCliente) {
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
         headers: {
@@ -371,7 +384,7 @@ function recusar(id) {
     }).then(() => {
         alert("Frete recusado!");
         carregarFretes();
-        notificarClienteEmail(nome, email, "Recusado");
+        notificarClienteEmail(id,nomeCliente, emailCliente, "Recusado");
     });
 }
 
@@ -496,9 +509,5 @@ document.querySelector('[data-view="criar-envio"]')
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript">
-   emailjs.init("3k6YEfywXgIwxrWqy"); // substitua pelo seu user_id
-</script>
 </body>
 </html>
