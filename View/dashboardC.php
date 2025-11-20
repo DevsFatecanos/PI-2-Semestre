@@ -345,7 +345,7 @@ await fetch("/PI-2-SEMESTRE/notificacao.php", {
     body: JSON.stringify({
         email,
         nome,
-        pedido: id,
+        pedido,
         status,
         dataHora: new Date().toLocaleString("pt-BR")
     })

@@ -373,7 +373,7 @@ await fetch("https://pi-2-semestre-zjto.onrender.com/notificacao.php", {
     body: JSON.stringify({
         email,
         nome,
-        pedido: id,
+        pedido,
         status,
         dataHora: new Date().toLocaleString("pt-BR")
     })
