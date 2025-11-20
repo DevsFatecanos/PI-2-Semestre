@@ -1,31 +1,3 @@
-<?php
-session_start();
-//bloqueia o acesso direto
-
-if (!isset($_SESSION['usuario_email'])) {
-    header("Location: login.html");
-    exit;
-}
-$email = $_SESSION['usuario_email'];
-
-
-
-require_once __DIR__ . '/../Controller/VeiculoController.php';
-require_once __DIR__ . '/../conexao.php';
-
-$controller = new VeiculoController($pdo);
-$veiculos = $controller->listar();
-
-
-
-$veiculoController = new VeiculoController($pdo);
-
-// Dados
-$veiculosDisponiveis = $veiculoController->contarDisponiveis();
-$veiculosManutencao = $veiculoController->contarManutencao();
-?>
-
-
 <!doctype html>
 <html lang="pt-BR">
 <head>
@@ -77,10 +49,10 @@ $veiculosManutencao = $veiculoController->contarManutencao();
           <h3 style="margin:8px 0">124</h3>
           <div class="small">Última atualização: 22/10/2025</div>
         </div>
-         <div class="card">
+        <div class="card">
           <div class="small">Veículos disponíveis</div>
-          <h3 style="margin:8px 0"><?= $veiculosDisponiveis ?></h3>
-          <div class="small">Em manutenção: <?= $veiculosManutencao ?></div>
+          <h3 style="margin:8px 0">18</h3>
+          <div class="small">Em manutenção: 2</div>
         </div>
         <div class="card">
           <div class="small">Receita mensal</div>
@@ -443,11 +415,9 @@ document.querySelector('[data-view="criar-envio"]')
     </table>
 
     <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
-    <button class="btn ghost" onclick="abrirRemover()">Remover veículo</button>
-    <button class="btn" id="btnAbrirModal">Adicionar veículo</button>
-
-</div>
-
+      <button class="btn ghost">Remover veículo</button>
+      <button class="btn">Adicionar veículo</button>
+    </div>
   </div>
 </section>
 
@@ -514,69 +484,8 @@ document.querySelector('[data-view="criar-envio"]')
 
   </main>
 </div>
-<!-- Modal Adicionar -->
-<div id="modalAdicionar" class="modal-overlay hidden">
-    <div class="modal">
-        <h2>Adicionar veículo</h2>
-
-        <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
-            <label>Modelo</label>
-            <input type="text" name="modelo" required>
-
-            <label>Placa</label>
-            <input type="text" name="placa" required>
-
-            <label>Status</label>
-            <select name="status">
-                <option value="disponivel">Disponível</option>
-                <option value="em uso">Em uso</option>
-                <option value="manutencao">Manutenção</option>
-            </select>
-
-            <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
-                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
-                <button type="submit" class="btn">Adicionar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Modal Remover -->
-<div id="modalRemover" class="modal" style="display:none">
-    <div class="modal-content">
-        <h2>Remover Veículo</h2>
-
-        <form action="../Controller/VeiculoController.php?action=remover" method="POST">
-            <label>ID do veículo</label>
-            <input type="number" name="id" required>
-
-            <button type="submit" class="btn ghost">Remover</button>
-            <button type="button" class="btn" onclick="fecharRemover()">Cancelar</button>
-        </form>
-    </div>
-</div>
 
 <script>
-
-const modal = document.getElementById("modalAdicionar");
-document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-});
-
-document.getElementById("fecharModal")?.addEventListener("click", () => {
-    modal.classList.add("hidden");
-});
-
-// Fechar ao clicar FORA do modal
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-    }
-});
-
-
-
-
   // Navegação simples entre views
   function openView(id){
     document.querySelectorAll('.view').forEach(v=>v.style.display='none');
