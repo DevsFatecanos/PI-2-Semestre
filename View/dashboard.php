@@ -350,7 +350,7 @@ class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">
 
   function abrirWhats(telefone) {
     if (!telefone) return alert("Número indisponível");
-    const link = `https://wa.me/55${numero}`;
+    const link = `https://wa.me/55${telefone}`;
     window.open(link, "_blank");
 }
 
