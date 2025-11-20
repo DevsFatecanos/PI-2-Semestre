@@ -55,7 +55,7 @@ $html = "
 
 try {
     $resend->emails->send([
-        'from' => 'SuperSonic <onboarding@resend.dev>',
+        'from' => 'SuperSonic <silvallucena02@gmail.com>',
         'to'   => $email,
         'subject' => "Atualização do pedido #$pedido",
         'html' => $html,
