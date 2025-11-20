@@ -19,7 +19,7 @@
     <nav class="nav" id="menu">
       <a href="#" data-view="dashboard" class="active">Dashboard</a>
       <a href="#" data-view="envios">Envios</a>
-      <a href="#" data-view="criar-envio">Aprovar Envio</a>
+      <a href="#" data-view="criar-envio">Pedidos Ativos</a>
       <a href="#" data-view="veiculos">Veículos</a>
       <a href="#" data-view="motoristas">Motoristas</a>
       <a href="#" data-view="relatorios">Relatórios</a>
@@ -322,7 +322,7 @@ class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">
 
   function abrirWhats(telefone) {
     if (!telefone) return alert("Número indisponível");
-    const link = `https://wa.me/55${numero}`;
+    const link = `https://wa.me/55${telefone}`;
     window.open(link, "_blank");
 }
 
