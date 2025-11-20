@@ -367,7 +367,7 @@ async function atualizarStatus(id, status, email, nome) {
     });
 
     // chamar função de notificação
-await fetch("/notificacao.php", {
+await fetch("https://pi-2-semestre-zjto.onrender.com/notificacao.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
