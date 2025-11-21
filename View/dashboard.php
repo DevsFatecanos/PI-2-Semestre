@@ -687,7 +687,7 @@ document.querySelector('[data-view="criar-envio"]')
     <h3>Veículos</h3>
     <table style="margin-top:12px">
       <thead>
-        <tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ações</th></tr>
+        <tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Preço Por KM</th><th>Status</th><th>Ações</th></tr>
       </thead>
       <tbody>
         <?php foreach ($veiculos as $v): ?>
@@ -695,6 +695,7 @@ document.querySelector('[data-view="criar-envio"]')
             <td><?= htmlspecialchars($v->id_veiculo) ?></td>
             <td><?= htmlspecialchars($v->modelo) ?></td>
             <td><?= htmlspecialchars($v->placa) ?></td>
+            <td><?= htmlspecialchars($v->valor_por_km) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
             <td><button class="btn ghost">Editar</button></td>
           </tr>

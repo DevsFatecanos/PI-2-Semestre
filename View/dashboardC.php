@@ -179,7 +179,7 @@
 <!--CSS DA BARRA DE ROLAGEM EM APROVAR FRETES-->
 <style>
   .scrollArea {
-    max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
+    max-height: calc(100vh - 220px); 
     overflow-y: auto;
     margin-top: 14px;
     padding-right: 6px;
@@ -206,16 +206,11 @@
 
 <script>
 
-// ============================================================
-// VARIÁVEIS GLOBAIS
-// ============================================================
 const GEOAPIFY_KEY = "f68c5677fcb64b719fe631b6288e2a1d"; 
-let mapaAtual = null;       // Guarda o mapa (base)
-let camadaDesenhos = null;  // Guarda os pinos e a linha azul (para limpar depois)
+let mapaAtual = null;       
+let camadaDesenhos = null;  
 
-// ============================================================
-// 1. FECHAR MODAL (Agora é simples: só esconde!)
-// ============================================================
+// 1. FECHAR MODAL
 function fecharModal() {
     const modal = document.getElementById('modalMapaRota');
     const modal2 = document.getElementById('btnFecharModal');
@@ -233,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-// Adiciona evento no botão X e no fundo escuro
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnFecharModal')?.addEventListener('click', fecharModal);
     document.getElementById('modalMapaRota')?.addEventListener('click', (e) => {
@@ -241,10 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// 2. ABRIR MODAL
 
-// ============================================================
-// 2. ABRIR MODAL (Lógica de Reuso)
-// ============================================================
 window.abrirModalMapa = async function(idFrete, origem, destino) {
     const modal = document.getElementById('modalMapaRota');
     const modal2 = document.getElementById('btnFecharModal');
@@ -498,7 +490,7 @@ function mostrarFretes(lista) {
                 <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem},<br> Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
                 <p><strong>Destino:</strong> ${frete.destino},<br> Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
 
-                <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo || "—"} (${veic.placa || ""})</p>
+                <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo}</p>
                 <p><strong>Carga:</strong> ${frete.descricao_carga}</p>
                 <p><strong>Distância:</strong> ${frete.distancia}</p>
                 <p><strong>Valor:</strong> ${frete.valor}</p>
@@ -639,7 +631,7 @@ document.querySelector('[data-view="criar-envio"]')
     <h3>Veículos</h3>
     <table style="margin-top:12px">
       <thead>
-        <tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Status</th><th>Ações</th></tr>
+        <tr><th>ID</th><th>Modelo</th><th>Placa</th><th>Preço Por KM</th><th>Status</th><th>Ações</th></tr>
       </thead>
       <tbody>
         <?php foreach ($veiculos as $v): ?>
@@ -647,6 +639,7 @@ document.querySelector('[data-view="criar-envio"]')
             <td><?= htmlspecialchars($v->id_veiculo) ?></td>
             <td><?= htmlspecialchars($v->modelo) ?></td>
             <td><?= htmlspecialchars($v->placa) ?></td>
+            <td><?= htmlspecialchars($v->valor_por_km) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
             <td><button class="btn ghost">Editar</button></td>
           </tr>
