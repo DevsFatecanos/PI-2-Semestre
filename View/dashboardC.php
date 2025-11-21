@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
   <link rel="stylesheet" href="../Assets/CSS/dashboard.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <title>Admin - SuperSonic Transportes</title>
   <!-- Estilos simples embutidos para facilitar uso sem dependências -->
   <style>
@@ -13,6 +14,86 @@
 </head>
 
 <body>
+  <!--MAPS EM CADA CARD-->
+  <a id="btnFecharModal" class="close-button hidden">&times;</a>
+<div id="modalMapaRota" class="modal-overlay hidden"> 
+    <div class="modal-conteudo">
+      
+
+        <h2 style="color: #fff; margin-bottom: 15px;">
+            Detalhes da Rota <span id="modalRotaId"></span>
+        </h2>
+        
+        <p style="color: #ccc;">
+            Origem: <strong id="modalOrigemRota"></strong>
+        </p>
+        <p style="color: #ccc; margin-bottom: 15px;">
+            Destino: <strong id="modalDestinoRota"></strong>
+        </p>
+
+        <div id="mapaModal"></div>
+    </div>
+</div>
+
+<style>
+/* FUNDO ESCURO */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+}
+
+/* CONTEÚDO DO MODAL */
+.modal-conteudo {
+    background: var(--card);
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 12000; /* GARANTE QUE FICA ACIMA DO MAPA */
+}
+
+/* OCULTAR MODAL */
+.hidden {
+    display: none !important;
+}
+
+/* BOTÃO FECHAR */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 15000; /* SEMPRE POR CIMA */
+    background: transparent;
+    line-height: 1;
+}
+
+.close-button:hover {
+    color: #ff4d4d;
+}
+
+/* MAPA */
+#mapaModal {
+    height: 500px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 1 !important; /* NÃO ULTRAPASSAR O BOTÃO */
+}
+</style>
 <div class="app">
   <aside class="sidebar card">
     <div class="brand"><div class="logo" style="display: flex; justify-content: center; align-items: center;"><img src="../Assets/IMG/logo.webp" alt="Logo SuperSonic Transportes" style="width: 20px; height: 20px;"></div>SuperSonic Transportes<br><span class="small">Admin</span></div>
@@ -45,10 +126,10 @@
           <h3 style="margin:8px 0">124</h3>
           <div class="small">Última atualização: 22/10/2025</div>
         </div>
-        <div class="card">
+         <div class="card">
           <div class="small">Veículos disponíveis</div>
-          <h3 style="margin:8px 0">18</h3>
-          <div class="small">Em manutenção: 2</div>
+          <h3 style="margin:8px 0"><?= $veiculosDisponiveis ?></h3>
+          <div class="small">Em manutenção: <?= $veiculosManutencao ?></div>
         </div>
         <div class="card">
           <div class="small">Receita mensal</div>
@@ -114,6 +195,8 @@
       </div>
 </section>
 
+
+<!--CSS DA BARRA DE ROLAGEM EM APROVAR FRETES-->
 <style>
   .scrollArea {
     max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
@@ -138,6 +221,152 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+
+// ============================================================
+// VARIÁVEIS GLOBAIS
+// ============================================================
+const GEOAPIFY_KEY = "f68c5677fcb64b719fe631b6288e2a1d"; 
+let mapaAtual = null;       // Guarda o mapa (base)
+let camadaDesenhos = null;  // Guarda os pinos e a linha azul (para limpar depois)
+
+// ============================================================
+// 1. FECHAR MODAL (Agora é simples: só esconde!)
+// ============================================================
+function fecharModal() {
+    const modal = document.getElementById('modalMapaRota');
+    const modal2 = document.getElementById('btnFecharModal');
+    modal.classList.add('hidden');
+    modal2.classList.add('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btnFecharModal')
+        ?.addEventListener('click', fecharModal);
+
+    document.getElementById('modalMapaRota')
+        ?.addEventListener('click', (e) => {
+            if (e.target.id === 'modalMapaRota') fecharModal();
+        });
+});
+
+// Adiciona evento no botão X e no fundo escuro
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('btnFecharModal')?.addEventListener('click', fecharModal);
+    document.getElementById('modalMapaRota')?.addEventListener('click', (e) => {
+        if (e.target.id === 'modalMapaRota') fecharModal();
+    });
+});
+
+
+// ============================================================
+// 2. ABRIR MODAL (Lógica de Reuso)
+// ============================================================
+window.abrirModalMapa = async function(idFrete, origem, destino) {
+    const modal = document.getElementById('modalMapaRota');
+    const modal2 = document.getElementById('btnFecharModal');
+    // 1. Mostra o modal primeiro
+    modal.classList.remove('hidden');
+    modal2.classList.remove('hidden');
+
+    // 2. Atualiza Textos
+    document.getElementById('modalRotaId').innerText = `#${idFrete}`;
+    document.getElementById('modalOrigemRota').innerText = origem;
+    document.getElementById('modalDestinoRota').innerText = destino;
+
+    // 3. Lógica do Mapa (Singleton)
+    const mapDiv = document.getElementById('mapaModal');
+
+    // Se o mapa AINDA NÃO EXISTE, cria ele (acontece só na 1ª vez)
+    if (!mapaAtual) {
+        mapaAtual = L.map('mapaModal').setView([-23.55, -46.63], 10); // Inicia em SP
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(mapaAtual);
+
+        // Cria o GRUPO onde vamos desenhar (facilita limpar depois)
+        camadaDesenhos = L.layerGroup().addTo(mapaAtual);
+    } 
+    else {
+        // Se JÁ EXISTE, precisamos "acordar" ele porque estava escondido
+        setTimeout(() => {
+            mapaAtual.invalidateSize(); // Corrige o erro do mapa cinza
+        }, 10);
+        
+        // LIMPA a rota anterior (remove pinos e linhas velhas)
+        if (camadaDesenhos) {
+            camadaDesenhos.clearLayers(); 
+        }
+    }
+
+    // 4. Busca a Nova Rota
+    const coordsOrigem = await geocodeAddress(origem);
+    const coordsDestino = await geocodeAddress(destino);
+
+    if (!coordsOrigem || !coordsDestino) {
+        alert("Endereço não encontrado para traçar rota.");
+        return;
+    }
+
+    // Adiciona marcadores NO GRUPO (não direto no mapa)
+    const m1 = L.marker(coordsOrigem).bindPopup("Origem").openPopup();
+    const m2 = L.marker(coordsDestino).bindPopup("Destino");
+    
+    camadaDesenhos.addLayer(m1);
+    camadaDesenhos.addLayer(m2);
+
+    // Centraliza para mostrar os dois pontos enquanto a linha carrega
+    const grupoLimites = new L.LatLngBounds([coordsOrigem, coordsDestino]);
+    mapaAtual.fitBounds(grupoLimites, { padding: [50, 50] });
+
+    // Puxa a linha da rota
+    try {
+        const [latO, lonO] = coordsOrigem;
+        const [latD, lonD] = coordsDestino;
+        const url = `https://router.project-osrm.org/route/v1/driving/${lonO},${latO};${lonD},${latD}?overview=full&geometries=geojson`;
+        
+        const resp = await fetch(url);
+        const dados = await resp.json();
+
+        if (dados.routes && dados.routes.length > 0) {
+            // Cria a linha azul
+            const linhaRota = L.geoJSON(dados.routes[0].geometry, {
+                style: { color: "#417dff", weight: 5 }
+            });
+            
+            // Adiciona a linha NO GRUPO
+            camadaDesenhos.addLayer(linhaRota);
+            
+            // Ajusta o zoom final
+            mapaAtual.fitBounds(linhaRota.getBounds(), { padding: [50, 50] });
+        }
+    } catch (e) {
+        console.error("Erro na rota:", e);
+    }
+};
+
+// ============================================================
+// 3. AUXILIAR (Geocoding)
+// ============================================================
+async function geocodeAddress(address) {
+    try {
+        const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&lang=pt&filter=countrycode:br&limit=1&apiKey=${GEOAPIFY_KEY}`;
+        const r = await fetch(url);
+        const d = await r.json();
+        if (d.features?.length) {
+            const c = d.features[0].geometry.coordinates;
+            return [c[1], c[0]];
+        }
+    } catch (e) { console.error(e); }
+    return null;
+}
+</script>
+
+
 
 <script>
 const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
@@ -183,9 +412,9 @@ function mostrarFretes(lista) {
         const user = frete.usuario || {};
         const veic = frete.veiculo || {};
 
-        // ============================
+
         // 1. DEFINIR COR DO STATUS
-        // ============================
+
         let bg = "";
         let color = "";
         let icone = "";
@@ -248,6 +477,7 @@ function mostrarFretes(lista) {
 
         // 2. Criação dos CARDs
 
+        const mapaId = `mapa-frete-${frete.id}`;
 
         const card = document.createElement("div");
         card.style.cssText = `
@@ -285,8 +515,8 @@ function mostrarFretes(lista) {
                 <p><strong>Cliente:</strong> ${user.nome || "—"} — ${formatarTelefone(user.telefone) || ""}</p>
                 <p><strong>Email:</strong> ${user.email || ""}</p>
 
-                <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
-                <p><strong>Destino:</strong> ${frete.destino}, Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
+                <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem},<br> Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
+                <p><strong>Destino:</strong> ${frete.destino},<br> Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
 
                 <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo || "—"} (${veic.placa || ""})</p>
                 <p><strong>Carga:</strong> ${frete.descricao_carga}</p>
@@ -302,11 +532,15 @@ function mostrarFretes(lista) {
                 class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">Recusar</button>
               <button onclick="atualizarStatus(${frete.id}, 'Em Transporte', '${user.email}', '${user.nome}')"class = "btn ghost" style = " border:1px solid #1e6bb8; color:#1e6bb8; " >Em Transporte</button>
               <button onclick="atualizarStatus(${frete.id}, 'Entregue', '${user.email}', '${user.nome}')"class = "btn ghost" style = " border:1px solid #167980ff; color:#167980ff; " >Entregue</button>    
-                <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" style="border:1px solid #25D366;color:#25D366;">WhatsApp</button>
+              <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" style="border:1px solid #25D366;color:#25D366;">WhatsApp</button>
+              <button onclick="abrirModalMapa(${frete.id}, '${frete.origem}', '${frete.destino}')" class="btn" style="background: #417dff; color: #fff; border: none;"><i class="fa-solid fa-map-location-dot"></i> Ver Rota</button>
             </div>
+
+ 
         `;
 
         div.appendChild(card);
+        
     });
 
 }
@@ -332,7 +566,7 @@ async function atualizarStatus(id, status, email, nome) {
     });
 
     // chamar função de notificação
-await fetch("/PI-2-SEMESTRE/notificacao.php", {
+await fetch("/notificacao.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -417,7 +651,6 @@ function Entregue(id, nomeCliente, emailCliente) {
 
 document.querySelector('[data-view="criar-envio"]')
     .addEventListener("click", carregarFretes);
-
 </script>
 
 
@@ -442,9 +675,11 @@ document.querySelector('[data-view="criar-envio"]')
     </table>
 
     <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
-      <button class="btn ghost">Remover veículo</button>
-      <button class="btn">Adicionar veículo</button>
-    </div>
+    <button class="btn ghost" onclick="abrirRemover()">Remover veículo</button>
+    <button class="btn" id="btnAbrirModal">Adicionar veículo</button>
+
+</div>
+
   </div>
 </section>
 
@@ -511,8 +746,69 @@ document.querySelector('[data-view="criar-envio"]')
 
   </main>
 </div>
+<!-- Modal Adicionar -->
+<div id="modalAdicionar" class="modal-overlay hidden">
+    <div class="modal">
+        <h2>Adicionar veículo</h2>
+
+        <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
+            <label>Modelo</label>
+            <input type="text" name="modelo" required>
+
+            <label>Placa</label>
+            <input type="text" name="placa" required>
+
+            <label>Status</label>
+            <select name="status">
+                <option value="disponivel">Disponível</option>
+                <option value="em uso">Em uso</option>
+                <option value="manutencao">Manutenção</option>
+            </select>
+
+            <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
+                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
+                <button type="submit" class="btn">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Remover -->
+<div id="modalRemover" class="modal" style="display:none">
+    <div class="modal-content">
+        <h2>Remover Veículo</h2>
+
+        <form action="../Controller/VeiculoController.php?action=remover" method="POST">
+            <label>ID do veículo</label>
+            <input type="number" name="id" required>
+
+            <button type="submit" class="btn ghost">Remover</button>
+            <button type="button" class="btn" onclick="fecharRemover()">Cancelar</button>
+        </form>
+    </div>
+</div>
 
 <script>
+
+const modal = document.getElementById("modalAdicionar");
+document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
+    modal.classList.remove("hidden");
+});
+
+document.getElementById("fecharModal")?.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+// Fechar ao clicar FORA do modal
+modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        modal.classList.add("hidden");
+    }
+});
+
+
+
+
   // Navegação simples entre views
   function openView(id){
     document.querySelectorAll('.view').forEach(v=>v.style.display='none');
@@ -536,5 +832,6 @@ document.querySelector('[data-view="criar-envio"]')
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+
 </body>
 </html>
