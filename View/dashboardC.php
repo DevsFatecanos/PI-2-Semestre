@@ -34,10 +34,6 @@
         <h2 id="page-title">Dashboard</h2>
         <div class="small">Painel administrativo — visão geral rápida</div>
       </div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <input placeholder="Pesquisar envios, placas, clientes..." style="padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit" id="search" />
-        <button class="btn" onclick="openView('criar-envio')">Novo Envio</button>
-      </div>
     </div>
 
     <!-- VIEWS: cada view é uma seção toggleable -->
@@ -215,11 +211,11 @@ function mostrarFretes(lista) {
 
             case "Entregue":
                 bg = "#e8f9f0";
-                color = "#16803a";
+                color = "#167980ff";
                 icone = '<i class="fa-solid fa-box-open" style="color:#2ecc71;"></i>';
                 break;
 
-            case "Cancelado":
+            case "Recusado":
                 bg = "#ffe0e0";
                 color = "#b33939";
                 icone = '<i class="fa-solid fa-circle-xmark" style="color:#e74c3c;"></i>';
@@ -301,15 +297,12 @@ function mostrarFretes(lista) {
             </div>
 
             <div style="margin-top:18px; display:flex; gap:10px;">
-<button onclick="atualizarStatus(${frete.id}, 'Aprovado', '${user.email}', '${user.nome}')">Aprovar</button>
-<button onclick="atualizarStatus(${frete.id}, 'Recusado', '${user.email}', '${user.nome}')"
-class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">
-    Recusar
-</button>
-                <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" 
-                  style="border:1px solid #25D366;color:#25D366;">
-                  WhatsApp
-                </button>
+              <button onclick="atualizarStatus(${frete.id}, 'Aprovado', '${user.email}', '${user.nome}')"class = "btn ghost" style="border:1px solid #1b7e1b; color:#1b7e1b; ">Aprovar</button>
+              <button onclick="atualizarStatus(${frete.id}, 'Recusado', '${user.email}', '${user.nome}')"
+                class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">Recusar</button>
+              <button onclick="atualizarStatus(${frete.id}, 'Em Transporte', '${user.email}', '${user.nome}')"class = "btn ghost" style = " border:1px solid #1e6bb8; color:#1e6bb8; " >Em Transporte</button>
+              <button onclick="atualizarStatus(${frete.id}, 'Entregue', '${user.email}', '${user.nome}')"class = "btn ghost" style = " border:1px solid #167980ff; color:#167980ff; " >Entregue</button>    
+                <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" style="border:1px solid #25D366;color:#25D366;">WhatsApp</button>
             </div>
         `;
 
@@ -387,6 +380,40 @@ function recusar(id, nomeCliente, emailCliente) {
         notificarClienteEmail(id,nomeCliente, emailCliente, "Recusado");
     });
 }
+
+function EmTransporte(id, nomeCliente, emailCliente) {
+    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: "Em Transporte" })
+    }).then(() => {
+        alert("Frete Em transporte!");
+        carregarFretes();
+        notificarClienteEmail(id,nomeCliente, emailCliente, "Em Transporte");
+    });
+}
+
+function Entregue(id, nomeCliente, emailCliente) {
+    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
+        method: "PATCH",
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ status: "Entregue" })
+    }).then(() => {
+        alert("Pedido Entregue!");
+        carregarFretes();
+        notificarClienteEmail(id,nomeCliente, emailCliente, "Entregue");
+    });
+}
+
+
 
 document.querySelector('[data-view="criar-envio"]')
     .addEventListener("click", carregarFretes);

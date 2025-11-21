@@ -21,8 +21,11 @@ $veiculos = $controller->listar();
 $veiculoController = new VeiculoController($pdo);
 
 // Dados
+$enviosAtivos = $pedidoController->ativos();
 $veiculosDisponiveis = $veiculoController->contarDisponiveis();
 $veiculosManutencao = $veiculoController->contarManutencao();
+$receitaMensal = $pagamentoController->receitaMensal();
+$mediaDiaria = $pagamentoController->mediaDiaria();
 ?>
 
 
@@ -133,14 +136,6 @@ $veiculosManutencao = $veiculoController->contarManutencao();
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
     <h3>Pedidos Aguardando Aprovação</h3>
-        <div style="display:flex; gap:10px; margin-bottom:15px;">
-          <button class="btn ghost" onclick="filtrarStatus('Todos')">Todos</button>
-          <button class="btn ghost" onclick="filtrarStatus('Aguardando Aprovação')">Aguardando</button>
-          <button class="btn ghost" onclick="filtrarStatus('Aprovado')">Aprovado</button>
-          <button class="btn ghost" onclick="filtrarStatus('Em Transporte')">Em Transporte</button>
-          <button class="btn ghost" onclick="filtrarStatus('Entregue')">Entregue</button>
-          <button class="btn ghost" onclick="filtrarStatus('Recusado')">Recusado</button>
-       </div>
        <div id="listaAprovarContainer" class="scrollArea">
         <div id="listaFretes" style="margin-top:20px;"></div>
       </div>
@@ -175,29 +170,20 @@ $veiculosManutencao = $veiculoController->contarManutencao();
 const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
 
-let fretesCarregados = [];
-
-function carregarFretes() {
-    fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(modelo)`, {
-        headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`
+async function carregarFretes() {
+    const resposta = await fetch(
+        `${SUPABASE_URL}/rest/v1/fretes_solicitados?select=*,usuario:cliente_id(*),veiculo:veiculo_id(*)`,
+        {
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`
+            }
         }
-    })
-    .then(r => r.json())
-    .then(dados => {
-        fretesCarregados = dados;
-        mostrarFretes(dados);
-    });
-}
+    );
 
-function filtrarStatus(status) {
-    if (status === "Todos") {
-        mostrarFretes(fretesCarregados);
-    } else {
-        const filtrado = fretesCarregados.filter(f => f.status === status);
-        mostrarFretes(filtrado);
-    }
+    const dados = await resposta.json();
+    console.log("FRETES CARREGADOS:", dados);
+    mostrarFretes(dados);
 }
 
 
@@ -259,27 +245,9 @@ function mostrarFretes(lista) {
                 icone = '<i class="fa-solid fa-circle-info" style="color:#95a5a6;"></i>';
         }
 
-      // Formatação da Numero de Telefone
-
-      function formatarTelefone(numero) {
-    if (!numero) return "—";
-
-    // Remove qualquer coisa que não seja número
-    numero = numero.toString().replace(/\D/g, "");
-
-    if (numero.length === 11) {
-        return `(${numero.slice(0, 2)}) ${numero.slice(2, 7)}-${numero.slice(7)}`;
-    }
-    if (numero.length === 10) {
-        return `(${numero.slice(0, 2)}) ${numero.slice(2, 6)}-${numero.slice(6)}`;
-    }
-
-    return numero; // fallback
-}
-
-
-        // 2. Criação dos CARDs
-
+        // ============================
+        // 2. CARD ESTILO TELA ADM
+        // ============================
 
         const card = document.createElement("div");
         card.style.cssText = `
@@ -314,7 +282,7 @@ function mostrarFretes(lista) {
             </div>
 
             <div style="margin-top:15px">
-                <p><strong>Cliente:</strong> ${user.nome || "—"} — ${formatarTelefone(user.telefone) || ""}</p>
+                <p><strong>Cliente:</strong> ${user.nome || "—"} — ${user.telefone || ""}</p>
                 <p><strong>Email:</strong> ${user.email || ""}</p>
 
                 <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem}, Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
@@ -329,62 +297,21 @@ function mostrarFretes(lista) {
             </div>
 
             <div style="margin-top:18px; display:flex; gap:10px;">
-<button onclick="atualizarStatus(${frete.id}, 'Aprovado', '${user.email}', '${user.nome}')">Aprovar</button>
-<button onclick="atualizarStatus(${frete.id}, 'Recusado', '${user.email}', '${user.nome}')"
-class="btn ghost" style="border:1px solid #ff4d4d;color:#ff6b6b;">
-    Recusar
-</button>
-                <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" 
-                  style="border:1px solid #25D366;color:#25D366;">
-                  WhatsApp
+                <button onclick="aprovar(${frete.id})" class="btn">Aprovar</button>
+                <button onclick="recusar(${frete.id})" class="btn ghost" 
+                    style="border:1px solid #ff4d4d;color:#ff6b6b;">
+                    Recusar
                 </button>
             </div>
         `;
 
         div.appendChild(card);
     });
-
 }
 
-  // Abrir conversa via whatzapp
-
-  function abrirWhats(telefone) {
-    if (!telefone) return alert("Número indisponível");
-    const link = `https://wa.me/55${telefone}`;
-    window.open(link, "_blank");
-}
-
-async function atualizarStatus(id, status, email, nome) {
-
-    await fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
-        method: "PATCH",
-        headers: {
-            "apikey": SUPABASE_KEY,
-            "Authorization": `Bearer ${SUPABASE_KEY}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ status })
-    });
-
-    // chamar função de notificação
-await fetch("/notificacao.php", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-        email,
-        nome,
-        pedido: id,
-        status,
-        dataHora: new Date().toLocaleString("pt-BR")
-    })
-});
 
 
-    carregarFretes();
-}
-
-function aprovar(id, nomeCliente, emailCliente) {
-    // atualizar status via fetch ou supabase
+function aprovar(id) {
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
         headers: {
@@ -396,11 +323,10 @@ function aprovar(id, nomeCliente, emailCliente) {
     }).then(() => {
         alert("Frete aprovado!");
         carregarFretes();
-        notificarClienteEmail(id,nomeCliente, emailCliente, "Aprovado");
     });
 }
 
-function recusar(id, nomeCliente, emailCliente) {
+function recusar(id) {
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
         headers: {
@@ -412,12 +338,12 @@ function recusar(id, nomeCliente, emailCliente) {
     }).then(() => {
         alert("Frete recusado!");
         carregarFretes();
-        notificarClienteEmail(id,nomeCliente, emailCliente, "Recusado");
     });
 }
 
 document.querySelector('[data-view="criar-envio"]')
     .addEventListener("click", carregarFretes);
+
 
 </script>
 
@@ -443,11 +369,9 @@ document.querySelector('[data-view="criar-envio"]')
     </table>
 
     <div style="margin-top:12px;display:flex;gap:12px;justify-content:flex-end">
-    <button class="btn ghost" onclick="abrirRemover()">Remover veículo</button>
-    <button class="btn" id="btnAbrirModal">Adicionar veículo</button>
-
-</div>
-
+      <button class="btn ghost">Remover veículo</button>
+      <button class="btn">Adicionar veículo</button>
+    </div>
   </div>
 </section>
 
@@ -514,69 +438,8 @@ document.querySelector('[data-view="criar-envio"]')
 
   </main>
 </div>
-<!-- Modal Adicionar -->
-<div id="modalAdicionar" class="modal-overlay hidden">
-    <div class="modal">
-        <h2>Adicionar veículo</h2>
-
-        <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
-            <label>Modelo</label>
-            <input type="text" name="modelo" required>
-
-            <label>Placa</label>
-            <input type="text" name="placa" required>
-
-            <label>Status</label>
-            <select name="status">
-                <option value="disponivel">Disponível</option>
-                <option value="em uso">Em uso</option>
-                <option value="manutencao">Manutenção</option>
-            </select>
-
-            <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
-                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
-                <button type="submit" class="btn">Adicionar</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Modal Remover -->
-<div id="modalRemover" class="modal" style="display:none">
-    <div class="modal-content">
-        <h2>Remover Veículo</h2>
-
-        <form action="../Controller/VeiculoController.php?action=remover" method="POST">
-            <label>ID do veículo</label>
-            <input type="number" name="id" required>
-
-            <button type="submit" class="btn ghost">Remover</button>
-            <button type="button" class="btn" onclick="fecharRemover()">Cancelar</button>
-        </form>
-    </div>
-</div>
 
 <script>
-
-const modal = document.getElementById("modalAdicionar");
-document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-});
-
-document.getElementById("fecharModal")?.addEventListener("click", () => {
-    modal.classList.add("hidden");
-});
-
-// Fechar ao clicar FORA do modal
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-    }
-});
-
-
-
-
   // Navegação simples entre views
   function openView(id){
     document.querySelectorAll('.view').forEach(v=>v.style.display='none');
