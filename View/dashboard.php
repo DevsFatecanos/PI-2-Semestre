@@ -122,6 +122,166 @@ $veiculosManutencao = $veiculoController->contarManutencao();
     z-index: 1 !important; /* NÃO ULTRAPASSAR O BOTÃO */
 }
 </style>
+
+
+<!--FIM DO MODAL MAPS-->
+
+<!--MODAL DE ATUALIZAR FRETE-->
+
+<div id="modalEditarFrete" class="modal">
+  <div class="modal-conteudo2">
+    <span class="fechar2" onclick="fecharModal2()">&times;</span>
+
+    <h2>Editar Frete</h2>
+
+    <label>Novo Valor (R$)</label>
+    <input type="number" id="modalValor" placeholder="Digite o novo valor">
+
+    <label>Veículo</label>
+    <select id="modalVeiculo"></select>
+
+    <button id="btnSalvarAlteracoes" class="btn ghost" style="margin-top: 20px;">
+      Salvar Alterações
+    </button>
+  </div>
+</div>
+
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 99999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+.modal-conteudo2 {
+  background:black;
+  width: 350px;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+.fechar2 {
+  float: right;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#modalEditarFrete select,
+#modalEditarFrete input {
+  background: #0f0f0f;
+  color: #ffffff;
+  border: 1px solid #444;
+  padding: 8px;
+  border-radius: 6px;
+  width: 100%;
+}
+
+#modalEditarFrete select option {
+  background: #0f0f0f;
+  color: #fff;
+}
+</style>
+
+<script>
+let freteAtual = null;
+let emailAtual = null;
+let nomeAtual = null;
+
+
+async function carregarVeiculos() {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/veiculo?select=id_veiculo,modelo`, {
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization": `Bearer ${SUPABASE_KEY}`
+    }
+  });
+
+  return await res.json();
+}
+
+async function abrirModalEditar(idFrete, valor, veiculo_id, email, nome) {
+  freteAtual = idFrete;
+  emailAtual = email;
+  nomeAtual = nome;
+
+  // Valor atual
+  document.getElementById("modalValor").value = valor;
+
+  // Carregar veículos e preencher select
+  const veiculos = await carregarVeiculos();
+  const select = document.getElementById("modalVeiculo");
+
+  select.innerHTML = veiculos
+    .map(v => `
+      <option value="${v.id_veiculo}" ${v.id_veiculo == veiculo_id ? "selected" : ""}>
+        ${v.modelo}
+      </option>
+    `)
+    .join("");
+
+  // Abrir modal
+  document.getElementById("modalEditarFrete").style.display = "block";
+}
+
+function fecharModal2() {
+  document.getElementById("modalEditarFrete").style.display = "none";
+}
+
+
+// 🔥 SALVAR ALTERAÇÕES
+document.getElementById("btnSalvarAlteracoes").onclick = async function () {
+  const novoValor = Number(document.getElementById("modalValor").value);
+  const novoVeiculo = Number(document.getElementById("modalVeiculo").value);
+
+  if (!novoValor || !novoVeiculo) {
+    alert("Preencha todos os campos!");
+    return;
+  }
+
+  // Atualizar no Supabase
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${freteAtual}`, {
+    method: "PATCH",
+    headers: {
+      "apikey": SUPABASE_KEY,
+      "Authorization": `Bearer ${SUPABASE_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      valor: novoValor,
+      veiculo_id: novoVeiculo
+    })
+  });
+
+  if (!res.ok) {
+    alert("Erro ao atualizar frete.");
+    return;
+  }
+
+  fecharModal2();
+  alert("Frete atualizado com sucesso!");
+
+  // Recarrega lista
+  carregarFretes();
+
+  // Notificar cliente
+  await fetch("/notificacao.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: emailAtual,
+      nome: nomeAtual,
+      pedido: freteAtual,
+      status: "Nova Proposta de Frete, Verifique seu Pedido na Home, entraremos em contato para mais Informações ",
+      valor: novoValor,
+      dataHora: new Date().toLocaleString("pt-BR")
+    })
+  });
+};
+</script>
+<!--FIM DO MODAL DE ATUALIZAR-->
+
 <div class="app">
   <aside class="sidebar card">
     <div class="brand"><div class="logo" style="display: flex; justify-content: center; align-items: center;"><img src="../Assets/IMG/logo.webp" alt="Logo SuperSonic Transportes" style="width: 20px; height: 20px;"></div>SuperSonic Transportes<br><span class="small">Admin</span></div>
