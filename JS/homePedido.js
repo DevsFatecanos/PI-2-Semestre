@@ -103,7 +103,7 @@ div.innerHTML += `
   <p><b>Descrição:</b> ${pedido.descricao_carga}</p>
   <p><b>Veículo:</b> ${pedido.veiculo_nome}</p>
   <p><b>Distância:</b> ${pedido.distancia}</p>
-  <p><b>Valor:</b> ${pedido.valor}</p>
+  <p><b>Valor:</b>R$ ${pedido.valor}</p>
   <p><strong>Data:</strong> ${formatarData(pedido.data_hora)}</p>
   <button class="Btn-Cancelar" data-index="${i}" >Cancelar Pedido</button>
 `;

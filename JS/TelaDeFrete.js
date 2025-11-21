@@ -142,7 +142,7 @@ async function tracarRota() {
       // Exibir resultado
       const divFrete = document.getElementById("precoFrete");
       document.getElementById("distanciaSpan").textContent = `${distanciaKm} km`;
-      document.getElementById("valorSpan").textContent = `R$ ${valorFrete}`;
+      document.getElementById("valorSpan").textContent = ` ${valorFrete}`;
       divFrete.style.display = "flex";
 
       // 🔹 Mantém o veículo visualmente selecionado
