@@ -127,8 +127,7 @@ $veiculosManutencao = $veiculoController->contarManutencao();
     <div class="brand"><div class="logo" style="display: flex; justify-content: center; align-items: center;"><img src="../Assets/IMG/logo.webp" alt="Logo SuperSonic Transportes" style="width: 20px; height: 20px;"></div>SuperSonic Transportes<br><span class="small">Admin</span></div>
     <nav class="nav" id="menu">
       <a href="#" data-view="dashboard" class="active">Dashboard</a>
-      <a href="#" data-view="envios">Envios</a>
-      <a href="#" data-view="criar-envio">Aprovar Envio</a>
+      <a href="#" data-view="criar-envio">Lista de Pedidos</a>
       <a href="#" data-view="veiculos">Veículos</a>
       <a href="#" data-view="motoristas">Motoristas</a>
       <a href="#" data-view="relatorios">Relatórios</a>
@@ -188,28 +187,9 @@ $veiculosManutencao = $veiculoController->contarManutencao();
         </div>
       </div>
     </section>
-
-    <section id="envios" class="view" style="display:none">
-      <div class="card" style="margin-bottom:16px">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <h3>Lista de Envios</h3>
-          <div style="display:flex;gap:8px"><button class="btn ghost" onclick="exportTable()">Exportar CSV</button><button class="btn" onclick="openView('criar-envio')">Novo Envio</button></div>
-        </div>
-        <table style="margin-top:12px">
-          <thead><tr><th>ID</th><th>Cliente</th><th>Origem</th><th>Destino</th><th>Placa</th><th>Data</th><th>Status</th><th>Ações</th></tr></thead>
-          <tbody>
-            <!-- Exemplo estático; adaptar para dados reais -->
-            <tr><td>00123</td><td>Distribuidora A</td><td>São Paulo</td><td>Rio de Janeiro</td><td>ABC-1D23</td><td>20/10/2025</td><td>Em rota</td><td><button class="btn ghost" onclick="viewShipment('00123')">Ver</button></td></tr>
-            <tr><td>00124</td><td>Loja B</td><td>Belo Horizonte</td><td>São Paulo</td><td>XYZ-9F88</td><td>21/10/2025</td><td>Aguardando</td><td><button class="btn ghost" onclick="viewShipment('00124')">Ver</button></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-
 <section id="criar-envio" class="view" style="display:none">
   <div class="card">
-    <h3>Pedidos Aguardando Aprovação</h3>
+    <h3>Pedidos Ativos</h3>
         <div style="display:flex; gap:10px; margin-bottom:15px;">
           <button class="btn ghost" onclick="filtrarStatus('Todos')">Todos</button>
           <button class="btn ghost" onclick="filtrarStatus('Aguardando Aprovação')">Aguardando</button>
@@ -227,7 +207,7 @@ $veiculosManutencao = $veiculoController->contarManutencao();
 <!--CSS DA BARRA DE ROLAGEM EM APROVAR FRETES-->
 <style>
   .scrollArea {
-    max-height: calc(100vh - 220px); /* ajuste fino da altura da tela */
+    max-height: calc(100vh - 220px); 
     overflow-y: auto;
     margin-top: 14px;
     padding-right: 6px;
@@ -254,16 +234,11 @@ $veiculosManutencao = $veiculoController->contarManutencao();
 
 <script>
 
-// ============================================================
-// VARIÁVEIS GLOBAIS
-// ============================================================
 const GEOAPIFY_KEY = "f68c5677fcb64b719fe631b6288e2a1d"; 
-let mapaAtual = null;       // Guarda o mapa (base)
-let camadaDesenhos = null;  // Guarda os pinos e a linha azul (para limpar depois)
+let mapaAtual = null;       
+let camadaDesenhos = null;  
 
-// ============================================================
-// 1. FECHAR MODAL (Agora é simples: só esconde!)
-// ============================================================
+// 1. FECHAR MODAL
 function fecharModal() {
     const modal = document.getElementById('modalMapaRota');
     const modal2 = document.getElementById('btnFecharModal');
@@ -281,7 +256,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
-// Adiciona evento no botão X e no fundo escuro
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btnFecharModal')?.addEventListener('click', fecharModal);
     document.getElementById('modalMapaRota')?.addEventListener('click', (e) => {
@@ -289,10 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// 2. ABRIR MODAL
 
-// ============================================================
-// 2. ABRIR MODAL (Lógica de Reuso)
-// ============================================================
 window.abrirModalMapa = async function(idFrete, origem, destino) {
     const modal = document.getElementById('modalMapaRota');
     const modal2 = document.getElementById('btnFecharModal');
@@ -377,9 +349,9 @@ window.abrirModalMapa = async function(idFrete, origem, destino) {
     }
 };
 
-// ============================================================
+
 // 3. AUXILIAR (Geocoding)
-// ============================================================
+
 async function geocodeAddress(address) {
     try {
         const url = `https://api.geoapify.com/v1/geocode/search?text=${encodeURIComponent(address)}&lang=pt&filter=countrycode:br&limit=1&apiKey=${GEOAPIFY_KEY}`;
@@ -546,7 +518,7 @@ function mostrarFretes(lista) {
                 <p style="margin-top:10px"><strong>Origem:</strong> ${frete.origem},<br> Nº ${frete.numero_origem} ${frete.complemento_origem}</p>
                 <p><strong>Destino:</strong> ${frete.destino},<br> Nº ${frete.numero_destino} ${frete.complemento_destino}</p>
 
-                <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo || "—"} (${veic.placa || ""})</p>
+                <p style="margin-top:10px"><strong>Veículo:</strong> ${veic.modelo}</p>
                 <p><strong>Carga:</strong> ${frete.descricao_carga}</p>
                 <p><strong>Distância:</strong> ${frete.distancia}</p>
                 <p><strong>Valor:</strong> ${frete.valor}</p>
