@@ -496,7 +496,7 @@ modal.addEventListener("click", (e) => {
         modal.classList.add("hidden");
     }
 });
-</script>
+
 
 
 
