@@ -1,384 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
+/* ===== Página Minha Conta ===== */
 
-/* ======= BASE ======= */
-* {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --grey: #F1F0F6;
-  --dark-grey: #8D8D8D;
-  --light: #fff;
-  --dark: #000;
-  --green: #81D43A;
-  --light-green: #E3FFCB;
-  --blue: #1775F1;
-  --light-blue: #D0E4FF;
-  --dark-blue: #0C5FCD;
-  --red: #FC3B56;
-}
-
-html { overflow-x: hidden; }
-body { background: var(--grey); overflow-x: hidden; }
-
-a { text-decoration: none; color: inherit; }
-li { list-style: none; }
-
-/* ======= BOTÕES ======= */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--blue);
-  color: var(--light);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background .2s ease, transform .05s ease;
-}
-.btn-primary:hover { background: var(--dark-blue); }
-.btn-primary:active { transform: translateY(1px); }
-
-/* ======= SIDEBAR ======= */
-#sidebar {
-  position: fixed;
-  max-width: 260px;
-  width: 100%;
-  background: var(--light);
-  top: 0;
-  left: 0;
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  transition: all .3s ease;
-  z-index: 200;
-}
-#sidebar.hide { max-width: 60px; }
-#sidebar.hide:hover { max-width: 260px; }
-#sidebar::-webkit-scrollbar { display: none; }
-
-#sidebar .brand {
-  font-size: 24px;
-  display: flex;
-  margin-top: 10%;
-  align-items: center;
-  height: 64px;
-  font-weight: 700;
-  color: var(--blue);
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  background: var(--light);
-  transition: all .3s ease;
-  justify-content: center;
-}
-
-/* Itens do menu lateral */
-#sidebar .side-menu {
-  margin: 36px 0;
-  padding: 0 20px;
-  transition: all .3s ease;
-}
-
-#sidebar.hide .side-menu { padding: 0 6px; }
-#sidebar.hide:hover .side-menu { padding: 0 20px; }
-
-#sidebar .side-menu a {
-  display: block;
-  font-size: 15px;
-  color: var(--dark);
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin: 6px 0;
-  white-space: nowrap;
-  text-align: center;
-  font-weight: 500;
-  transition: background .3s ease, color .3s ease;
-}
-
-#sidebar .side-menu > li > a:hover {
-  background: var(--grey);
-  color: var(--blue);
-}
-
-#sidebar .side-menu > li > a.active,
-#sidebar .side-menu > li > a.active:hover {
-  background: var(--blue);
-  color: var(--light);
-}
-
-/* Divisor "NAVEGAÇÃO" */
-#sidebar .divider {
-  margin-top: 24px;
-  margin-bottom: 8px;
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: var(--dark-grey);
-  text-align: center;
-}
-
-/* Área inferior */
-#sidebar .ads { width: 100%; padding: 20px; }
-#sidebar .ads .wrapper {
-  background: var(--grey);
+.perfil-card {
   padding: 20px;
-  border-radius: 10px;
-}
-#sidebar .ads .wrapper p {
-  font-size: 12px;
-  color: var(--dark-grey);
-  text-align: center;
-}
-
-
-/* Área inferior */
-#sidebar .ads { width: 100%; padding: 20px; }
-#sidebar .ads .wrapper {
-  background: var(--grey);
-  padding: 20px;
-  border-radius: 10px;
-}
-#sidebar .ads .wrapper p {
-  font-size: 12px;
-  color: var(--dark-grey);
-  text-align: center;
-}
-
-/* ======= CONTENT ======= */
-#content {
-  position: relative;
-  width: calc(100% - 260px);
-  left: 260px;
-  transition: all .3s ease;
-}
-#sidebar.hide + #content {
-  width: calc(100% - 60px);
-  left: 60px;
-}
-
-/* ======= NAVBAR ======= */
-
-
-/* ======= MAIN ======= */
-main {
-  width: 100%;
-  padding: 24px 20px 20px 20px;
-}
-main .title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-main .breadcrumbs {
-  display: flex;
-  grid-gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-main .breadcrumbs li,
-main .breadcrumbs li a { font-size: 14px; }
-main .breadcrumbs li a { color: var(--blue); }
-main .breadcrumbs li a.active,
-main .breadcrumbs li.divider {
-  color: var(--dark-grey);
-  pointer-events: none;
-}
-
-/* Cards gerais */
-main .info-data {
-  margin-top: 36px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-gap: 20px;
-}
-main .info-data .card {
-  padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--light);
   box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
-  transition: transform .06s ease, box-shadow .2s ease;
+  margin-top: 28px;
 }
-main .info-data .card:hover {
-  transform: translateY(-1px);
-  box-shadow: 6px 6px 20px rgba(0,0,0,.08);
-}
-main .card .head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-main .card .head h2 {
-  font-size: 22px;
+
+.perfil-card .head h3 {
+  font-size: 20px;
   font-weight: 600;
-}
-main .card .head p { font-size: 13px; color: var(--dark-grey); }
-
-/* ======= Solicitações: cartões empilhados ======= */
-.info-data.cards-pilha {
-  grid-template-columns: 1fr;
+  margin-bottom: 16px;
+  color: var(--blue);
 }
 
-.image-slot {
-  margin-top: 16px;
-  width: 100%;
-  min-height: 120px;
-  border: 2px dashed #d9d9d9;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--dark-grey);
-  font-size: 14px;
-}
-
-.card .btn-wrap {
-  margin-top: 16px;
-}
-
-/* ======= Avatar com hover “Alterar foto” ======= */
-.avatar-wrapper {
-  position: relative;
-  width: 36px;
-  height: 36px;
-}
-
-.avatar-wrapper .avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--blue);
-  background: var(--grey);
-  cursor: pointer;
-}
-
-.avatar-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  font-size: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 4px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .2s ease;
-}
-.avatar-wrapper:hover .avatar-overlay {
-  opacity: 1;
-}
-
-/* ======= FORMULÁRIOS DE CADASTRO ======= */
-.page {
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 32px 16px;
-}
-
-.card-cadastro {
-  width: 100%;
-  max-width: 960px;
-  background: var(--light);
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
-  padding: 32px 28px 24px;
-}
-
-.avatar-box {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 24px;
-}
-
-.avatar-btn {
-  position: absolute;
-  bottom: 6px;
-  right: 10px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: var(--light);
-  box-shadow: 0 4px 10px rgba(0,0,0,.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform .1s ease, box-shadow .1s ease;
-}
-.avatar-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0,0,0,.3);
-}
-.avatar-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(0,0,0,.25);
-}
-
-.form-grid {
+/* Grid do formulário */
+.perfil-card .form-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 18px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+  margin-bottom: 20px;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.field label {
-  font-size: 13px;
+.perfil-card .form-grid .field label {
+  font-size: 14px;
   font-weight: 600;
-  color: #111827;
 }
 
-input {
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 13px;
+.perfil-card .form-grid .field input {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  font-size: 14px;
+  background: #f9fafb;
 }
 
-/* Botões */
-.actions {
+.perfil-card .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 22px;
 }
 
-.btn-secondary {
-  background: #e5e7eb;
-  color: #111827;
-  border-radius: 999px;
-  padding: 10px 18px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  transition: background .18s ease;
-}
-.btn-secondary:hover { background: #d1d5db; }
-
+/* Responsividade */
 @media (max-width: 768px) {
-  .card-cadastro {
-    padding: 24px 18px 20px;
-  }
-  .form-grid {
+  .perfil-card .form-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Remove a barra branca superior */
+#content nav {
+  display: none !important;
+}
+
+/* === Forçar comportamento idêntico ao dos outros links da sidebar === */
+
+/* 1) Reset visual por padrão (sem destaque) */
+#sidebar .side-menu > li > a.active {
+  background: transparent !important;
+  color: var(--dark) !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+  transition: background .25s ease, color .25s ease !important;
+}
+
+/* 2) Hover: exatamente igual aos outros (mesma regra usada nos links normais) */
+#sidebar .side-menu > li > a.active:hover,
+#sidebar .side-menu > li > a:hover {
+  background: var(--grey) !important;
+  color: var(--blue) !important;
+}
+
+/* 3) Garantir foco (acessibilidade) */
+#sidebar .side-menu > li > a.active:focus {
+  outline: none;
+  box-shadow: none;
+  background: var(--grey) !important;
+  color: var(--blue) !important;
 }
