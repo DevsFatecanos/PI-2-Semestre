@@ -273,7 +273,7 @@ document.getElementById("btnSalvarAlteracoes").onclick = async function () {
       email: emailAtual,
       nome: nomeAtual,
       pedido: freteAtual,
-      status: "Nova Proposta de Frete, Verifique seu Pedido na Home, entraremos em contato para mais Informações ",
+      status: "Nova Proposta de Frete, Verifique seu Pedido na Home, entraremos em contato para mais Informações",
       valor: novoValor,
       dataHora: new Date().toLocaleString("pt-BR")
     })
