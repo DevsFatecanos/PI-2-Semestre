@@ -668,7 +668,7 @@ function mostrarFretes(lista) {
               <button onclick="atualizarStatus(${frete.id}, 'Entregue', '${user.email}', '${user.nome}')"class = "btn ghost" style = " border:1px solid #167980ff; color:#167980ff; " >Entregue</button>    
               <button onclick="abrirWhats('${user.telefone}')" class="btn ghost" style="border:1px solid #25D366;color:#25D366;">WhatsApp</button>
               <button onclick="abrirModalMapa(${frete.id}, '${frete.origem}', '${frete.destino}')" class="btn ghost" style="border: 1px solid #ff7300ff; color: #ff7300ff;"><i class="fa-solid fa-map-location-dot"></i> Ver Rota</button>
-              <button class="btn" onclick="abrirModalEditar(${frete.id}, ${frete.valor}, ${frete.veiculo_id}, '${user.email}', '${user.nome}')"> Editar Frete</button>
+              <button class="btn ghost" style="border:1px solid #c7d325ff;color:#c7d325ff;" onclick="abrirModalEditar(${frete.id}, ${frete.valor}, ${frete.veiculo_id}, '${user.email}', '${user.nome}')"> Editar Frete</button>
               </div>
             
         `;
