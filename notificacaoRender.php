@@ -1,28 +1,41 @@
 <?php
-require 'vendor/autoload.php'; // Certifique-se de que PHPMailer está instalado via Composer
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require 'vendor/autoload.php'; // PHPMailer via Composer
 
+// Lê o JSON enviado pelo fetch
+$input = json_decode(file_get_contents('php://input'), true);
+
+// Extrai os campos
+$email = $input['email'] ?? null;
+$nome = $input['nome'] ?? null;
+$pedido = $input['pedido'] ?? null;
+$status = $input['status'] ?? null;
+$valor = $input['valor'] ?? null;
+$dataHora = $input['dataHora'] ?? null;
+
+// Validação básica
+if (!$email || !$nome) {
+    http_response_code(400);
+    echo "Email ou nome não enviados!";
+    exit;
+}
 
 $mail = new PHPMailer(true);
 
 try {
-    // Configuração do servidor SMTP
     $mail->isSMTP();
     $mail->Host       = 'smtp.resend.com';
     $mail->SMTPAuth   = true;
     $mail->Username   = 'resend';
     $mail->Password   = 're_37L7VrdD_2h9nHAeDSecjEDesseBCjU6T';
-    $mail->SMTPSecure = 'ssl'; // ou 'tls' se preferir porta 587
+    $mail->SMTPSecure = 'ssl';
     $mail->Port       = 465;
 
-    // Remetente e destinatário
     $mail->setFrom('onboarding@resend.dev', 'Seu App');
-    $mail->addAddress($email, $nome); // $email e $nome vindos do seu JS
+    $mail->addAddress($email, $nome);
 
-    // Conteúdo do email
     $mail->isHTML(true);
     $mail->Subject = 'Atualização do pedido #' . $pedido;
     $mail->Body    = "
@@ -35,6 +48,7 @@ try {
     $mail->send();
     echo 'Mensagem enviada com sucesso!';
 } catch (Exception $e) {
+    http_response_code(500);
     echo "Erro ao enviar email: {$mail->ErrorInfo}";
 }
 ?>
