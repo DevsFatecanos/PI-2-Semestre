@@ -1,54 +1,56 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// notificacao.php
 
-require 'vendor/autoload.php'; // PHPMailer via Composer
+// Recebe os dados do front
+$data = json_decode(file_get_contents('php://input'), true);
 
-// Lê o JSON enviado pelo fetch
-$input = json_decode(file_get_contents('php://input'), true);
-
-// Extrai os campos
-$email = $input['email'] ?? null;
-$nome = $input['nome'] ?? null;
-$pedido = $input['pedido'] ?? null;
-$status = $input['status'] ?? null;
-$valor = $input['valor'] ?? null;
-$dataHora = $input['dataHora'] ?? null;
-
-// Validação básica
-if (!$email || !$nome) {
+if (!$data || !isset($data['email'], $data['nome'], $data['pedido'], $data['status'])) {
     http_response_code(400);
-    echo "Email ou nome não enviados!";
+    echo json_encode(['erro' => 'Dados inválidos']);
     exit;
 }
 
-$mail = new PHPMailer(true);
+$email = $data['email'];
+$nome = $data['nome'];
+$pedido = $data['pedido'];
+$status = $data['status'];
+$dataHora = $data['dataHora'] ?? date('d/m/Y H:i');
 
-try {
-    $mail->isSMTP();
-    $mail->Host       = 'smtp.resend.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'resend';
-    $mail->Password   = 're_37L7VrdD_2h9nHAeDSecjEDesseBCjU6T';
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port       = 465;
+// Chave da API do Resend
+$apiKey = 're_d5e82yzo_Dowh6pBxpNWoevDWu7GttJDJ';
 
-    $mail->setFrom('onboarding@resend.dev', 'Seu App');
-    $mail->addAddress($email, $nome);
+// Corpo do email
+$body = [
+    "from" => "SuperSonic Transportes <onboarding@resend.com>",
+    "to" => [$email],
+    "subject" => "Atualização do Pedido #$pedido",
+    "html" => "
+        <h2>Olá, $nome!</h2>
+        <p>O status do seu pedido <strong>#$pedido</strong> foi atualizado para: <strong>$status</strong>.</p>
+        <p>Data/Hora da atualização: $dataHora</p>
+        <p>Você pode acompanhar o seu pedido acessando a nossa plataforma.</p>
+        <br>
+        <p>Atenciosamente,<br>SuperSonic Transportes</p>
+    "
+];
 
-    $mail->isHTML(true);
-    $mail->Subject = 'Atualização do pedido #' . $pedido;
-    $mail->Body    = "
-        <p>Olá <strong>$nome</strong>,</p>
-        <p>O status do seu pedido <strong>#$pedido</strong> foi atualizado para <strong>$status</strong>.</p>
-        <p>Valor: R$ $valor</p>
-        <p>Data/Hora: $dataHora</p>
-    ";
+// Envia via cURL
+$ch = curl_init("https://api.resend.com/emails");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Authorization: Bearer $apiKey",
+    "Content-Type: application/json"
+]);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($body));
 
-    $mail->send();
-    echo 'Mensagem enviada com sucesso!';
-} catch (Exception $e) {
-    http_response_code(500);
-    echo "Erro ao enviar email: {$mail->ErrorInfo}";
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_close($ch);
+
+if ($httpCode >= 200 && $httpCode < 300) {
+    echo json_encode(['sucesso' => true, 'mensagem' => 'Email enviado via Resend']);
+} else {
+    http_response_code($httpCode);
+    echo $response;
 }
-?>

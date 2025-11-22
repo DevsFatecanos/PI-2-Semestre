@@ -238,7 +238,7 @@ document.getElementById("btnSalvarAlteracoes").onclick = async function () {
   carregarFretes();
 
   // Notificar cliente
-  await fetch("/notificacao.php", {
+  await fetch("/PI-2-Semestre/notificacao.php", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
