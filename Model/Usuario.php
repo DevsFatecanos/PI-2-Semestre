@@ -17,7 +17,7 @@ class Usuario {
     }
 
     public function salvar($pdo) {
-        $sql = "INSERT INTO cliente (nome, telefone, documento, email, senha, role)
+        $sql = "INSERT INTO usuario (nome, telefone, documento, email, senha, role)
                 VALUES (:nome, :telefone, :documento, :email, :senha, :role)";
         $stmt = $pdo->prepare($sql);
 

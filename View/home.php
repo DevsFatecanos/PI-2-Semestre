@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+// Opcional: Verifica se o usuário está logado, se não, redireciona para o login
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.html');
+    exit;
+}
+// Você pode usar $_SESSION['usuario_nome'] e $_SESSION['usuario_role']
+// para personalizar a página de boas-vindas.
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
