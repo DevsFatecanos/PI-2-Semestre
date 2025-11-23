@@ -83,7 +83,7 @@ class UsuarioController {
                 if ($usuario['role'] === 'admin') {
                     header("Location: ../View/dashboard.php");
                 } else {
-                    header("Location: ../View/index.php");
+                    header("Location: ../View/home.html");
                 }
                 exit;
             } else {
