@@ -115,6 +115,8 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor">Como podemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor">Tire suas Dúvidas</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a style="border:1px solid #417dff; color:#417dff; border-radius: 20px;" href="View/registro.html"tabindex="-1">Cadastre-se</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a style="border:1px solid #417dff;margin-left:10%; color:#417dff; border-radius: 25px;" href="View/login.html" tabindex="-1">Entrar</a></li>
 </ul>			</nav>
 					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
 			<svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open e-font-icon-svg e-eicon-menu-bar" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M104 333H896C929 333 958 304 958 271S929 208 896 208H104C71 208 42 237 42 271S71 333 104 333ZM104 583H896C929 583 958 554 958 521S929 458 896 458H104C71 458 42 487 42 521S71 583 104 583ZM104 833H896C929 833 958 804 958 771S929 708 896 708H104C71 708 42 737 42 771S71 833 104 833Z"></path></svg><svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close e-font-icon-svg e-eicon-close" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M742 167L500 408 258 167C246 154 233 150 217 150 196 150 179 158 167 167 154 179 150 196 150 212 150 229 154 242 171 254L408 500 167 742C138 771 138 800 167 829 196 858 225 858 254 829L496 587 738 829C750 842 767 846 783 846 800 846 817 842 829 829 842 817 846 804 846 783 846 767 842 750 829 737L588 500 833 258C863 229 863 200 833 171 804 137 775 137 742 167Z"></path></svg>		</div>
@@ -124,6 +126,11 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor" tabindex="-1">Como podemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item" tabindex="-1">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor" tabindex="-1">Tire suas Dúvidas</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a class="elementor-item elementor-item-anch" href="View/registro.html"tabindex="-1">Cadastre-se</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a class="elementor-button elementor-button-link elementor-size-sm" href="View/login.html" tabindex="-1">Entrar</a></li>
+
+					
+
 </ul>			</nav>
 						</div>
 				</div>
@@ -136,28 +143,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="View/registro.html">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Cadastre-se </span>
-					</span>
-					</a>
+					
 				</div>
 								</div>
 				</div>
 					</div>
 		</div>
-		<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-3c7fbb1b elementor-hidden-tablet elementor-hidden-phone" data-id="3c7fbb1b" data-element_type="column">
+		<div style="display:flex;" class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-3c7fbb1b elementor-hidden-tablet elementor-hidden-phone" data-id="3c7fbb1b" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="View/login.html">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Entrar</span>
-					</span>
-					</a>
+										
 				</div>
-								</div>
+				</div>
 				</div>
 					</div>
 		</div>
