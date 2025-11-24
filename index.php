@@ -111,8 +111,6 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-widget-container">
 								<nav aria-label="Menu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade">
 				<ul id="menu-1-7947cdc3" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-65 current_page_item menu-item-79"><a href="https://sonicsp.com.br/" aria-current="page" class="elementor-item elementor-item-active">Home</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="#sobre" class="elementor-item elementor-item-anchor">Sobre Nós</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor">Como podemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor">Tire suas Dúvidas</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a style="border:1px solid #417dff; color:#417dff; border-radius: 20px;" href="View/registro.html"tabindex="-1">Cadastre-se</a></li>
