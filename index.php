@@ -138,7 +138,7 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 									<div class="elementor-button-wrapper">
 					<a class="elementor-button elementor-button-link elementor-size-sm" href="View/registro.html">
 						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Faça uma Cotação </span>
+									<span class="elementor-button-text">Cadastre-se </span>
 					</span>
 					</a>
 				</div>
@@ -178,9 +178,9 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-element elementor-element-373d11d6 elementor-mobile-align-justify elementor-invisible elementor-widget elementor-widget-button" data-id="373d11d6" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-lg" href="#">
+					<a class="elementor-button elementor-button-link elementor-size-lg" href="View/login.html">
 						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Fale com nossa equipe</span>
+									<span class="elementor-button-text">Faça uma Contação</span>
 					</span>
 					</a>
 				</div>
@@ -323,11 +323,6 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-element elementor-element-f9d5f47 elementor-mobile-align-justify elementor-align-right elementor-invisible elementor-widget elementor-widget-button" data-id="f9d5f47" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-lg" href="https://api.whatsapp.com/send/?phone=5511947293000&#038;text&#038;type=phone_number&#038;app_absent=0">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Fale com nossa equipe</span>
-					</span>
-					</a>
 				</div>
 								</div>
 				</div>
