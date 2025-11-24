@@ -128,3 +128,18 @@ button:active {
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 
+.btn-login {
+    color: white;
+    background-color: #0073e6;
+    padding: 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    margin: 1%;
+}
+
+ .btn-login:hover{
+    background-color: #005bb5; /* cor mais escura no hover */
+    transform: translateY(-2px); /* leve efeito de elevação */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}

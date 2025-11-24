@@ -6,6 +6,8 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.html');
     exit;
 }
+
+$email = $_SESSION['usuario_email'];
 // Você pode usar $_SESSION['usuario_nome'] e $_SESSION['usuario_role']
 // para personalizar a página de boas-vindas.
 ?>
