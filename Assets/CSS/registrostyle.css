@@ -1,23 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
 }
 
-
-
-h1{
-    display: block;
-    font-size: 50px;
-    color: #417dff;
-    
-    font-weight: lighter;
-    
-}
-body{
-     background-image:url("../IMG/caminhao.jpg");
+body {
+    background-image: url("../IMG/caminhao.jpg");
     background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -25,121 +17,105 @@ body{
     justify-content: space-around;
     align-items: center;
 }
-#container {
-   margin-bottom: 30px;
-   display: flex;
-   flex-direction: column;
-   color: white;
-   justify-content: center;
-   align-items: center;
-   border-radius: 25px;
-   width: 70vw;
-   height: 90vh;
-   background-color: rgba(255, 255, 255, 0.925); 
-   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-}
-img{
+
+img {
     width: 60px;
     height: 60px;
-    margin: 10px;
-}
-form{
-    display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
+    margin: 1px;
 }
 
-
-/* para telas grandes (acima de 1280px) */
-@media (min-width: 1280px) {
-  #container {
-    width: 60vw;   /* menor largura */
-    height: 90vh;  /* opcional, altura menor */
-  }
-}
-input[type="submit"]{
-    
-    font-size: 20px;
-    display: flex;
-    justify-self: center;
-    padding: 15px;
-    width: 150px;
-    background-color: #0073e6;
-    border: none; 
-    border-radius: 10px;
-    color: white;
-    transition: all 0.3s ease;
-}
-input:hover[type="submit"]{
-    background-color: #005bb5; /* cor mais escura no hover */
-    transform: translateY(-2px); /* leve efeito de elevação */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-.aria-label{
+#container {
     display: flex;
     flex-direction: column;
-    height: 10vh;
-    margin: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 70vw;
+    height: 85vh;
+    background-color: rgba(255,255,255,0.92);
+    border-radius: 25px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
 }
-label{
+
+h1 {
+    font-size: 50px;
+    color: #417dff;
+    margin-bottom: 5px;
+    font-weight: lighter;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aria-label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 8px 0;
+}
+
+label {
     font-size: 20px;
     color: #417dff;
+    align-self: flex-start;
+    margin-left: 5%;
 }
-input[type="text"],input[type="email"],input[type="tel"],input[type="password"]{
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
     width: 50vw;
     height: 5vh;
     border-radius: 10px;
-    border: #417dff 2px solid;
-    font-size: 20px;
-    text-indent: 10px;
+    border: 2px solid #417dff;
+    font-size: 18px;
+    padding-left: 10px;
     color: #0073e6;
 }
 
-
-
-/*-----------------------------------------------------------------*/
-/* Estilo base de todos os botões Elementor */
+input[type="submit"],
 button {
-  display: inline-block;
-  background-color: #0073e6; /* cor do fundo */
-  color: #fff;              /* cor do texto */
-  padding: 14px 28px;       /* espaçamento interno */
-  border: none;
-  border-radius: 8px;       /* borda arredondada */
-  font-size: 16px;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+    margin-top: 15px;
+    padding: 10px;
+    width: 180px;
+    font-size: 18px;
+    background-color: #0073e6;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s ease;
 }
 
-/* Hover (quando o mouse passa em cima) */
+input[type="submit"]:hover,
 button:hover {
-  background-color: #005bb5; /* cor mais escura no hover */
-  transform: translateY(-2px); /* leve efeito de elevação */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-}
-
-/* Botão em estado ativo (clicando) */
-button:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    background-color: #005bb5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .btn-login {
-    color: white;
-    background-color: #0073e6;
-    padding: 10px;
+    background-color: #4ec1ee;
+    color: #ffffff;
+    padding: 12px;
     border-radius: 10px;
-    transition: all 0.3s ease;
+    margin-top: 10px;
     text-decoration: none;
-    margin: 1%;
+    transition: 0.3s ease;
 }
 
- .btn-login:hover{
-    background-color: #005bb5; /* cor mais escura no hover */
-    transform: translateY(-2px); /* leve efeito de elevação */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+.btn-login:hover {
+    background-color: #66a9ed;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Responsividade */
+@media (min-width: 1280px) {
+    #container {
+        width: 60vw;
+    }
 }

@@ -9,38 +9,45 @@
 </head>
 <body>
 
-    <img src="../Assets/IMG/logo.webp" alt="">
+    <img src="../Assets/IMG/logo.webp" alt="Logo">
+
     <div id="container">
         <h1>Registrar</h1>
 
-        <!-- ⚠️ Corrigido o caminho e método de envio -->
         <form action="../Controller/UsuarioController.php?action=registrar" method="POST">
+
             <div class="aria-label">
                 <label for="nome">Nome</label>
                 <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
             </div>
+
             <div class="aria-label">
                 <label for="telefone">Telefone</label>
-                <input type="tel" name="telefone" id="telefone" placeholder="(11) 95235-2134" 
+                <input type="tel" name="telefone" id="telefone" placeholder="(11) 95235-2134"
                        pattern="^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$">
             </div>
+
             <div class="aria-label">
                 <label for="documento" id="documento-label">CPF</label>
                 <input type="text" name="documento" id="documento" placeholder="Digite seu CPF">
             </div>
-            
-            <button type="button" onclick="alternarDocumento()">Usar CNPJ</button>
+
+            <button type="button" id="alternador" onclick="alternarDocumento()">Usar CNPJ</button>
 
             <div class="aria-label">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="exemplo@email.com" required>
+                <input type="email" name="email" id="email" placeholder="email@exemplo.com" required>
             </div>
+
             <div class="aria-label">
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
             </div>
+            <div>
             <input type="submit" value="Registrar">
+
             <a class="btn-login" href="./login.html">Fazer Login</a>
+            </div>
         </form>
     </div>
 
@@ -50,20 +57,21 @@
         function alternarDocumento() {
             const label = document.getElementById('documento-label');
             const input = document.getElementById('documento');
-            const botao = event.target;
+            const botao = document.getElementById('alternador');
 
             if (usandoCPF) {
-                label.textContent = 'CNPJ';
-                input.placeholder = 'Digite seu CNPJ';
-                botao.textContent = 'Usar CPF';
+                label.textContent = "CNPJ";
+                input.placeholder = "Digite seu CNPJ";
+                botao.textContent = "Usar CPF";
             } else {
-                label.textContent = 'CPF';
-                input.placeholder = 'Digite seu CPF';
-                botao.textContent = 'Usar CNPJ';
+                label.textContent = "CPF";
+                input.placeholder = "Digite seu CPF";
+                botao.textContent = "Usar CNPJ";
             }
 
             usandoCPF = !usandoCPF;
         }
     </script>
+
 </body>
 </html>
