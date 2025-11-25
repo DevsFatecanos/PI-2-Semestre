@@ -29,12 +29,12 @@ $email = $_SESSION['usuario_email'];
     <li><a href="../index.php">Home</a></li>
     <li class="divider" data-text="navegação">Navegação</li>
 
-    <li><a href="./PaginaDeFrete.html">Calcular Frete</a></li>
+    <li><a href="./PaginaDeFrete.php">Calcular Frete</a></li>
     <li><a href="minhaconta.html">Minha Conta</a></li>
 
     <!-- Botão SAIR adicionado -->
     <li>
-      <a href="#" class="logout-btn">
+      <a href="../index.php" class="logout-btn">
         <i class='bx bx-log-out'></i> Sair
       </a>
     </li>
@@ -66,7 +66,7 @@ $email = $_SESSION['usuario_email'];
           <span class="label">Página inicial</span>
         </a>
 
-        <a class="card" href="./PaginaDeFrete.html" style="text-decoration:none;">
+        <a class="card" href="./PaginaDeFrete.php" style="text-decoration:none;">
           <div class="head">
             <div>
               <h2>Solicitações</h2>

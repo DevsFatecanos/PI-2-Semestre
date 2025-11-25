@@ -262,7 +262,7 @@ alert("✅ Pedido confirmado com sucesso!");
 
 // Redireciona após 1 segundo
 setTimeout(() => {
-  window.location.href = "home.html";
+  window.location.href = "home.php";
 }, 1000);
 
 });
