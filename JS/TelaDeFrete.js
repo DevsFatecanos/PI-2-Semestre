@@ -275,7 +275,7 @@ async function salvarPedidoNoSupabase(pedido) {
   
   // 🔹 envia apenas os campos válidos para o banco
   const pedidoSupabase = {
-    id_cliente: pedido.id_cliente,
+    cliente_id: CLIENTE_ID,
     origem: pedido.origem,
     numero_origem: pedido.numero_origem,
     complemento_origem: pedido.complemento_origem,

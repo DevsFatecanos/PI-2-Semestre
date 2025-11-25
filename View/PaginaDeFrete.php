@@ -1,3 +1,9 @@
+<?php
+session_start();
+// 2. Define a variável JS com o ID do usuário
+$cliente_id_logado = $_SESSION['usuario_id'];
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,6 +15,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=airport_shuttle" />
 </head>
 <body>
+<!--Pega o ID o cliente Logado para o SUPABASE-->
+  <script>
+    const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
+    console.log("ID do Cliente Injetado (Página Carregada):", CLIENTE_ID);
+</script>
   <header >
     <a class="btn-home" href="./home.php"> Home</a>
     <a href="./home.php"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
