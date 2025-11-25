@@ -1,3 +1,9 @@
+<?php
+session_start();
+// 2. Define a variável JS com o ID do usuário
+$cliente_id_logado = $_SESSION['usuario_id'];
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -9,9 +15,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=airport_shuttle" />
 </head>
 <body>
+<!--Pega o ID o cliente Logado para o SUPABASE-->
+  <script>
+    const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
+    console.log("ID do Cliente Injetado (Página Carregada):", CLIENTE_ID);
+</script>
   <header >
-    <a class="btn-home" href="./home.html"> Home</a>
-    <a href="./home.html"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+    <a class="btn-home" href="./home.php"> Home</a>
+    <a href="./home.php"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
   </header>
 
   <!--LODDING DIV-->
@@ -74,7 +85,7 @@
       <div class="preco-frete" id="precoFrete" style="display:none;">
   <div class="frete-detalhes">
     <p><strong>Distância:</strong> <span id="distanciaSpan">0 km</span></p>
-    <p><strong>Valor estimado do frete:</strong> <span id="valorSpan">R$ 0,00</span></p>
+    <p><strong>Valor estimado do frete: R$</strong> <span id="valorSpan">R$ 0,00</span></p>
   <button id="btnConfirmar" class="btn-confirmar" type="button">Confirmar Pedido</button>
   </div>
   </div>
@@ -113,6 +124,7 @@
 </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../JS/TelaDeFrete.js"></script>
   <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 </body>

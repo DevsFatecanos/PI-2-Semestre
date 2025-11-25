@@ -33,7 +33,7 @@ public function contarEmUso() {
         $veiculos = [];
 
         foreach ($dados as $v) {
-            $veiculos[] = new Veiculo($v['id_veiculo'], $v['modelo'], $v['placa'], $v['status']);
+            $veiculos[] = new Veiculo($v['id_veiculo'], $v['modelo'], $v['placa'],$v['valor_por_km'] ,$v['status']);
         }
 
         return $veiculos;

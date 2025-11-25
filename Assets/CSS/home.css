@@ -534,3 +534,17 @@ margin-left: 4vh;
 #cancelarModalBtn:hover {
   background-color: #aaa;
 }
+
+#sidebar {
+    border-right: 4px solid #007bff; /* Linha azul na lateral */
+}
+/* Botão Sair na sidebar */
+#sidebar .logout-btn {
+  color: var(--red);
+  font-weight: 600;
+}
+
+#sidebar .logout-btn:hover {
+  background: #ffe5e8;
+  color: var(--red);
+}

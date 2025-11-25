@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Opcional: Verifica se o usuário está logado, se não, redireciona para o login
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.html');
+    exit;
+}
+
+$email = $_SESSION['usuario_email'];
+// Você pode usar $_SESSION['usuario_nome'] e $_SESSION['usuario_role']
+// para personalizar a página de boas-vindas.
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -6,6 +19,7 @@
     <title>Bem Vindo - Home</title>
     <link rel="stylesheet" href="../Assets/CSS/home.css">
     <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
 </head>
 <body>
   <!-- SIDEBAR -->
@@ -15,34 +29,21 @@
     <li><a href="../index.php">Home</a></li>
     <li class="divider" data-text="navegação">Navegação</li>
 
-    <li><a href="./PaginaDeFrete.html">Calcular Frete</a></li>
+    <li><a href="./PaginaDeFrete.php">Calcular Frete</a></li>
     <li><a href="minhaconta.html">Minha Conta</a></li>
-    <li><a href="meusdados.html">Cadastro</a></li>
+
+    <!-- Botão SAIR adicionado -->
+    <li>
+      <a href="../index.php" class="logout-btn">
+        <i class='bx bx-log-out'></i> Sair
+      </a>
+    </li>
   </ul>
+
 </section>
   <!-- CONTEÚDO -->
   <section id="content">
-    <!-- NAVBAR -->
-    <nav>
-      <i class='bx bx-menu toggle-sidebar'></i>
-      <form action="#" aria-label="Busca rápida">
-        <div class="form-group">
-          
-          <i class='bx bx-search icon'></i>
-        </div>
-      </form>
-      <span class="divider"></span>
-      <div class="profile">
-        
-        <ul class="profile-link">
-          <li><a href="minhaconta.html"><i class='bx bxs-user-circle icon'></i> Perfil</a></li>
-          <li><a href="#"><i class='bx bxs-cog'></i> Configurações</a></li>
-          <li><a href="#"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- /NAVBAR -->
-
+  
     <!-- MAIN -->
     <main>
       <h1 class="title">Home</h1>
@@ -65,7 +66,7 @@
           <span class="label">Página inicial</span>
         </a>
 
-        <a class="card" href="./PaginaDeFrete.html" style="text-decoration:none;">
+        <a class="card" href="./PaginaDeFrete.php" style="text-decoration:none;">
           <div class="head">
             <div>
               <h2>Solicitações</h2>

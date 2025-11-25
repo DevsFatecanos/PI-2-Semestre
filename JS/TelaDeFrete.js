@@ -7,7 +7,6 @@ let marcadorOrigem, marcadorDestino, rotaLayer;
 let coordenadas = { origem: null, destino: null };
 
 // --- AUTOCOMPLETE COM FILTRO PARA REGIÃO METROPOLITANA DE SÃO PAULO ---
-
 const GEOAPIFY_KEY = "f68c5677fcb64b719fe631b6288e2a1d"; // 🔹 coloque sua chave aqui
 let timer;
 
@@ -76,6 +75,39 @@ autocomplete("origem", "sugestoes-origem", "origem");
 autocomplete("destino", "sugestoes-destino", "destino");
 
 
+
+const db = supabase.createClient(
+  "https://oudhyeawauuzvkrhsgsk.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0"
+);
+
+async function carregarPrecos() {
+  const { data, error } = await db
+    .from("veiculo")
+    .select("id_veiculo, valor_por_km"); // <- pegar id_veiculo
+
+  if (error) {
+    console.error("Erro ao buscar preços:", error);
+    return;
+  }
+
+  console.log("Preços carregados do Supabase:", data);
+
+  const itensCarrossel = document.querySelectorAll(".veiculo");
+  itensCarrossel.forEach(item => {
+    const id = Number(item.dataset.id);
+    const registro = data.find(v => v.id_veiculo === id); // <- aqui também
+    if (registro) {
+      item.dataset.preco = registro.valor_por_km;
+      console.log(`Item ${id} atualizado com preço: ${item.dataset.preco}`);
+    } else {
+      console.warn(`Item ${id} não encontrado no Supabase`);
+    }
+  });
+}
+
+carregarPrecos();
+
 // ===== CARROSSEL DE VEÍCULOS =====
 let precoPorKm = null;
 let veiculoSelecionado = null; // 🔹 Armazena o veículo escolhido
@@ -142,7 +174,7 @@ async function tracarRota() {
       // Exibir resultado
       const divFrete = document.getElementById("precoFrete");
       document.getElementById("distanciaSpan").textContent = `${distanciaKm} km`;
-      document.getElementById("valorSpan").textContent = `R$ ${valorFrete}`;
+      document.getElementById("valorSpan").textContent = ` ${valorFrete}`;
       divFrete.style.display = "flex";
 
       // 🔹 Mantém o veículo visualmente selecionado
@@ -195,7 +227,7 @@ btnFinalizarPedido.addEventListener("click", () => {
 
 const veiculoElemento = document.querySelector(".veiculo.selecionado");
   const veiculoNome = veiculoElemento?.querySelector("p").innerText.split("\n")[0] || "Não selecionado";
-  const veiculoId = parseInt(veiculoElemento?.dataset.id || 0); // ✅ ID do veículo (vindo do data-id)
+  const veiculoId = parseInt(veiculoElemento?.dataset.id || 0);
 
 
 // Coleta os dados do pedido
@@ -230,7 +262,7 @@ alert("✅ Pedido confirmado com sucesso!");
 
 // Redireciona após 1 segundo
 setTimeout(() => {
-  window.location.href = "home.html";
+  window.location.href = "home.php";
 }, 1000);
 
 });
@@ -243,7 +275,7 @@ async function salvarPedidoNoSupabase(pedido) {
   
   // 🔹 envia apenas os campos válidos para o banco
   const pedidoSupabase = {
-    id_cliente: pedido.id_cliente,
+    cliente_id: CLIENTE_ID,
     origem: pedido.origem,
     numero_origem: pedido.numero_origem,
     complemento_origem: pedido.complemento_origem,
@@ -285,7 +317,6 @@ async function salvarPedidoNoSupabase(pedido) {
     alert("Falha ao conectar ao banco de dados!");
   }
 }
-
 
 
 
