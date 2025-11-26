@@ -1,16 +1,4 @@
-<?php
-session_start();
 
-// Opcional: Verifica se o usuário está logado, se não, redireciona para o login
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.html');
-    exit;
-}
-
-$email = $_SESSION['usuario_email'];
-// Você pode usar $_SESSION['usuario_nome'] e $_SESSION['usuario_role']
-// para personalizar a página de boas-vindas.
-?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -112,6 +100,7 @@ $email = $_SESSION['usuario_email'];
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 <script>
     const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
+    console.log("ID do Cliente Injetado na Home:", CLIENTE_ID);
 </script>
 <script src="../JS/TelaDeFrete.js"></script>
 <script src="../JS/homePedido.js"></script>
