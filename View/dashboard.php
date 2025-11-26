@@ -33,6 +33,7 @@ $veiculosManutencao = $veiculoController->contarManutencao();
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
   <link rel="stylesheet" href="../Assets/CSS/dashboard.css">
+  <link rel="stylesheet" href="../Assets/CSS/relatorio.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <title>Admin - SuperSonic Transportes</title>
   <!-- Estilos simples embutidos para facilitar uso sem dependências -->
@@ -321,29 +322,6 @@ document.getElementById("btnSalvarAlteracoes").onclick = async function () {
         <div class="card">
           <div class="small">Receita mensal</div>
           <h3 style="margin:8px 0">R$ 48.720,50</h3>
-          <div class="small">Média diária: R$ 1.573,24</div>
-        </div>
-      </div>
-
-      <div class="grid" style="grid-template-columns:2fr 1fr;gap:16px">
-        <div class="card">
-          <h4>Últimos envios</h4>
-          <table>
-            <thead><tr><th>#</th><th>Cliente</th><th>Origem → Destino</th><th>Placa</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>00123</td><td>Distribuidora A</td><td>08060-160 → 08430-000</td><td>ABC-1D23</td><td>Em rota</td></tr>
-              <tr><td>00124</td><td>Loja B</td><td>BH → SP</td><td>XYZ-9F88</td><td>Aguardando</td></tr>
-              <tr><td>00125</td><td>Cliente C</td><td>POA → CWB</td><td>LMN-4E56</td><td>Entregue</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="card">
-          <h4>Atividades</h4>
-          <ul style="padding-left:18px;color:var(--muted)">
-            <li>Motorista João atualizou status do envio 00123</li>
-            <li>Novo usuário cadastrado: operador1</li>
-            <li>Relatório diário gerado</li>
-          </ul>
         </div>
       </div>
     </section>
@@ -448,22 +426,22 @@ window.abrirModalMapa = async function(idFrete, origem, destino) {
             attribution: '&copy; OpenStreetMap'
         }).addTo(mapaAtual);
 
-        // Cria o GRUPO onde vamos desenhar (facilita limpar depois)
+        
         camadaDesenhos = L.layerGroup().addTo(mapaAtual);
     } 
     else {
-        // Se JÁ EXISTE, precisamos "acordar" ele porque estava escondido
+      
         setTimeout(() => {
-            mapaAtual.invalidateSize(); // Corrige o erro do mapa cinza
+            mapaAtual.invalidateSize(); 
         }, 10);
         
-        // LIMPA a rota anterior (remove pinos e linhas velhas)
+        
         if (camadaDesenhos) {
             camadaDesenhos.clearLayers(); 
         }
     }
 
-    // 4. Busca a Nova Rota
+  
     const coordsOrigem = await geocodeAddress(origem);
     const coordsDestino = await geocodeAddress(destino);
 
@@ -472,18 +450,18 @@ window.abrirModalMapa = async function(idFrete, origem, destino) {
         return;
     }
 
-    // Adiciona marcadores NO GRUPO (não direto no mapa)
+ 
     const m1 = L.marker(coordsOrigem).bindPopup("Origem").openPopup();
     const m2 = L.marker(coordsDestino).bindPopup("Destino");
     
     camadaDesenhos.addLayer(m1);
     camadaDesenhos.addLayer(m2);
 
-    // Centraliza para mostrar os dois pontos enquanto a linha carrega
+  
     const grupoLimites = new L.LatLngBounds([coordsOrigem, coordsDestino]);
     mapaAtual.fitBounds(grupoLimites, { padding: [50, 50] });
 
-    // Puxa a linha da rota
+ 
     try {
         const [latO, lonO] = coordsOrigem;
         const [latD, lonD] = coordsDestino;
@@ -493,15 +471,15 @@ window.abrirModalMapa = async function(idFrete, origem, destino) {
         const dados = await resp.json();
 
         if (dados.routes && dados.routes.length > 0) {
-            // Cria a linha azul
+      
             const linhaRota = L.geoJSON(dados.routes[0].geometry, {
                 style: { color: "#417dff", weight: 5 }
             });
             
-            // Adiciona a linha NO GRUPO
+          
             camadaDesenhos.addLayer(linhaRota);
             
-            // Ajusta o zoom final
+        
             mapaAtual.fitBounds(linhaRota.getBounds(), { padding: [50, 50] });
         }
     } catch (e) {
@@ -510,7 +488,7 @@ window.abrirModalMapa = async function(idFrete, origem, destino) {
 };
 
 
-// 3. AUXILIAR (Geocoding)
+
 
 async function geocodeAddress(address) {
     try {
@@ -621,7 +599,7 @@ function mostrarFretes(lista) {
       function formatarTelefone(numero) {
     if (!numero) return "—";
 
-    // Remove qualquer coisa que não seja número
+
     numero = numero.toString().replace(/\D/g, "");
 
     if (numero.length === 11) {
@@ -631,7 +609,7 @@ function mostrarFretes(lista) {
         return `(${numero.slice(0, 2)}) ${numero.slice(2, 6)}-${numero.slice(6)}`;
     }
 
-    return numero; // fallback
+    return numero; 
 }
 
 
@@ -744,7 +722,7 @@ await fetch("/notificacaoRender.php", {
 }
 
 function aprovar(id, nomeCliente, emailCliente) {
-    // atualizar status via fetch ou supabase
+    // atualizar status
     fetch(`${SUPABASE_URL}/rest/v1/fretes_solicitados?id=eq.${id}`, {
         method: "PATCH",
         headers: {
@@ -864,18 +842,48 @@ document.querySelector('[data-view="criar-envio"]')
     </section>
 
     <section id="relatorios" class="view" style="display:none">
-      <div class="card">
-        <h3>Relatórios</h3>
-        <div class="small">Gere relatórios por período, veículo, motorista ou cliente.</div>
-        <form style="margin-top:12px" onsubmit="generateReport(event)">
-          <div class="row">
-            <div style="flex:1"><label>Período início</label><input type="date" required id="r-start" /></div>
-            <div style="flex:1"><label>Período fim</label><input type="date" required id="r-end" /></div>
-          </div>
-          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
-            <button class="btn" type="submit">Gerar</button>
-          </div>
-        </form>
+<div class="card">
+         <div class="card-relatorios">
+            <h3 class="report-title">Gerador de Relatórios Admin</h3>
+            
+            <div id="loading-spinner" class="hidden">
+                <i class='bx bx-loader-alt bx-spin'></i>
+                <p>Gerando e baixando relatório, aguarde...</p>
+            </div>
+
+            <!-- Manutenção da classe grid do Tailwind para responsividade -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Botão 1: FRETES POR STATUS (Relatório Agregado) -->
+                <div class="report-item">
+                    <h4>Fretes por Status</h4>
+                    <p>Totaliza a quantidade e o valor de fretes por status atual.</p>
+                    <button id="btnStatusReport" 
+                            class="btn-download btn-blue">
+                        <i class='bx bxs-file-export mr-2'></i> Baixar Status (CSV)
+                    </button>
+                </div>
+
+                <!-- Botão 2: FATURAMENTO DO DIA (Relatório Agregado) -->
+                <div class="report-item">
+                    <h4>Faturamento Diário</h4>
+                    <p>Detalha o faturamento e número de fretes agrupado por dia.</p>
+                    <button id="btnFaturamentoReport" 
+                            class="btn-download btn-green">
+                        <i class='bx bxs-dollar-circle mr-2'></i> Baixar Faturamento (CSV)
+                    </button>
+                </div>
+
+                <!-- Botão 3: RELATÓRIO DE FRETES (Relatório Detalhado) -->
+                <div class="report-item">
+                    <h4>Relatório Detalhado de Fretes</h4>
+                    <p>Lista todos os fretes com dados completos do cliente e veículo.</p>
+                    <button id="btnDetalhadoReport" 
+                            class="btn-download btn-yellow">
+                        <i class='bx bxs-detail mr-2'></i> Baixar Detalhado (CSV)
+                    </button>
+                </div>
+            </div>
       </div>
     </section>
 
@@ -1002,6 +1010,6 @@ modal.addEventListener("click", (e) => {
   // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
 </script>
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
-
+<script src="../JS/Relatorios.js"></script>
 </body>
 </html>
