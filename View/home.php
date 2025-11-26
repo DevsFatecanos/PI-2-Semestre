@@ -23,6 +23,81 @@ $email = $_SESSION['usuario_email'];
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
+<!--ANIMAÇÃO DE LOGIN-->
+<div id="loading-overlay">
+    <div class="spinner"></div>
+    <p id="loading-message">Carregando Sistema...</p>
+</div>
+<script>
+//animacao de login
+function hideLoadingOverlay() {
+    const loadingOverlay = document.getElementById('loading-overlay');
+    if (loadingOverlay) {
+        loadingOverlay.classList.add('hidden');
+        
+        // 💡 CORREÇÃO: Mudar de 5000ms para 500ms
+        setTimeout(() => {
+            loadingOverlay.remove();
+        }, 500); 
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingMessage = document.getElementById('loading-message');
+    
+    // 1. Mudar o texto após 1.5 segundos
+    setTimeout(() => {
+        if (loadingMessage) {
+            loadingMessage.textContent = "Bem vindo!";
+        }
+    }, 1500); 
+    
+    // 2. Esconder a tela após 3.5 segundos no total
+    setTimeout(hideLoadingOverlay, 3500); 
+});
+</script>
+<style>
+  #loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95);
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; 
+    font-family: Arial, sans-serif;
+    color: #333;
+    transition: opacity 0.5s ease;
+}
+
+
+.spinner {
+    border: 8px solid #f3f3f3; 
+    border-top: 8px solid #417dff; 
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite; 
+    margin-bottom: 20px;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none; 
+}
+</style>
+
+
   <!-- SIDEBAR -->
   <section id="sidebar">
   <a href="../index.php" class="brand"><img width="100%" src="../Assets/IMG/LOGOSP.png" alt=""></a>
