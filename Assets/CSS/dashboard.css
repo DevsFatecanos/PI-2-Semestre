@@ -170,16 +170,12 @@
     justify-content: center;
 
     z-index: 999;
-
-    /* ESSENCIAL */
     pointer-events: auto;
 }
 
 .modal-overlay.hidden {
     opacity: 0;
     visibility: hidden;
-
-    /* ESSENCIAL: NÃO BLOQUEAR CLIQUES */
     pointer-events: none;
 }
 
