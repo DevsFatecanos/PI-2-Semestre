@@ -20,6 +20,7 @@ $email = $_SESSION['usuario_email'];
     <link rel="stylesheet" href="../Assets/CSS/home.css">
     <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <!-- SIDEBAR -->

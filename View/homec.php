@@ -7,6 +7,7 @@
     <title>Bem Vindo - Home</title>
     <link rel="stylesheet" href="../Assets/CSS/home.css">
     <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
     <script>
 
