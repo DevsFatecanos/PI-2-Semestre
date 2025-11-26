@@ -293,7 +293,6 @@ document.getElementById("btnSalvarAlteracoes").onclick = async function () {
       <a href="#" data-view="motoristas">Motoristas</a>
       <a href="#" data-view="relatorios">Relatórios</a>
       <a href="#" data-view="usuarios">Usuários</a>
-      <a href="#" data-view="config">Configurações</a>
     </nav>
   </aside>
 
