@@ -111,8 +111,16 @@ $email = $_SESSION['usuario_email'];
 
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 <script>
+
+    const SUPABASE_URL = "https://oudhyeawauuzvkrhsgsk.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91ZGh5ZWF3YXV1enZrcmhzZ3NrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA3MTA2OTcsImV4cCI6MjA3NjI4NjY5N30.-SdoeQo9GYcTeaXI7hvHJ9M0-ONVovFpQ1aUbkojCF0";
+
     const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
-    console.log("ID do Cliente Injetado na Home:", CLIENTE_ID);
+    
+
+    var db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY); 
+    
+    console.log("ID do Cliente Injetado na Home:", CLIENTE_ID); 
 </script>
 <script src="../JS/TelaDeFrete.js"></script>
 <script src="../JS/homePedido.js"></script>
