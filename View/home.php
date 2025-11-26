@@ -112,6 +112,7 @@ $email = $_SESSION['usuario_email'];
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 <script>
     const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
+    console.log("ID do Cliente Injetado na Home:", CLIENTE_ID);
 </script>
 <script src="../JS/TelaDeFrete.js"></script>
 <script src="../JS/homePedido.js"></script>
