@@ -920,7 +920,7 @@ document.querySelector('[data-view="criar-envio"]')
     <div class="modal2">
         <h2>Adicionar veículo</h2>
 
-        <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
+        <form action="../Controller/VeiculoController.php?action=adicionar" method="POST">
             <label>Modelo</label>
             <input type="text" name="modelo" required>
 

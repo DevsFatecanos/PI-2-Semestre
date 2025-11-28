@@ -74,6 +74,7 @@ public function contarEmUso() {
             null,
             $_POST['modelo'],
             $_POST['placa'],
+            $_POST['valor_por_km'],
             $_POST['status']
         );
         $controller->adicionar($v);
