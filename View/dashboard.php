@@ -917,7 +917,7 @@ document.querySelector('[data-view="criar-envio"]')
 </div>
 <!-- Modal Adicionar -->
 <div id="modalAdicionar" class="modal-overlay hidden">
-    <div class="modal">
+    <div class="modal2">
         <h2>Adicionar veículo</h2>
 
         <form action="../Controller/VeiculoRouter.php?action=adicionar" method="POST">
@@ -944,7 +944,7 @@ document.querySelector('[data-view="criar-envio"]')
 
 <!-- Modal Remover -->
 <div id="modalRemover" class="modal-overlay hidden">
-    <div class="modal">
+    <div class="modal2">
         <h2>Remover Veículo</h2>
 
         <form action="../Controller/VeiculoController.php?action=remover" method="POST">
@@ -958,33 +958,6 @@ document.querySelector('[data-view="criar-envio"]')
 </div>
 
 <script>
-
-function abrirRemover() {
-    document.getElementById("modalRemover").classList.remove("hidden");
-}
-
-function fecharRemover() {
-    document.getElementById("modalRemover").classList.add("hidden");
-}
-
-const modal = document.getElementById("modalAdicionar");
-document.getElementById("btnAbrirModal")?.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-});
-
-document.getElementById("fecharModal")?.addEventListener("click", () => {
-    modal.classList.add("hidden");
-});
-
-// Fechar ao clicar FORA do modal
-modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-    }
-});
-
-
-
 
   // Navegação simples entre views
   function openView(id){
@@ -1006,7 +979,54 @@ modal.addEventListener("click", (e) => {
   function generateReport(e){e.preventDefault();alert('Relatório gerado (demo)');}
   function saveConfig(e){e.preventDefault();alert('Configurações salvas (demo)');}
 
-  // Sugestão: substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
+  // Substituir os alert por modais e conectar a APIs (fetch/fetch POST/PUT/DELETE)
+
+// MODAL ADICIONAR — FUNCIONA MESMO COM VIEW OCULTA
+document.addEventListener("DOMContentLoaded", () => {
+    const modalAdd = document.getElementById("modalAdicionar");
+    const btnAbrir = document.getElementById("btnAbrirModal");
+    const btnFechar = document.getElementById("fecharModal");
+
+    if (btnAbrir) {
+        btnAbrir.onclick = () => modalAdd.classList.remove("hidden");
+    }
+
+    if (btnFechar) {
+        btnFechar.onclick = () => modalAdd.classList.add("hidden");
+    }
+
+    modalAdd.onclick = (e) => {
+        if (e.target === modalAdd) {
+            modalAdd.classList.add("hidden");
+        }
+    };
+});
+
+  // MODAL REMOVER — FUNCIONA MESMO COM VIEW OCULTA
+document.addEventListener("DOMContentLoaded", () => {
+    const modalRem = document.getElementById("modalRemover");
+
+    const btnsAbrirRemover = document.querySelectorAll("[onclick='abrirRemover()']");
+    const btnsFecharRemover = document.querySelectorAll("[onclick='fecharRemover()']");
+
+    // ABRIR modal
+    btnsAbrirRemover.forEach(btn => {
+        btn.onclick = () => modalRem.classList.remove("hidden");
+    });
+
+    // FECHAR modal
+    btnsFecharRemover.forEach(btn => {
+        btn.onclick = () => modalRem.classList.add("hidden");
+    });
+
+    // Fechar ao clicar fora
+    modalRem.onclick = (e) => {
+        if (e.target === modalRem) {
+            modalRem.classList.add("hidden");
+        }
+    };
+});
+
 </script>
 <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
 <script src="../JS/Relatorios.js"></script>
