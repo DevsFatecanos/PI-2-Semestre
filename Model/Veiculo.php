@@ -10,8 +10,8 @@ class Veiculo {
         $this->id_veiculo = $id_veiculo;
         $this->modelo = $modelo;
         $this->placa = $placa;
-        $this->status = $status;
         $this->valor_por_km = $valor_por_km;
+        $this->status = $status;
     }
 }
 ?>

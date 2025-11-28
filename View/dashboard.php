@@ -926,7 +926,8 @@ document.querySelector('[data-view="criar-envio"]')
 
             <label>Placa</label>
             <input type="text" name="placa" required>
-
+            <label>Valor por km</label>
+            <input type="number" name="valor" required>
             <label>Status</label>
             <select name="status">
                 <option value="disponivel">Disponível</option>

@@ -45,6 +45,7 @@ public function contarEmUso() {
         $stmt->execute([
             ':modelo' => $v->modelo,
             ':placa' => $v->placa,
+            ':valor_por_km' => $v->valor_por_km,
             ':status' => $v->status
         ]);
     }
