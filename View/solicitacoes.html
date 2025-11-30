@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../Assets/CSS/minhaconta.css">
+  <title>SuperSonic• Solicitações</title>
+</head>
+<body>
+  <section id="sidebar">
+    <a href="./home.html" class="brand"><i class='bx bxs-smile icon'></i> SuperSonic</a>
+    <ul class="side-menu">
+      <li><a href="./home.html"><i class='bx bxs-dashboard icon'></i> Home</a></li>
+      <li class="divider" data-text="navegação">Navegação</li>
+      <li><a href="./solicitacoes.html" class="active"><i class='bx bxs-inbox icon'></i> Solicitações</a></li>
+      <li><a href="minhaconta.html"><i class='bx bxs-user icon'></i> Minha Conta</a></li>
+    </ul>
+    <div class="ads">
+      <div class="wrapper">
+        <p style="opacity:.6">Módulos extras desativados</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="content">
+    <nav>
+      <i class='bx bx-menu toggle-sidebar'></i>
+      <span class="divider"></span>
+      <div class="profile">
+        <img class="avatar" id="avatarPreview" src="" alt="Avatar">
+        <ul class="profile-link">
+          <li><a href="minhaconta.html"><i class='bx bxs-user-circle icon'></i> Perfil</a></li>
+          <li><a href="#"><i class='bx bxs-cog'></i> Configurações</a></li>
+          <li><a href="#"><i class='bx bxs-log-out-circle'></i> Sair</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main>
+      <h1 class="title">Solicitações</h1>
+      <ul class="breadcrumbs">
+        <li><a href="./home.html">Home</a></li>
+        <li class="divider">/</li>
+        <li><a href="#" class="active">Solicitações</a></li>
+      </ul>
+
+      <!-- CAIXiNHAS EMPILHADAS -->
+      <div class="info-data" style="grid-template-columns: 1fr;">
+        <!-- Fretes realizados -->
+        <div class="card">
+          <div class="head">
+            <div>
+              <h2>0</h2>
+              <p>Fretes realizados</p>
+            </div>
+            <i class="icon"></i>
+          </div>
+          <span class="progress" data-value="0%"></span>
+          <span class="label">0%</span>
+        </div>
+
+        <!-- Fretes solicitados -->
+        <div class="card">
+          <div class="head">
+            <div>
+              <h2>0</h2>
+              <p>Fretes solicitados</p>
+            </div>
+            <i class="icon"></i>
+          </div>
+          <span class="progress" data-value="0%"></span>
+          <span class="label">0%</span>
+        </div>
+
+        <!-- Fretes em andamento + botão -->
+        <div class="card">
+          <div class="head">
+            <div>
+              <h2>0</h2>
+              <p>Fretes em andamento</p>
+            </div>
+            <i class="icon"></i>
+          </div>
+
+          <!-- Espaço reservado para imagem -->
+          <div style="
+            margin-top: 16px;
+            width: 100%;
+            min-height: 120px;
+            border: 2px dashed #d9d9d9;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8D8D8D;
+            font-size: 14px;
+          ">
+            Espaço para imagem (fretes em andamento)
+          </div>
+
+          <!-- Botão -->
+          <div style="margin-top: 16px;">
+            <a href="./PaginaDeFrete.html" class="btn-primary">Solicitar novo frete</a>
+          </div>
+        </div>
+      </div>
+      <!-- /NOVAS CAIXAS -->
+
+      <!-- BLOCO EXISTENTE -->
+      <div class="content-data">
+        <div class="head">
+          <h3>Minhas Solicitações</h3>
+        </div>
+        <div class="table-wrap">
+          <p>Sem solicitações por enquanto.</p>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    document.querySelector('.toggle-sidebar')?.addEventListener('click',()=>{
+      document.getElementById('sidebar')?.classList.toggle('hide');
+    });
+  </script>
+</body>
+</html>
