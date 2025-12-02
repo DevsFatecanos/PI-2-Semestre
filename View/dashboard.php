@@ -807,7 +807,7 @@ document.querySelector('[data-view="criar-envio"]')
             <td><?= htmlspecialchars($v->placa) ?></td>
             <td><?= htmlspecialchars($v->valor_por_km) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
-            <td><button class="btn ghost">Editar</button></td>
+            <td><button class="btn ghost" id="btnAbrirModal">Editar</button></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -958,6 +958,34 @@ document.querySelector('[data-view="criar-envio"]')
     </div>
 </div>
 
+<!-- Modal Editar -->
+<div id="modalEditar" class="modal-overlay hidden">
+    <div class="modal2">
+        <h2>Editar veículo</h2>
+
+        <form action="../Controller/VeiculoController.php?action=atualizar" method="PUT">
+            <label>Modelo</label>
+            <input type="text" name="modelo" required>
+
+            <label>Placa</label>
+            <input type="text" name="placa" required>
+            <label>Valor por km</label>
+            <input type="number" name="valor_por_km" required>
+            <label>Status</label>
+            <select name="status">
+                <option value="disponivel">Disponível</option>
+                <option value="em uso">Em uso</option>
+                <option value="manutencao">Manutenção</option>
+            </select>
+
+            <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
+                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
+                <button type="submit" class="btn">Adicionar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 
   // Navegação simples entre views
@@ -985,6 +1013,26 @@ document.querySelector('[data-view="criar-envio"]')
 // MODAL ADICIONAR — FUNCIONA MESMO COM VIEW OCULTA
 document.addEventListener("DOMContentLoaded", () => {
     const modalAdd = document.getElementById("modalAdicionar");
+    const btnAbrir = document.getElementById("btnAbrirModal");
+    const btnFechar = document.getElementById("fecharModal");
+
+    if (btnAbrir) {
+        btnAbrir.onclick = () => modalAdd.classList.remove("hidden");
+    }
+
+    if (btnFechar) {
+        btnFechar.onclick = () => modalAdd.classList.add("hidden");
+    }
+
+    modalAdd.onclick = (e) => {
+        if (e.target === modalAdd) {
+            modalAdd.classList.add("hidden");
+        }
+    };
+});
+// MODAL EDITAR 
+document.addEventListener("DOMContentLoaded", () => {
+    const modalAdd = document.getElementById("modalEditar");
     const btnAbrir = document.getElementById("btnAbrirModal");
     const btnFechar = document.getElementById("fecharModal");
 

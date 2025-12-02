@@ -53,12 +53,13 @@ public function contarEmUso() {
 
 
     public function atualizar(Veiculo $v) {
-        $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, status=:status WHERE id_veiculo=:id_veiculo";
+        $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, valor_por_km=:valor_por_km, status=:status WHERE id_veiculo=:id_veiculo";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':id_veiculo' => $v->id_veiculo,
             ':modelo' => $v->modelo,
             ':placa' => $v->placa,
+            ':valor_por_km' => $v->valor_por_km,
             ':status' => $v->status
         ]);
     }
