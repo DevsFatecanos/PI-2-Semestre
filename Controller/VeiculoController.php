@@ -40,15 +40,17 @@ public function contarEmUso() {
     }
 
     public function adicionar(Veiculo $v) {
-        $sql = "INSERT INTO veiculo (modelo, placa, valor_por_km, status) VALUES (:modelo, :placa, :valor_por_km, :status)";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([
-            ':modelo' => $v->modelo,
-            ':placa' => $v->placa,
-            ':valor_por_km' => $v->valor_por_km,
-            ':status' => $v->status
-        ]);
-    }
+    $sql = "INSERT INTO veiculo (modelo, placa, valor_por_km, status)
+            VALUES (:modelo, :placa, :valor_por_km, :status)";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        ':modelo' => $v->modelo,
+        ':placa' => $v->placa,
+        ':valor_por_km' => $v->valor_por_km,
+        ':status' => $v->status
+    ]);
+}
+
 
     public function atualizar(Veiculo $v) {
         $sql = "UPDATE veiculo SET modelo=:modelo, placa=:placa, status=:status WHERE id_veiculo=:id_veiculo";
