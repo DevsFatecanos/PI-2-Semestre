@@ -40,7 +40,7 @@ public function contarEmUso() {
     }
 
     public function adicionar(Veiculo $v) {
-        $sql = "INSERT INTO veiculo (modelo, placa, status) VALUES (:modelo, :placa, :status)";
+        $sql = "INSERT INTO veiculo (modelo, placa, valor_por_km, status) VALUES (:modelo, :placa, :valor_por_km, :status)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':modelo' => $v->modelo,
