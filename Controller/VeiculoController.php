@@ -64,10 +64,11 @@ public function contarEmUso() {
     }
 
     public function remover($id_veiculo) {
-        $sql = "DELETE FROM veiculo WHERE id_veiculo=:id_veiculo";
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id_veiculo' => $id_veiculo]);
-    }
+    $sql = "UPDATE veiculo SET status = 'inativo' WHERE id_veiculo = :id_veiculo";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([':id_veiculo' => $id_veiculo]);
+}
+
 }
  if (isset($_GET['action'])) {
     $controller = new VeiculoController($pdo);
