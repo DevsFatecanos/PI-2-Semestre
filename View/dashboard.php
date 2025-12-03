@@ -807,7 +807,7 @@ document.querySelector('[data-view="criar-envio"]')
             <td><?= htmlspecialchars($v->placa) ?></td>
             <td><?= htmlspecialchars($v->valor_por_km) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
-            <td><button class="btn ghost" id="btnAbrirModal">Editar</button></td>
+            <td><button class="btn ghost" id="btnAbrirModalEditar">Editar</button></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -979,8 +979,8 @@ document.querySelector('[data-view="criar-envio"]')
             </select>
 
             <div style="margin-top: 16px; display:flex; justify-content: flex-end; gap:10px;">
-                <button type="button" id="fecharModal" class="btn ghost">Cancelar</button>
-                <button type="submit" class="btn">Adicionar</button>
+                <button type="button" id="fecharModalEditar" class="btn ghost">Cancelar</button>
+                <button type="submit" class="btn">Editar</button>
             </div>
         </form>
     </div>
@@ -1033,8 +1033,8 @@ document.addEventListener("DOMContentLoaded", () => {
 // MODAL EDITAR 
 document.addEventListener("DOMContentLoaded", () => {
     const modalAdd = document.getElementById("modalEditar");
-    const btnAbrir = document.getElementById("btnAbrirModal");
-    const btnFechar = document.getElementById("fecharModal");
+    const btnAbrir = document.getElementById("btnAbrirModalEditar");
+    const btnFechar = document.getElementById("fecharModalEditar");
 
     if (btnAbrir) {
         btnAbrir.onclick = () => modalAdd.classList.remove("hidden");
