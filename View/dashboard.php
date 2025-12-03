@@ -963,7 +963,7 @@ document.querySelector('[data-view="criar-envio"]')
     <div class="modal2">
         <h2>Editar veículo</h2>
 
-        <form action="../Controller/VeiculoController.php?action=atualizar" method="PUT">
+        <form action="../Controller/VeiculoController.php?action=atualizar" method="POST">
             <label>Modelo</label>
             <input type="text" name="modelo" required>
 
