@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-image: url("../IMG/caminhao.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: center;
+}
+
+img {
+    width: 60px;
+    height: 60px;
+    margin: 1px;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70vw;
+    height: 85vh;
+    background-color: rgba(255,255,255,0.92);
+    border-radius: 25px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+h1 {
+    font-size: 50px;
+    color: #417dff;
+    margin-bottom: 5px;
+    font-weight: lighter;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aria-label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    margin: 8px 0;
+}
+
+label {
+    font-size: 20px;
+    color: #417dff;
+    align-self: flex-start;
+    margin-left: 5%;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 50vw;
+    height: 5vh;
+    border-radius: 10px;
+    border: 2px solid #417dff;
+    font-size: 18px;
+    padding-left: 10px;
+    color: #0073e6;
+}
+
+input[type="submit"],
+button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 180px;
+    font-size: 18px;
+    background-color: #0073e6;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #005bb5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.btn-login {
+    background-color: #4ec1ee;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #66a9ed;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Responsividade */
+@media (min-width: 1280px) {
+    #container {
+        width: 60vw;
+    }
+}
