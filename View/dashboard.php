@@ -960,7 +960,7 @@ document.querySelector('[data-view="criar-envio"]')
 
 <!-- Modal Editar -->
 <div id="modalEditar" class="modal-overlay hidden">
-    <div class="modal2">
+    <div class="modal3">
         <h2>Editar veículo</h2>
 
         <form action="../Controller/VeiculoController.php?action=atualizar" method="POST">
