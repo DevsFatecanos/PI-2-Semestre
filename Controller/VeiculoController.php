@@ -94,7 +94,7 @@ public function contarEmUso() {
     }
     if ($_GET['action'] === 'atualizar') {
         $v = new Veiculo(
-            $_POST['id'],
+            null,
             $_POST['modelo'],
             $_POST['placa'],
             $_POST['valor_por_km'],
