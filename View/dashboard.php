@@ -807,7 +807,14 @@ document.querySelector('[data-view="criar-envio"]')
             <td><?= htmlspecialchars($v->placa) ?></td>
             <td><?= htmlspecialchars($v->valor_por_km) ?></td>
             <td><?= htmlspecialchars($v->status) ?></td>
-            <td><button class="btn ghost" id="btnAbrirModalEditar">Editar</button></td>
+            <td>
+              <button class="btnEditar" 
+                data-id="<?= $v->id_veiculo ?>" 
+                data-modelo="<?= $v->modelo ?>"
+                data-placa="<?= $v->placa ?>"
+                data-valor="<?= $v->valor_por_km ?>"
+                data-status="<?= $v->status ?>">Editar</button>
+</td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -964,15 +971,20 @@ document.querySelector('[data-view="criar-envio"]')
         <h2>Editar veículo</h2>
 
         <form action="../Controller/VeiculoController.php?action=atualizar" method="POST">
+
+            <input type="hidden" name="id" id="edit-id">
+
             <label>Modelo</label>
-            <input type="text" name="modelo" required>
+            <input type="text" name="modelo" id="edit-modelo" required>
 
             <label>Placa</label>
-            <input type="text" name="placa" required>
+            <input type="text" name="placa" id="edit-placa" required>
+
             <label>Valor por km</label>
-            <input type="number" name="valor_por_km" required>
+            <input type="number" name="valor_por_km" id="edit-valor" required>
+
             <label>Status</label>
-            <select name="status">
+            <select name="status" id="edit-status">
                 <option value="disponivel">Disponível</option>
                 <option value="em uso">Em uso</option>
                 <option value="manutencao">Manutenção</option>
@@ -982,6 +994,10 @@ document.querySelector('[data-view="criar-envio"]')
                 <button type="button" id="fecharModalEditar" class="btn ghost">Cancelar</button>
                 <button type="submit" class="btn">Editar</button>
             </div>
+        </form>
+    </div>
+</div>
+
         </form>
     </div>
 </div>
@@ -1032,24 +1048,35 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 // MODAL EDITAR 
 document.addEventListener("DOMContentLoaded", () => {
-    const modalAdd = document.getElementById("modalEditar");
-    const btnAbrir = document.getElementById("btnAbrirModalEditar");
+    const modal = document.getElementById("modalEditar");
     const btnFechar = document.getElementById("fecharModalEditar");
 
-    if (btnAbrir) {
-        btnAbrir.onclick = () => modalAdd.classList.remove("hidden");
-    }
+    // Abre o modal e preenche os dados
+    document.querySelectorAll('.btnEditar').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.getElementById('edit-id').value = this.dataset.id;
+            document.getElementById('edit-modelo').value = this.dataset.modelo;
+            document.getElementById('edit-placa').value = this.dataset.placa;
+            document.getElementById('edit-valor').value = this.dataset.valor;
+            document.getElementById('edit-status').value = this.dataset.status;
 
+            modal.classList.remove("hidden");
+        });
+    });
+
+    // Fechar modal no botão
     if (btnFechar) {
-        btnFechar.onclick = () => modalAdd.classList.add("hidden");
+        btnFechar.onclick = () => modal.classList.add("hidden");
     }
 
-    modalAdd.onclick = (e) => {
-        if (e.target === modalAdd) {
-            modalAdd.classList.add("hidden");
+    // Fechar clicando fora da caixa
+    modal.onclick = (e) => {
+        if (e.target === modal) {
+            modal.classList.add("hidden");
         }
     };
 });
+
 
   // MODAL REMOVER — FUNCIONA MESMO COM VIEW OCULTA
 document.addEventListener("DOMContentLoaded", () => {
