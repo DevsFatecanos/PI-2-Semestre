@@ -92,6 +92,18 @@ public function contarEmUso() {
         header("Location: ../View/dashboard.php");
         exit;
     }
+    if ($_GET['action'] === 'atualizar') {
+        $v = new Veiculo(
+            $_POST['id'],
+            $_POST['modelo'],
+            $_POST['placa'],
+            $_POST['valor_por_km'],
+            $_POST['status']
+        );
+        $controller->atualizar($v);
+        header("Location: ../View/dashboard.php");
+        exit;
+    }
 }
    
 
