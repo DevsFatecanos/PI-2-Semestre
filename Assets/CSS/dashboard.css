@@ -113,6 +113,11 @@
         border:1px solid rgba(255,255,255,0.04);
         color:var(--muted)
     }
+    .btnEditar{
+        background:transparent;
+        border:1px solid rgba(255,255,255,0.04);
+        color:var(--muted)
+    }
     form .row{
         display:flex;
         gap:12px
