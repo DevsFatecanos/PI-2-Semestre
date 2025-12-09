@@ -114,6 +114,9 @@
         color:var(--muted)
     }
     .btnEditar{
+        display:inline-block;
+        padding:8px 12px;
+        border-radius:8px;
         background:transparent;
         border:1px solid rgba(255,255,255,0.04);
         color:var(--muted)
