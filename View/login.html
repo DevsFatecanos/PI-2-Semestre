@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Assets/CSS/loginstyle.css">
+    <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+    <title>Login - SupersonicTransportes</title>
+</head>
+<body>
+
+    <img src="../Assets/IMG/logo.webp" alt="Logo">
+
+    <div id="container">
+        <h1>Login</h1>
+
+        <form action="../Controller/UsuarioController.php?action=login" method="post">
+
+            <div class="aria-label">
+                <label for="email">Email</label>
+                <input type="email" placeholder="email@email.com" name="email" id="email">
+            </div>
+
+            <div class="aria-label">
+                <label for="senha">Senha</label>
+                <input type="password" placeholder="Digite sua senha" name="senha" id="senha">
+            </div>
+
+            <div class="botoes">
+                <a class="btn-esqSenha" href="#">Esqueci minha senha</a>
+                <input type="submit" value="Logar" class="btn-logar">
+                <a class="btn-cadastro" href="./registro.html">Fazer Cadastro</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>

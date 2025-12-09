@@ -5,16 +5,15 @@ include "conexao.php";
 <html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
-		<title>sonic</title>
+		<title>Super Sonic - Transportes</title>
 <meta name='robots' content='max-image-preview:large' />
 	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
-	<link rel="stylesheet" href="CSS/style.css">
-	<link rel="stylesheet" href="Carrosel/style.css">
-	<link rel="stylesheet" href="./CSS/carrosel.css">
+	<link rel="stylesheet" href="../Assets/CSS/style.css">
+	<link rel="stylesheet" href="../Assets/CSS/carrosel.css">
 	<link rel="alternate" type="application/rss+xml" title="Feed para sonic &raquo;" href="https://sonicsp.com.br/feed/" />
 	<link rel="alternate" type="application/rss+xml" title="Feed de comentários para sonic &raquo;" href="https://sonicsp.com.br/comments/feed/" />
 <!--ADD FAVICON-->
-<link rel="shortcut icon" href="./logo.webp" type="image/x-icon">
+<link rel="shortcut icon" href="/Assets/IMG/logo.webp" type="image/x-icon">
 <script>
 window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/sonicsp.com.br\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.7.3"}};
 /*! This file is auto-generated */
@@ -55,7 +54,8 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://sonicsp.com.br/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fsonicsp.com.br%2F&#038;format=xml" />
 <meta name="generator" content="Elementor 3.30.4; features: e_font_icon_svg, additional_custom_breakpoints, e_element_cache; settings: css_print_method-external, google_font-enabled, font_display-swap">
 			
-				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" /></head>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+			</head>
 <body class="home page-template page-template-elementor_canvas page page-id-65 wp-embed-responsive elementor-default elementor-template-canvas elementor-kit-9 elementor-page elementor-page-65">
 			<div data-elementor-type="wp-page" data-elementor-id="65" class="elementor elementor-65" data-elementor-post-type="page">
 						<section class="elementor-section elementor-top-section elementor-element elementor-element-14455218 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="14455218" data-element_type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
@@ -111,19 +111,22 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-widget-container">
 								<nav aria-label="Menu" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade">
 				<ul id="menu-1-7947cdc3" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-65 current_page_item menu-item-79"><a href="https://sonicsp.com.br/" aria-current="page" class="elementor-item elementor-item-active">Home</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="#sobre" class="elementor-item elementor-item-anchor">Sobre Nós</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor">Como podemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor">Tire suas Dúvidas</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a style="border:1px solid #417dff; color:#417dff; border-radius: 20px;" href="View/registro.html"tabindex="-1">Cadastre-se</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a style="border:1px solid #417dff;margin-left:10%; color:#417dff; border-radius: 25px;" href="View/login.html" tabindex="-1">Entrar</a></li>
 </ul>			</nav>
 					<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
 			<svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open e-font-icon-svg e-eicon-menu-bar" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M104 333H896C929 333 958 304 958 271S929 208 896 208H104C71 208 42 237 42 271S71 333 104 333ZM104 583H896C929 583 958 554 958 521S929 458 896 458H104C71 458 42 487 42 521S71 583 104 583ZM104 833H896C929 833 958 804 958 771S929 708 896 708H104C71 708 42 737 42 771S71 833 104 833Z"></path></svg><svg aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close e-font-icon-svg e-eicon-close" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M742 167L500 408 258 167C246 154 233 150 217 150 196 150 179 158 167 167 154 179 150 196 150 212 150 229 154 242 171 254L408 500 167 742C138 771 138 800 167 829 196 858 225 858 254 829L496 587 738 829C750 842 767 846 783 846 800 846 817 842 829 829 842 817 846 804 846 783 846 767 842 750 829 737L588 500 833 258C863 229 863 200 833 171 804 137 775 137 742 167Z"></path></svg>		</div>
 					<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
 				<ul id="menu-2-7947cdc3" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-65 current_page_item menu-item-79"><a href="https://sonicsp.com.br/" aria-current="page" class="elementor-item elementor-item-active" tabindex="-1">Home</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-78"><a href="#sobre" class="elementor-item elementor-item-anchor" tabindex="-1">Sobre Nós</a></li>
-<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-80"><a href="#oquefazemos" class="elementor-item elementor-item-anchor" tabindex="-1">Como posdemos te ajudar</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-82"><a href="https://app.sonicsp.com.br/tracker" class="elementor-item" tabindex="-1">Rastrear meu pedido</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-81"><a href="#contato" class="elementor-item elementor-item-anchor" tabindex="-1">Tire suas Dúvidas</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-83"><a class="elementor-item elementor-item-anch" href="View/registro.html"tabindex="-1">Cadastre-se</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-84"><a class="elementor-button elementor-button-link elementor-size-sm" href="View/login.html" tabindex="-1">Entrar</a></li>
+
+					
+
 </ul>			</nav>
 						</div>
 				</div>
@@ -136,28 +139,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="https://app.sonicsp.com.br/register">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Faça uma Cotação </span>
-					</span>
-					</a>
+					
 				</div>
 								</div>
 				</div>
 					</div>
 		</div>
-		<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-3c7fbb1b elementor-hidden-tablet elementor-hidden-phone" data-id="3c7fbb1b" data-element_type="column">
+		<div style="display:flex;" class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-3c7fbb1b elementor-hidden-tablet elementor-hidden-phone" data-id="3c7fbb1b" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 						<div class="elementor-element elementor-element-5ab65870 elementor-align-right elementor-widget elementor-widget-button" data-id="5ab65870" data-element_type="widget" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-sm" href="login.html">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Entrar</span>
-					</span>
-					</a>
+										
 				</div>
-								</div>
+				</div>
 				</div>
 					</div>
 		</div>
@@ -178,9 +173,9 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-element elementor-element-373d11d6 elementor-mobile-align-justify elementor-invisible elementor-widget elementor-widget-button" data-id="373d11d6" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-lg" href="#">
+					<a class="elementor-button elementor-button-link elementor-size-lg" href="View/login.html">
 						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Fale com nossa equipe</span>
+									<span class="elementor-button-text">Faça uma Contação</span>
 					</span>
 					</a>
 				</div>
@@ -323,11 +318,6 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				<div class="elementor-element elementor-element-f9d5f47 elementor-mobile-align-justify elementor-align-right elementor-invisible elementor-widget elementor-widget-button" data-id="f9d5f47" data-element_type="widget" data-settings="{&quot;_animation&quot;:&quot;fadeInUp&quot;}" data-widget_type="button.default">
 				<div class="elementor-widget-container">
 									<div class="elementor-button-wrapper">
-					<a class="elementor-button elementor-button-link elementor-size-lg" href="https://api.whatsapp.com/send/?phone=5511947293000&#038;text&#038;type=phone_number&#038;app_absent=0">
-						<span class="elementor-button-content-wrapper">
-									<span class="elementor-button-text">Fale com nossa equipe</span>
-					</span>
-					</a>
 				</div>
 								</div>
 				</div>
@@ -344,20 +334,20 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 <div class="carousel">
 <div class="track">
 <!-- Duplicamos os slides para criar loop contínuo -->
-<div class="slide"><img src="./src/ar.jpg" alt="1"></div>
-<div class="slide"><img src="./src/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="./src/roco.jpg" alt="3"></div>
-<div class="slide"><img src="./src/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="./src/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="./src/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 
 <!-- repetição para looping -->
-<div class="slide"><img src="./src/ar.jpg" alt="1"></div>
-<div class="slide"><img src="./src/cyrela.jpg" alt="2"></div>
-<div class="slide"><img src="./src/roco.jpg" alt="3"></div>
-<div class="slide"><img src="./src/marmora.jpg" alt="4"></div>
-<div class="slide"><img src="./src/megafer.jpg" alt="5"></div>
-<div class="slide"><img src="./src/eleko.jpg" alt="6"></div>
+<div class="slide"><img src="../Assets/IMG/ar.jpg" alt="1"></div>
+<div class="slide"><img src="../Assets/IMG/cyrela.jpg" alt="2"></div>
+<div class="slide"><img src="../Assets/IMG/roco.jpg" alt="3"></div>
+<div class="slide"><img src="../Assets/IMG/marmora.jpg" alt="4"></div>
+<div class="slide"><img src="../Assets/IMG/megafer.jpg" alt="5"></div>
+<div class="slide"><img src="../Assets/IMG/eleko.jpg" alt="6"></div>
 </div>
 </div>
 </div>
@@ -616,7 +606,7 @@ PERÍODO - 6h
 				<div class="elementor-column elementor-col-25 elementor-top-column elementor-element elementor-element-13c5b221" data-id="13c5b221" data-element_type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
 						<div class="elementor-element elementor-element-5c619e81 elementor-widget elementor-widget-heading" data-id="5c619e81" data-element_type="widget" data-widget_type="heading.default">
-				<div class="elementor-widget-container">
+				<div id="contato" class="elementor-widget-container">
 					<h3 class="elementor-heading-title elementor-size-default">Contato</h3>				</div>
 				</div>
 				<div class="elementor-element elementor-element-7931b536 elementor-mobile-align-left elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="7931b536" data-element_type="widget" data-widget_type="icon-list.default">

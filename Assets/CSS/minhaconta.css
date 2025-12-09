@@ -1,0 +1,81 @@
+/* ===== Página Minha Conta ===== */
+
+.perfil-card {
+  padding: 20px;
+  border-radius: 12px;
+  background: var(--light);
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, .05);
+  margin-top: 28px;
+}
+
+.perfil-card .head h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--blue);
+}
+
+/* Grid do formulário */
+.perfil-card .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.perfil-card .form-grid .field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.perfil-card .form-grid .field input {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  padding: 10px;
+  font-size: 14px;
+  background: #f9fafb;
+}
+
+.perfil-card .actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .perfil-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Remove a barra branca superior */
+#content nav {
+  display: none !important;
+}
+
+/* === Forçar comportamento idêntico ao dos outros links da sidebar === */
+
+/* 1) Reset visual por padrão (sem destaque) */
+#sidebar .side-menu > li > a.active {
+  background: transparent !important;
+  color: var(--dark) !important;
+  font-weight: 500 !important;
+  box-shadow: none !important;
+  border-radius: 10px !important;
+  transition: background .25s ease, color .25s ease !important;
+}
+
+/* 2) Hover: exatamente igual aos outros (mesma regra usada nos links normais) */
+#sidebar .side-menu > li > a.active:hover,
+#sidebar .side-menu > li > a:hover {
+  background: var(--grey) !important;
+  color: var(--blue) !important;
+}
+
+/* 3) Garantir foco (acessibilidade) */
+#sidebar .side-menu > li > a.active:focus {
+  outline: none;
+  box-shadow: none;
+  background: var(--grey) !important;
+  color: var(--blue) !important;
+}
