@@ -1,0 +1,131 @@
+<?php
+session_start();
+// 2. Define a variável JS com o ID do usuário
+$cliente_id_logado = $_SESSION['usuario_id'];
+?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Sonic - Gerar Rota</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="../Assets/CSS/TelaFrete.css">
+  <link rel="shortcut icon" href="../Assets/IMG/logo.webp" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=airport_shuttle" />
+</head>
+<body>
+<!--Pega o ID o cliente Logado para o SUPABASE-->
+  <script>
+    const CLIENTE_ID = <?php echo json_encode($_SESSION['usuario_id'] ?? null); ?>;
+    console.log("ID do Cliente Injetado (Página Carregada):", CLIENTE_ID);
+</script>
+  <header >
+    <a class="btn-home" href="./home.php"> Home</a>
+    <a href="./home.php"><img src="../Assets/IMG/LOGOSP.png" alt=""></a>
+  </header>
+
+  <!--LODDING DIV-->
+  <div class="lodding" id="lodding">
+    <div class="text">
+      <h1>Gerando Rota</h1>
+    </div>
+    <span class="lodding-sprin"></span>
+  </div>
+
+  <!--Busca Origem e Destino-->
+  <div class="autocomplete-container">
+    <h2 >Gerar Rota de Transporte</h2>
+    <div id="sugestoes-origem" class="sugestoes_origem"></div>
+    <div id="sugestoes-destino" class="sugestoes_destino"></div>
+      <input type="text" id="origem" placeholder="  Digite o endereço de origem... ">
+      <i class="fa-solid fa-house icon" style="color: #ffffff;"></i>
+      <!--COMPLEMENTOS DO ENDEREÇO-->
+      <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Origem..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+    <input type="text" id="destino" placeholder="Digite o endereço de destino...">
+    <i class="fa-solid fa-location-dot icon" style="color: #ffffff;"></i>
+     <div class="Div_end">  
+        <input id="input_numero" placeholder="Numero de Entrega..." type="text"> 
+        <input id="input_complemento" placeholder="Complemento..." type="text">
+      </div>
+      <textarea placeholder=" Digite Uma descrição do tipo de Carga ( Produto )" name="descrição_Carga" id="" cols="65" rows="4"></textarea>
+      <!--CARROSEL DE VEICULOS-->
+      <div class="carrossel-container">
+  <h3>Tipo de Veículo</h3>
+  <div class="carrossel">
+    <button class="seta seta-esquerda" type="button" id="voltar"><i class="fa-solid fa-chevron-left"></i></button>
+   <div class="lista-veiculos" id="listaVeiculos">
+      <div class="veiculo" data-id="1" data-preco="2">
+        <i class="fa-solid fa-motorcycle icon-carrosel"></i>
+        <p>Moto <br> limite : 20kg</p>
+      </div>
+      <div class="veiculo" data-id="2" data-preco="5">
+        <i class="fa-solid fa-truck-pickup icon-carrosel"></i>
+        <p>Utilitario P <br> limite : 500kg </p>
+      </div>
+      <div class="veiculo" data-id="3" data-preco="6.5">
+        <i class="fa-solid fa-van-shuttle icon-carrosel"></i>
+        <p>Van <br>limite : 1000kg</p>
+      </div>
+      <div class="veiculo" data-id="4" data-preco="9">
+        <i class="fa-solid fa-truck icon-carrosel" ></i>
+        <p>Caminhão P <br>limite : 1500kg</p>
+      </div>
+      <div class="veiculo" data-id="5" data-preco="12">
+        <i class="fa-solid fa-truck-moving icon-carrosel" ></i>
+        <p>Caminhão G <br>limite : 2500kg</p>
+      </div>
+    </div>
+    <button class="seta seta-direita" type="button" id="avancar"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
+      <button id="botao-Rota" class="Btn-rota" onclick="tracarRota()"> Calcular Rota</button>
+      <div class="preco-frete" id="precoFrete" style="display:none;">
+  <div class="frete-detalhes">
+    <p><strong>Distância:</strong> <span id="distanciaSpan">0 km</span></p>
+    <p><strong>Valor estimado do frete: R$</strong> <span id="valorSpan">R$ 0,00</span></p>
+  <button id="btnConfirmar" class="btn-confirmar" type="button">Confirmar Pedido</button>
+  </div>
+  </div>
+</div>
+  </div>
+<div id="map"></div>
+        
+</div>
+    <script>
+    //Lodding
+    const botao = document.getElementById('botao-Rota');
+    const lodding = document.getElementById('lodding');
+    lodding.style.display = 'none';
+    botao.addEventListener('click', () => {
+      lodding.style.display = 'flex';
+      setTimeout(() => {
+        lodding.style.display = 'none';
+      }, 3000);
+    });
+  </script>
+  <!-- Modal de confirmação -->
+<div id="modalConfirmacao" class="modal-overlay">
+  <div class="modal-conteudo">
+    <h2>Confirmação de Pedido</h2>
+    <p><strong>Origem:</strong> <span id="modalOrigem"></span></p>
+    <p><strong>Destino:</strong> <span id="modalDestino"></span></p>
+    <p><strong>Distância:</strong> <span id="modalDistancia"></span></p>
+    <p><strong>Valor do Frete:</strong> <span id="modalValor"></span></p>
+    <p><strong>Veículo Selecionado:</strong> <span id="modalVeiculo"></span></p>
+
+    <div class="modal-botoes">
+      <button id="confirmarPedidoBtn">Confirmar Pedido</button>
+      <button id="cancelarModalBtn">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../JS/TelaDeFrete.js"></script>
+  <script src="https://kit.fontawesome.com/02669f3445.js" crossorigin="anonymous"></script>
+</body>
+</html>
